@@ -1,0 +1,65 @@
+name: Data source proposal / report
+description: Propose a new dataset, or report a problem with an existing one (dead endpoint, license change, stale data).
+title: "[Data]: "
+labels: ["data-source"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Data is the heart of this project, and every source is documented in [docs/DATA_SOURCES.md](https://github.com/Hotragn/H.O.T-EARTH/blob/main/docs/DATA_SOURCES.md). Use this to propose a new source or flag a problem with one we already use. Please verify claims against the official source before filing.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Is this a new source or a problem with an existing one?
+      options:
+        - Propose a new data source
+        - Report a problem (dead endpoint / license change / stale or wrong data)
+    validations:
+      required: true
+  - type: input
+    id: source-name
+    attributes:
+      label: Source name
+      placeholder: "NASA GIBS — MODIS Aerosol Optical Depth"
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Official URL / endpoint
+      description: Link to the official docs, dataset page, or capabilities document.
+    validations:
+      required: true
+  - type: input
+    id: license
+    attributes:
+      label: License
+      description: Must be documented. Public domain, CC0, and CC-BY are ideal. Anything restrictive is unlikely to be accepted.
+      placeholder: "CC0 / public domain / CC-BY 4.0"
+    validations:
+      required: true
+  - type: checkboxes
+    id: requirements
+    attributes:
+      label: Requirements
+      description: These are non-negotiable for a data source to be merged.
+      options:
+        - label: The source is free and keyless (or I can describe a keyless fallback).
+          required: true
+        - label: CORS allows direct browser use, OR the data can be cached/precomputed ahead of time (like the GFS wind pipeline).
+          required: false
+        - label: I have verified the license and endpoint against the official source (please note the verification date below).
+          required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification notes
+      description: What did you check, when, and what did you find? (e.g. "GetCapabilities on 2026-07-06 lists the layer; a tile request returned Access-Control-Allow-Origin `*`.")
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why is it worth adding / what's the problem?
+    validations:
+      required: true
