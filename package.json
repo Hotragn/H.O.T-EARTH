@@ -1,0 +1,31 @@
+{
+  "name": "hot-earth",
+  "version": "0.1.0",
+  "private": true,
+  "description": "H.O.T Earth — a living digital twin of Earth. Real physics, real data.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
+    "next": "^15.5.20",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "three": "^0.185.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.2",
+    "@types/node": "^26.1.0",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.185.0",
+    "tailwindcss": "^4.3.2",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10"
+  }
+}

@@ -1,0 +1,60 @@
+name: wind-data
+
+# GFS cycles run at 00/06/12/18 UTC and are fully published ~3.5-5 h later
+# (the f000 analysis we need arrives early in that window). Running at
+# HH:25 for 04/10/16/22 UTC puts us ~4h25m after each cycle: late enough
+# that the cycle is normally available, early enough that the site stays
+# fresh. The :25 offset avoids the top-of-hour GitHub Actions congestion
+# where scheduled jobs get delayed or skipped. If a cycle is late, the
+# script automatically falls back to the previous cycle, so the run still
+# produces valid (slightly older) data instead of failing.
+on:
+  schedule:
+    - cron: "25 4,10,16,22 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wind-data
+  cancel-in-progress: false
+
+jobs:
+  update-wind:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests numpy
+
+      # The script exits non-zero on any fetch/decode/validation failure and
+      # only writes the JSON after validation passes, so a bad upstream cycle
+      # fails the job loudly here and nothing below runs (no garbage commits).
+      - name: Fetch and process GFS wind field
+        run: python scripts/wind/fetch_wind.py
+
+      - name: Stage output for the app
+        run: |
+          mkdir -p public/data/wind
+          cp scripts/wind/output/current.json public/data/wind/current.json
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/wind/current.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit (same cycle as last run)."
+          else
+            git commit -m "chore(data): update GFS 10m wind field"
+            git push
+          fi
