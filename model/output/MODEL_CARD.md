@@ -27,8 +27,11 @@ this model must be labeled "H.O.T baseline model".
 - Train: 2020-01-01 .. 2024-12-31. Test: 2025-01-01 .. 2025-12-31 (strict temporal holdout).
 - Climatology and feature scalers computed from the train period only;
   no test-period information enters any model (no leakage).
-- Ridge numbers below are computed FROM the exported `coefficients.json`,
-  i.e. they are exactly what in-browser inference reproduces.
+- Ridge numbers below are computed FROM the exported `coefficients.json`
+  using the documented inference recipe, so they are fully reproducible. The
+  coefficients are exported for offline/in-browser inference; the web app
+  currently displays Open-Meteo forecasts (labeled as such) rather than running
+  this per-city baseline live.
 
 ## Results (2025 holdout, pooled over all cities)
 

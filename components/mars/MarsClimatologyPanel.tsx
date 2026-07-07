@@ -192,6 +192,11 @@ function Chart({ data, currentLs }: { data: MarsClimatology; currentLs: number }
           </span>
         )}
       </p>
+      {data.meta.site && (
+        <p className="mt-1 font-mono text-[9px] leading-snug text-faint">
+          Measured: {data.meta.site}
+        </p>
+      )}
     </>
   );
 }

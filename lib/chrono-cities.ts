@@ -109,6 +109,16 @@ export function populationAtYear(city: HistoricalCity, year: number): number {
   if (year < city.foundedYear) return 0;
   const s = city.popByYear;
   if (s.length === 0) return 0;
+  // Single-record cities (~40% of the Reba set): the dataset only knows the
+  // city existed at this one moment. Show it near that year and fade out rather
+  // than implying it persisted (or existed) for millennia — full within ±120 y,
+  // linear fade to 0 by ±220 y. Honest per docs/HISTORY_DATA_SOURCES.md.
+  if (s.length === 1) {
+    const dy = Math.abs(year - s[0][0]);
+    if (dy <= 120) return s[0][1];
+    if (dy >= 220) return 0;
+    return s[0][1] * (1 - (dy - 120) / 100);
+  }
   if (year <= s[0][0]) return s[0][1];
   if (year >= s[s.length - 1][0]) return s[s.length - 1][1];
   // find bracketing pair (linear scan — catalogs are small, samples few)

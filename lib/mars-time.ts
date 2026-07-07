@@ -123,12 +123,12 @@ export function marsSolarDeclination(date: Date): number {
  * Mars Sol Date (MSD) — the Mars analogue of the Julian Date, counting sols
  * since a fixed prime-meridian midnight. Monotonically increasing.
  * Mars24 step C-2:
- *   MSD = (ΔtJ2000_TT − 4.5) / 1.0274912517 + 44796.0 − 0.00096
- * where 0.00096 is the small adopted adjustment ("Mars24 sprinkle").
+ *   MSD = (ΔtJ2000_TT − 4.5) / 1.0274912517 + 44796.0 − 0.0009626
+ * where 0.0009626 is the small adopted adjustment ("Mars24 sprinkle").
  */
 export function marsSolDate(date: Date): number {
   const dtJ2000 = j2000TTOffsetDays(date);
-  return (dtJ2000 - 4.5) / 1.0274912517 + 44796.0 - 0.00096;
+  return (dtJ2000 - 4.5) / 1.0274912517 + 44796.0 - 0.0009626;
 }
 
 /**

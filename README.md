@@ -50,7 +50,7 @@ Most "3D earth" projects are a spinning texture with decorative numbers. This on
 | 🌬️ **Global wind** | GFS 10 m analysis as GPU-friendly particle flow, refreshed every 6 h |
 | 📍 **Click-anywhere forecast** | tap the globe → live 7-day Open-Meteo forecast for that exact point |
 | 🏙️ **Living Earth tab** | 1,200 real cities glowing along the terminator; live per-city weather; a clearly-labeled activity simulation from local solar time + population |
-| 📊 **Honest forecast baseline** | 20-city ridge model, validated on held-out 2025 data, browser-runnable |
+| 📊 **Honest forecast baseline** | 20-city ridge model, validated on held-out 2025 data; coefficients exported and fully reproducible |
 | 🔴 **Mars tab** | real Mars24 orbital mechanics (Ls, season, Mars clock), computed Mars terminator, measured Viking CO₂ pressure cycle, dust-storm-season climatology, public-domain USGS mosaic |
 | ⏳ **Virtual Earth tab** | deep-zoom time machine: 1,730 real cities grow over 6,000 years (Reba et al.), precession-shifted night sky, world population, dated events incl. the World Wars |
 
@@ -67,7 +67,7 @@ That's it — no `.env`, no keys, no accounts. Other commands:
 
 ```bash
 npm run build                     # production build (deploys to Vercel with zero config)
-npx vitest run                    # 41 unit tests: solar geometry, geo, wind interp, activity
+npx vitest run                    # 86 unit tests: solar, geo, wind, activity, Mars24, precession, chrono
 python scripts/wind/fetch_wind.py # regenerate the wind field locally (needs requests + numpy)
 ```
 
