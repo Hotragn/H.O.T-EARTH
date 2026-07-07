@@ -139,6 +139,43 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Mars — real orbital mechanics
+          </h3>
+          <p className="mt-2">
+            The Mars tab runs the NASA GISS <span className="text-ice">Mars24</span>{" "}
+            algorithm (Allison &amp; McEwen 2000): areocentric solar longitude
+            (Ls) and season, Mars Sol Date, Coordinated Mars Time, and a
+            physically computed day/night terminator from the Mars subsolar
+            point — unit-tested against the Mars24 worked example and known
+            landing dates. The dust-storm indicator is a{" "}
+            <span className="text-ice">climatological season</span> (Ls
+            180–360, peak ~240–300), not a prediction of any specific storm. If
+            a seasonal climatology dataset is present it is plotted as seasonal
+            averages, clearly labeled — never as a live forecast. The seasonal
+            surface-pressure plot is real measured Viking Lander data (the ~30%
+            annual CO₂ condensation cycle), shown as a seasonal climatology by
+            Ls. Terrain is the NASA/JPL/USGS Viking MDIM 2.1 colorized global
+            mosaic (public domain).
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Virtual Earth — the time machine
+          </h3>
+          <p className="mt-2">
+            A deep-zoomable Earth played through history. The city layer is{" "}
+            <span className="text-ice">real data</span>: 1,730 settlements from
+            Reba, Reitsma &amp; Seto (2016), &quot;6,000 years of global
+            urbanization&quot; (CC-BY 4.0) — cities appear at their founding and
+            grow with recorded population. The shifting night sky is{" "}
+            <span className="text-ice">computed</span> axial precession (IAU
+            2006, ~25,772-year cycle). World population, dated events (incl. the
+            World Wars, at real coordinates) and industrial-era climate are
+            built-in historical estimates, labeled as such. The optional{" "}
+            <span className="text-ice">Era Scenes</span> overlay is explicitly
+            marked artistic — procedurally generated, not data.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Attribution
           </h3>
           <ul className="mt-2 space-y-1.5">
@@ -148,6 +185,10 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["Open-Meteo", "https://open-meteo.com/"],
               ["NOAA/NCEP GFS (wind)", "https://www.nco.ncep.noaa.gov/pmb/products/gfs/"],
               ["Natural Earth (cities)", "https://www.naturalearthdata.com/"],
+              ["Mars terrain: NASA/USGS Astrogeology", "https://astrogeology.usgs.gov/search/results?pmi-target=mars"],
+              ["Mars24 time: NASA GISS", "https://www.giss.nasa.gov/tools/mars24/"],
+              ["Mars climatology: NASA PDS (Viking)", "https://pds.nasa.gov/"],
+              ["Cities over time: Reba et al. 2016 (CC-BY)", "https://doi.org/10.1038/sdata.2016.34"],
             ].map(([label, href]) => (
               <li key={href}>
                 <a

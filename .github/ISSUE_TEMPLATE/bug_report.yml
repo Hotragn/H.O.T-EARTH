@@ -1,0 +1,80 @@
+name: Bug report
+description: Something is broken or behaves incorrectly (a rendering glitch, a wrong number, a crash).
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug. Please run the latest `main` first, and search existing issues before opening a new one.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug. If a number on screen looks wrong, tell us what you saw and what you expected.
+      placeholder: "The wind particles stop moving after switching to the Living Earth tab..."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: The exact steps so we can see it too.
+      placeholder: |
+        1. Run `npm run dev`
+        2. Enable the Wind layer
+        3. Open the Living Earth tab
+        4. See ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Which part of the app is affected?
+      options:
+        - Globe / rendering (three.js)
+        - Wind layer
+        - Terminator / time scrubber
+        - NASA GIBS imagery layer
+        - Click-anywhere forecast
+        - Living Earth cities
+        - Forecast model / accuracy
+        - Data pipeline (scripts/wind)
+        - Docs
+        - Other / not sure
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Browser + version, OS, GPU if a rendering issue, and Node version (`node -v`).
+      placeholder: |
+        - Browser: Chrome 128
+        - OS: Windows 11
+        - GPU: Intel Iris Xe (integrated)
+        - Node: 20.11.0
+    validations:
+      required: true
+  - type: textarea
+    id: console
+    attributes:
+      label: Console errors
+      description: Paste any errors from the browser DevTools console. This will be automatically formatted, so no need for backticks.
+      render: shell
+    validations:
+      required: false
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or recording
+      description: A screenshot or short clip makes rendering bugs far easier to fix.
+    validations:
+      required: false

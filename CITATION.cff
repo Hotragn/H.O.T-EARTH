@@ -1,0 +1,33 @@
+cff-version: 1.2.0
+message: "If you use H.O.T Earth in your work, please cite it as below."
+title: "H.O.T Earth: an open-source planetary digital twin"
+abstract: >-
+  H.O.T Earth is an interactive 3D digital twin of Earth built with real NASA and
+  NOAA data and real physics: a physically computed day/night terminator, animated
+  global wind from GFS analysis, daily NASA GIBS satellite imagery, click-anywhere
+  Open-Meteo forecasts, and a transparent, held-out-validated baseline temperature
+  forecast model. Every value shown traces to a documented data source or
+  calculation, and anything simulated is labeled as such.
+type: software
+authors:
+  - given-names: Hotragn
+    family-names: Pettugani
+    alias: Hotragn
+repository-code: "https://github.com/Hotragn/H.O.T-EARTH"
+url: "https://github.com/Hotragn/H.O.T-EARTH"
+license: MIT
+version: 0.1.0
+date-released: 2026-07-06
+year: 2026
+keywords:
+  - digital-twin
+  - earth
+  - geospatial
+  - data-visualization
+  - three.js
+  - webgl
+  - nasa
+  - noaa
+  - open-meteo
+  - weather
+  - climate-data

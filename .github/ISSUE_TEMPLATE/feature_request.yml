@@ -1,0 +1,51 @@
+name: Feature request
+description: Suggest a new capability, layer, or improvement.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea. A quick note on scope: features that keep the project keyless, honest, and forkable are the easiest to accept. If your idea needs a new data source, the [data source template](https://github.com/Hotragn/H.O.T-EARTH/issues/new?template=data_source.yml) is a better fit.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the motivation. What can't you do today?
+      placeholder: "There's no way to see cloud cover honestly, only true-color imagery..."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What should it do? Sketch the UX or the shape of the change.
+    validations:
+      required: true
+  - type: dropdown
+    id: phase
+    attributes:
+      label: Which phase does this belong to?
+      options:
+        - Phase 1 — Earth (current)
+        - Phase 2 — Mars (in progress)
+        - Phase 3 — Moon (future)
+        - Cross-cutting (docs, tooling, performance, tests)
+    validations:
+      required: true
+  - type: checkboxes
+    id: honesty
+    attributes:
+      label: Honesty check
+      description: The project's core rule is that every number on screen traces to a data source or a documented calculation.
+      options:
+        - label: This feature does not display fabricated or unlabeled simulated data. Anything simulated would be labeled as simulated in the UI.
+          required: true
+        - label: If it needs a new data source, that source is free and keyless (or has a keyless fallback).
+          required: false
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+    validations:
+      required: false
