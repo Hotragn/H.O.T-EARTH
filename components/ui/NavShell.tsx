@@ -4,7 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { CaretDown, Info } from "@phosphor-icons/react";
 
-export type WorldTab = "earth" | "living" | "mars" | "virtual" | "moon";
+export type WorldTab =
+  | "earth"
+  | "living"
+  | "mars"
+  | "virtual"
+  | "moon"
+  | "solar";
 
 const TABS: Array<{ id: WorldTab; label: string; href: string }> = [
   { id: "earth", label: "Earth", href: "/" },
@@ -12,11 +18,13 @@ const TABS: Array<{ id: WorldTab; label: string; href: string }> = [
   { id: "mars", label: "Mars", href: "/mars" },
   { id: "virtual", label: "Virtual Earth", href: "/virtual-earth" },
   { id: "moon", label: "Moon", href: "/moon" },
+  { id: "solar", label: "Solar System", href: "/solar-system" },
 ];
 
 /**
  * Top HUD bar: brand block, world tabs, about trigger.
- * Earth, Living Earth, Mars, Virtual Earth and Moon are all live routes.
+ * Earth, Living Earth, Mars, Virtual Earth, Moon and Solar System are all live
+ * routes.
  *
  * Nav is responsive:
  *  - desktop (md+): a centered pill row with every tab (unchanged layout).

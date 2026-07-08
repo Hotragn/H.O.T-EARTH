@@ -201,6 +201,39 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Solar System — other planets
+          </h3>
+          <p className="mt-2">
+            The orrery places all eight planets at their{" "}
+            <span className="text-ice">real heliocentric longitudes</span>,
+            computed from JPL&apos;s approximate-positions Keplerian elements
+            (Standish, 1800–2050). Angular positions and relative orbital speeds
+            are physical; only the radial distances are log-compressed so every
+            orbit fits on screen — the app says so on the control. The six
+            detail globes (Mercury, Venus, Jupiter, Saturn, Uranus, Neptune) use
+            real textures, a computed day/night terminator, and each body&apos;s{" "}
+            <span className="text-ice">real axial tilt</span> — Uranus is drawn
+            tipped 98° onto its side, Venus and Uranus spin retrograde. Most of
+            these worlds have{" "}
+            <span className="text-ice">no measurable weather</span>, so we invent
+            none: the honest dynamic signals are Mercury&apos;s measured
+            day/night temperature extremes, Venus&apos; cloud-top{" "}
+            <span className="text-ice">super-rotation</span> (~100 m/s,
+            illustrated), the MEASURED gas/ice-giant{" "}
+            <span className="text-ice">zonal-wind profiles</span> (Jupiter —
+            Barrado-Izagirre et al. 2013; Saturn — García-Melendo et al. 2011;
+            Neptune — Sromovsky et al. 1993), Saturn&apos;s rings (drawn from
+            occultation-measured radii) and north-polar hexagon, and
+            Neptune&apos;s record winds. Neptune&apos;s Great Dark Spot is
+            labelled <span className="text-ice">transient</span> (GDS-89 was gone
+            by 1994) and is not drawn. Textures for Saturn, Uranus, Neptune and
+            Saturn&apos;s rings are by{" "}
+            <span className="text-ice">Solar System Scope (solarsystemscope.com),
+            CC BY 4.0</span>; Mercury, Venus and Jupiter use public-domain
+            NASA/JPL/USGS imagery.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Attribution
           </h3>
           <ul className="mt-2 space-y-1.5">
@@ -217,6 +250,9 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["Moon temperature: LRO Diviner (NASA PDS)", "https://pds-geosciences.wustl.edu/missions/lro/diviner.htm"],
               ["Moon basemap: NASA SVS / LROC / ASU", "https://svs.gsfc.nasa.gov/4720"],
               ["Moon phase & libration: computed (Meeus)", "https://en.wikipedia.org/wiki/Jean_Meeus"],
+              ["Planet orbits: JPL approximate positions", "https://ssd.jpl.nasa.gov/planets/approx_pos.html"],
+              ["Planet facts: NASA NSSDC Fact Sheet", "https://nssdc.gsfc.nasa.gov/planetary/factsheet/"],
+              ["Planet & ring textures: Solar System Scope (CC BY 4.0)", "https://www.solarsystemscope.com/textures/"],
             ].map(([label, href]) => (
               <li key={href}>
                 <a
