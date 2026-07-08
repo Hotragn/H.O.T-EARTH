@@ -10,7 +10,8 @@ export type WorldTab =
   | "mars"
   | "virtual"
   | "moon"
-  | "solar";
+  | "solar"
+  | "moons";
 
 const TABS: Array<{ id: WorldTab; label: string; href: string }> = [
   { id: "earth", label: "Earth", href: "/" },
@@ -19,6 +20,7 @@ const TABS: Array<{ id: WorldTab; label: string; href: string }> = [
   { id: "virtual", label: "Virtual Earth", href: "/virtual-earth" },
   { id: "moon", label: "Moon", href: "/moon" },
   { id: "solar", label: "Solar System", href: "/solar-system" },
+  { id: "moons", label: "Moons", href: "/moons" },
 ];
 
 /**

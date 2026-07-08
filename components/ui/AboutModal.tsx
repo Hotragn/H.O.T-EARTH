@@ -234,6 +234,42 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Major moons — orbital mechanics, not weather
+          </h3>
+          <p className="mt-2">
+            The Moons tab covers the major satellites of the giant planets. Each
+            parent has a{" "}
+            <span className="text-ice">mini-orrery</span>: the moons sit at their
+            real orbital angles (from their JPL sidereal periods), so inner moons
+            whip around while outer ones amble and{" "}
+            <span className="text-ice">Triton visibly orbits retrograde</span> —
+            only the radial distances are log-compressed so each system fits on
+            screen (the app says so). Jupiter&apos;s Galileans carry a live{" "}
+            <span className="text-ice">Laplace-resonance</span> callout: Io :
+            Europa : Ganymede orbital periods lock to ≈ 1 : 2 : 4, computed from
+            the period table, not asserted. Every major moon here is{" "}
+            <span className="text-ice">tidally locked</span>, so its detail globe
+            keeps one face to the parent and the day/night terminator is a real
+            computed sub-solar sweep (lib/moons), not imagery. The core numbers
+            (radius, period, distance, temperature, albedo) are JPL SSD satellite
+            parameters; the per-moon feature facts are{" "}
+            <span className="text-ice">measured by spacecraft</span> and cited
+            individually, with genuinely debated items (Europa/Callisto/Mimas
+            oceans, Europa plumes) flagged as such. Most of these worlds have{" "}
+            <span className="text-ice">no weather</span>, so we invent none. The
+            single exception is <span className="text-ice">Titan</span>, whose
+            real methane cycle (clouds, rain, rivers, north-polar seas — Cassini/
+            Huygens) is presented as the weather it is. Texture honesty is
+            surfaced per moon: Titan&apos;s map is a Cassini{" "}
+            <span className="text-ice">near-IR surface map that sees through the
+            haze</span> (not the orange visible atmosphere); Triton&apos;s{" "}
+            <span className="text-ice">northern hemisphere is USGS synthetic
+            interpolation</span> (Voyager 2 imaged only one hemisphere in 1989);
+            Europa and Callisto are grayscale mosaics (no colour implied). All
+            moon maps this phase are public domain (NASA / JPL / USGS).
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Attribution
           </h3>
           <ul className="mt-2 space-y-1.5">
@@ -253,6 +289,12 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["Planet orbits: JPL approximate positions", "https://ssd.jpl.nasa.gov/planets/approx_pos.html"],
               ["Planet facts: NASA NSSDC Fact Sheet", "https://nssdc.gsfc.nasa.gov/planetary/factsheet/"],
               ["Planet & ring textures: Solar System Scope (CC BY 4.0)", "https://www.solarsystemscope.com/textures/"],
+              ["Moon orbits & constants: JPL SSD satellite parameters", "https://ssd.jpl.nasa.gov/sats/elem/"],
+              ["Moon maps: NASA / JPL / USGS (public domain)", "https://astrogeology.usgs.gov/search"],
+              ["Enceladus plumes: Porco et al. 2006", "https://doi.org/10.1126/science.1123013"],
+              ["Titan surface & methane cycle: Huygens (Fulchignoni et al. 2005)", "https://doi.org/10.1038/nature04314"],
+              ["Triton geysers & atmosphere: Voyager 2 (Smith et al. 1989)", "https://doi.org/10.1126/science.246.4936.1422"],
+              ["Io heat flow: Veeder et al. 2012", "https://doi.org/10.1016/j.icarus.2012.03.031"],
             ].map(([label, href]) => (
               <li key={href}>
                 <a
