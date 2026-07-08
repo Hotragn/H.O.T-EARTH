@@ -159,6 +159,31 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Moon — no weather, real geometry
+          </h3>
+          <p className="mt-2">
+            The Moon has essentially no atmosphere, so there is{" "}
+            <span className="text-ice">no weather</span> — no wind, clouds,
+            precipitation, pressure or storms, and we invent none. What is real
+            and dynamic is geometry. Lunar{" "}
+            <span className="text-ice">phase, illuminated fraction and the
+            day/night terminator</span>{" "}
+            are computed client-side from Meeus lunar theory (the Moon analogue
+            of Earth&apos;s NOAA terminator and Mars&apos; Mars24 clock), no
+            runtime API. <span className="text-ice">Optical libration</span> —
+            the Moon&apos;s monthly nod, up to ±~7.9° in longitude and ±~6.9° in
+            latitude — is computed the same way; it is why an Earth observer sees
+            ~59% of the surface over time, not just 50%. Surface temperature is
+            the flagship measured signal: the ~300 K day-night swing (equatorial
+            ~392 K at noon, ~95 K before dawn; polar cold traps 25–40 K) from
+            NASA&apos;s <span className="text-ice">LRO Diviner</span> radiometer
+            (Williams et al. 2017) — shown as a model anchored to those
+            measurements (day = radiative equilibrium, night = Diviner-anchored),
+            never as a live sensor feed. The basemap is the public-domain LROC
+            WAC mosaic (NASA SVS / LROC / ASU); no science is claimed from it.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Virtual Earth — the time machine
           </h3>
           <p className="mt-2">
@@ -168,7 +193,7 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
             urbanization&quot; (CC-BY 4.0) — cities appear at their founding and
             grow with recorded population. The shifting night sky is{" "}
             <span className="text-ice">computed</span> axial precession (IAU
-            2006, ~25,772-year cycle). World population, dated events (incl. the
+            2006 constants, uniform single-term model; ~25,772-year cycle). World population, dated events (incl. the
             World Wars, at real coordinates) and industrial-era climate are
             built-in historical estimates, labeled as such. The optional{" "}
             <span className="text-ice">Era Scenes</span> overlay is explicitly
@@ -189,6 +214,9 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["Mars24 time: NASA GISS", "https://www.giss.nasa.gov/tools/mars24/"],
               ["Mars climatology: NASA PDS (Viking)", "https://pds.nasa.gov/"],
               ["Cities over time: Reba et al. 2016 (CC-BY)", "https://doi.org/10.1038/sdata.2016.34"],
+              ["Moon temperature: LRO Diviner (NASA PDS)", "https://pds-geosciences.wustl.edu/missions/lro/diviner.htm"],
+              ["Moon basemap: NASA SVS / LROC / ASU", "https://svs.gsfc.nasa.gov/4720"],
+              ["Moon phase & libration: computed (Meeus)", "https://en.wikipedia.org/wiki/Jean_Meeus"],
             ].map(([label, href]) => (
               <li key={href}>
                 <a

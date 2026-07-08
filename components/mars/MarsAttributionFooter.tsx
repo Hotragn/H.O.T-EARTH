@@ -2,12 +2,10 @@
 
 /**
  * Mars data credit footer (mirrors components/ui/AttributionFooter for Earth).
- *
- * NOTE(coordinator): placeholder credits — the Mars data agent's doc will have
- * the exact terrain/climatology provenance. Finalize the labels/links then.
- *   Terrain: NASA / USGS (MOLA / Viking color mosaic)
+ * Sources (see docs/MARS_DATA_SOURCES.md):
+ *   Terrain: NASA/JPL/USGS Viking MDIM 2.1 colorized mosaic (public domain)
  *   Mars24 time: NASA GISS (Allison & McEwen 2000)
- *   Climatology: NASA PDS / Mars Climate Database
+ *   Climatology: NASA PDS — measured Viking Lander surface pressure (Hess 1980)
  */
 export default function MarsAttributionFooter({
   usingFallbackTexture = false,

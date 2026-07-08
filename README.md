@@ -13,15 +13,13 @@
 
 An interactive 3D globe with daily NASA satellite imagery, a physically-computed day/night terminator you can scrub through time, animated global wind from the latest GFS analysis, click-anywhere forecasts, and a "Living Earth" layer where 1,200 real cities light up along the actual terminator. Plus a **Mars** twin with real orbital mechanics and the measured Viking CO₂ cycle, and a **Virtual Earth** time machine that plays 6,000 years of real city growth across the planet.
 
-**▶ Live demo — _deploying_** &nbsp;·&nbsp; [Data sources](docs/DATA_SOURCES.md) &nbsp;·&nbsp; [Architecture](docs/ARCHITECTURE.md) &nbsp;·&nbsp; [Model card](model/output/MODEL_CARD.md) &nbsp;·&nbsp; [Contributing](CONTRIBUTING.md)
-
-<!-- After deploying, replace the line above with: [**▶ Live demo**](https://YOUR-URL.vercel.app) · ... and set the same URL as the repo website. -->
+[**▶ Live demo**](https://h-o-t-earth.vercel.app) &nbsp;·&nbsp; [Data sources](docs/DATA_SOURCES.md) &nbsp;·&nbsp; [Architecture](docs/ARCHITECTURE.md) &nbsp;·&nbsp; [Model card](model/output/MODEL_CARD.md) &nbsp;·&nbsp; [Contributing](CONTRIBUTING.md)
 
 > **Run it locally in 30 seconds:** `git clone` → `npm install` → `npm run dev`. No keys, no config. See [Quickstart](#quickstart).
 
 ![H.O.T Earth — interactive digital twin](docs/media/hero.png)
 
-<sub>Phase 1 of 3 · Earth → Mars → Moon · MIT licensed · no API keys required</sub>
+<sub>Earth · Mars · Moon · Virtual Earth time machine — MIT licensed, no API keys required</sub>
 
 <sub>⚠️ The image above is a placeholder title card — grab the real globe screenshot in 2 minutes via [docs/media/README.md](docs/media/README.md).</sub>
 
@@ -50,7 +48,7 @@ Most "3D earth" projects are a spinning texture with decorative numbers. This on
 | 🌬️ **Global wind** | GFS 10 m analysis as GPU-friendly particle flow, refreshed every 6 h |
 | 📍 **Click-anywhere forecast** | tap the globe → live 7-day Open-Meteo forecast for that exact point |
 | 🏙️ **Living Earth tab** | 1,200 real cities glowing along the terminator; live per-city weather; a clearly-labeled activity simulation from local solar time + population |
-| 📊 **Honest forecast baseline** | 20-city ridge model, validated on held-out 2025 data, browser-runnable |
+| 📊 **Honest forecast baseline** | 20-city ridge model, validated on held-out 2025 data; coefficients exported and fully reproducible |
 | 🔴 **Mars tab** | real Mars24 orbital mechanics (Ls, season, Mars clock), computed Mars terminator, measured Viking CO₂ pressure cycle, dust-storm-season climatology, public-domain USGS mosaic |
 | ⏳ **Virtual Earth tab** | deep-zoom time machine: 1,730 real cities grow over 6,000 years (Reba et al.), precession-shifted night sky, world population, dated events incl. the World Wars |
 
@@ -67,7 +65,7 @@ That's it — no `.env`, no keys, no accounts. Other commands:
 
 ```bash
 npm run build                     # production build (deploys to Vercel with zero config)
-npx vitest run                    # 41 unit tests: solar geometry, geo, wind interp, activity
+npx vitest run                    # 86 unit tests: solar, geo, wind, activity, Mars24, precession, chrono
 python scripts/wind/fetch_wind.py # regenerate the wind field locally (needs requests + numpy)
 ```
 

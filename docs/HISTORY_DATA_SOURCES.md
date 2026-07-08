@@ -23,11 +23,11 @@ recipe is documented instead.
 |---|---|---|---|---|---|---|
 | 1 | Cities over time (flagship) | Reba, Reitsma & Seto (2016), figshare CSVs | **CC BY 4.0** | **Yes** (with attribution) | `public/data/history/cities_over_time.json` (320 KiB) | figshare API + PMC full text |
 | 2a | World/gridded population, 10000 BCE–present | HYDE 3.2/3.3 (PBL / Utrecht Univ.) | **CC BY 4.0** (3.3); CC BY 3.0 (3.2 paper) | Yes (with attribution) | Not shipped (large grids); recipe documented | ESSD paper + datahub mirror |
-| 2b | Global population time series (counter) | Our World in Data "Population" | **CC BY 4.0** (OWID processing) | Yes (attribution to OWID + HYDE/Gapminder/UN) | Recipe documented (small CSV) | OWID FAQ + live CSV + metadata |
-| 3 | Historical events / wars | Wikidata (SPARQL) + curated JSON | **CC0** (Wikidata) | Yes | Curated JSON proposed (schema documented) | Wikidata:Licensing + query docs |
+| 2b | Global population time series (counter) | Our World in Data "Population" | **CC BY 4.0** (OWID processing) | Yes (attribution to OWID + HYDE/Gapminder/UN) | **`public/data/history/population.json`** (~1.6 KiB) — shipped 2026-07-06 | OWID FAQ + live CSV + metadata |
+| 3 | Historical events / wars | Curated from Wikidata (CC0) + Wikipedia | **CC0** (Wikidata facts) | Yes | **`public/data/history/events.json`** (104 events, ~17.5 KiB) — shipped 2026-07-06 | Wikidata:Licensing + query docs |
 | 4 | Historical borders / empires | aourednik/historical-basemaps | **GPLv3 + no data license** | **No — REJECTED** | None | GitHub LICENSE + README |
-| 5a | Global temperature 1880–present | NASA GISTEMP v4 | **US Gov public domain** | Yes | Recipe documented (small CSV) | data.giss.nasa.gov |
-| 5b | CO₂ pre-industrial (ice core) | Law Dome (Rubino et al.), NOAA/NCEI WDS Paleo | **US Gov public domain** | Yes | Recipe documented | NCEI + ESSD paper |
+| 5a | Global temperature 1880–present | NASA GISTEMP v4 | **US Gov public domain** | Yes | **`public/data/history/climate.json`** (temp channel) — shipped 2026-07-06 | data.giss.nasa.gov |
+| 5b | CO₂ pre-industrial (ice core) | Law Dome (Rubino et al.), NOAA/NCEI WDS Paleo | **US Gov public domain** | Yes | **`public/data/history/climate.json`** (CO₂ channel, spliced w/ Mauna Loa) — shipped 2026-07-06 | NCEI + ESSD paper |
 | 5c | CO₂ long-run 800 kyr | OWID (Mauna Loa + EPICA Dome C) | CC BY 4.0 (OWID) over public-domain sources | Yes | Recipe documented | OWID grapher page |
 | 6 | Night-sky precession | **Computed, not downloaded** | n/a (first principles) | n/a | Method documented | Wikipedia "Axial precession" |
 
@@ -358,24 +358,138 @@ references — on 2026-07-06.
 
 ## Real data vs. illustrative — honest summary
 
-**Can be shown with real, cleanly-licensed data today:**
+**Shown with real, cleanly-licensed data today (all four layers shipped):**
 - Cities appearing at their founding and growing over 5,700 years — **shipped**
   (`cities_over_time.json`, CC BY 4.0, §1).
-- A world-population counter from 10,000 BCE → 2023 — real (OWID/HYDE, CC BY 4.0;
-  small build script, §2b).
+- A world-population counter from 10,000 BCE → 2023 — **shipped**
+  (`population.json`, OWID/HYDE/Gapminder/UN, CC BY 4.0; §2b + integration log).
 - Industrial-era global temperature rise (GISTEMP, 1880+, public domain) and
-  real CO₂ from ice cores + Mauna Loa (Law Dome / OWID, §5) — real.
+  real CO₂ from ice cores + Mauna Loa (Law Dome / NOAA GML) — **shipped**
+  (`climate.json`, public domain; §5 + integration log).
+- Marquee historical events incl. both World Wars — **shipped**
+  (`events.json`, 104 hand-verified events; Wikidata facts CC0; §3 +
+  integration log).
 - The shifting night sky / pole star — **computed** from the real precession
   constant, physically correct (§6).
 - Gridded historical population density heat-map (HYDE 5′) — real and free, but
   **not yet shipped** (large; needs a downsampling build script, §2a).
 
-**Would have to be illustrative / hand-curated (not a clean bulk dataset):**
+**Still illustrative / not a clean bulk dataset:**
 - **Historical borders / empires** — no cleanly-licensed global source exists
   (§4); any border layer must be hand-drawn and labeled as approximate.
-- **Marquee historical events / wars** — facts are free (Wikidata CC0) but must be
-  **hand-verified into a small curated JSON** (§3); a raw scrape is not reliable
-  enough to present as real.
+- The events layer (§3) is real but **curated from the historical record**
+  rather than a single bulk dataset — this is the honest framing kept in the
+  app credits (a raw Wikidata scrape is not reliable enough to present as-is).
+
+---
+
+## Integration log — real data shipped 2026-07-06
+
+Following the flagship city dataset (§1), the remaining three time-machine
+layers were upgraded this session from the code's built-in fallback estimates to
+**real, cited, freely-licensed data files**. All four `public/data/history/*.json`
+artifacts now exist, so the Virtual Earth loaders (`lib/chrono-*.ts`) parse real
+data and set `usingFallback = false`. Build scripts are stdlib-only Python
+(deterministic, no third-party deps) and live in `scripts/history/`.
+
+### `public/data/history/population.json` — world population over time
+
+- **Built by:** `scripts/history/build_population.py` (run 2026-07-06).
+- **Source:** Our World in Data — "Population." CSV
+  `https://ourworldindata.org/grapher/population.csv`; page
+  `https://ourworldindata.org/grapher/population`. **License: CC BY 4.0** (OWID
+  processing) over HYDE 2023 (CC BY 4.0) + Gapminder 2022 (CC BY 4.0) + UN WPP
+  2024 — chain confirmed clean in §2b.
+- **Schema (matches `lib/chrono-population.ts`):** bare JSON array of
+  `[year, population]` pairs, sorted ascending; year is signed (negative = BCE).
+- **What's in it:** the OWID `World` series, downsampled to **93 points**
+  spanning **−10000 → 2023** (sparse deep-past, decadal/2-yearly through the
+  industrial era, yearly since 2000). Every value is a **real OWID observation**
+  (each target year snaps to the nearest available World data point; nothing is
+  interpolated). Populations rounded to 3 significant figures for size.
+- **Size:** ~1.6 KiB (well under the 50 KB budget).
+- **Spot-check:** 1800 ≈ 0.98 B, 1900 ≈ 1.63 B, 1950 ≈ 2.49 B, 1974 = 4.0 B,
+  2022 ≈ 8.02 B, 2023 ≈ 8.09 B — consistent with UN/OWID published totals.
+- **App attribution:** *"Population — HYDE (2023); Gapminder (2022); UN WPP (2024)
+  — with major processing by Our World in Data (CC BY 4.0)."*
+
+### `public/data/history/climate.json` — industrial-era temperature + CO₂
+
+- **Built by:** `scripts/history/build_climate.py` (run 2026-07-06).
+- **Sources (all public domain):**
+  - **Temperature — NASA GISTEMP v4**, global land-ocean **annual** mean anomaly
+    (the `J-D` column), 1880–present. CSV
+    `https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.csv`; page
+    `https://data.giss.nasa.gov/gistemp/`. US Government work → public domain (§5a).
+  - **CO₂ pre-1959 — Law Dome ice core** (Rubino et al. 2019), NOAA/NCEI WDS
+    Paleo, gas-age (year CE) + CO₂ ppm. TXT
+    `https://www.ncei.noaa.gov/pub/data/paleo/icecore/antarctica/law/law2018co2-noaa.txt`;
+    NOAA DOI `10.25921/dwg2-6m61`. Public domain (§5b).
+  - **CO₂ 1959–present — Mauna Loa annual mean**, NOAA GML. CSV
+    `https://gml.noaa.gov/webdata/ccgg/trends/co2/co2_annmean_mlo.csv`. Public
+    domain.
+- **Schema (matches `lib/chrono-climate.ts`):** bare JSON array of
+  `[year, tempAnomalyC, co2ppm]` triples, sorted ascending; a channel is `null`
+  where no value exists for that year (the loader tolerates null/missing).
+- **Baseline note (important, honest):** GISTEMP anomalies are published vs the
+  **1951–1980** mean. The app labels the anomaly baseline "1850–1900
+  pre-industrial," so the build re-references the GISTEMP series to its
+  **1880–1899** window (the earliest available GISTEMP data, a documented
+  stand-in for pre-industrial). The offset is computed from the data itself and
+  applied uniformly, so the shipped numbers are self-consistent GISTEMP values
+  on a pre-industrial-style baseline (a true 1850–1900 baseline would differ by
+  the well-known ~0.1 °C GISTEMP-vs-earlier-record offset).
+- **Reproducibility note:** `data.giss.nasa.gov` was unreachable for most of
+  this session (transient connection timeouts, though it responded at session
+  start). The build script therefore: (1) tries the canonical NASA file; (2)
+  falls back to an on-disk cache under `scripts/history/data/`; (3) if neither
+  is available, falls back to the **DataHub `core/global-temp` mirror**
+  (`https://datahub.io/core/global-temp/r/annual.csv`, `Source == "GISTEMP"`) —
+  the **identical public-domain NASA GISTEMP v4 annual global-mean series**
+  (verified: 1880 = −0.18 °C vs 1951–1980, matching NASA's direct file). The
+  shipped `climate.json` this session used the DataHub mirror for the
+  temperature channel because NASA's host was down; the numbers are NASA
+  GISTEMP values. Law Dome and Mauna Loa hosts responded normally and were used
+  directly (and cached). Re-running when NASA's host is up seeds the NASA cache
+  and prefers it automatically.
+- **Size:** ~2.8 KiB (149 rows, 1850–2025; 146 temperature years, 80 CO₂ years;
+  well under budget).
+- **App attribution:** *"Climate: NASA GISTEMP (temperature, public domain) +
+  Law Dome ice core / Mauna Loa (CO₂, public domain)."*
+
+### `public/data/history/events.json` — curated marquee historical events
+
+- **Built/validated by:** `scripts/history/build_events.py` (run 2026-07-06;
+  `--check` runs validation only).
+- **Nature:** hand-curated, not a bulk scrape. Facts (dates, coordinates) are
+  free — Wikidata structured data is **CC0** (public domain), and the same facts
+  appear on Wikipedia; each event carries a Wikipedia/Wikidata `source` URL. No
+  invented events; every row hand-checked (§3 licensing rationale).
+- **Schema (matches `lib/chrono-events.ts`):** JSON array of
+  `{ name, startYear, endYear?, lat, lon, category, source }`; `category` ∈
+  {conflict, science, exploration, culture, disaster, founding}; `endYear`
+  omitted for single-year events; years signed (negative = BCE).
+- **What's in it:** **104 events** spanning ~9000 BCE → 2023 CE across all
+  continents and eras (BCE 25, 0–1000 CE 9, 1000–1800 29, 1800–1900 9,
+  1900–2000 26, 2000+ 6). By category: conflict 26, culture 22, science 18,
+  founding 15, disaster 13, exploration 10. **Both World Wars included**
+  (WWI 1914–1918; WWII 1939–1945) plus e.g. the Black Death, Columbus's
+  voyage, Apollo 11, fall of the Berlin Wall, the COVID-19 pandemic.
+- **Validation (enforced by the build script):** required fields present and
+  typed; category in the allowed set; −90 ≤ lat ≤ 90; −180 ≤ lon ≤ 180;
+  startYear ≤ endYear; no year 0; non-empty name + http(s) source; both World
+  Wars present. Build fails on any violation. All checks pass.
+- **Size:** ~17.5 KiB (well under budget).
+- **App attribution:** *"Events: curated from the historical record (facts from
+  Wikidata, CC0)."*
+
+### Attribution footer
+
+`components/chrono/ChronoAttributionFooter.tsx` was updated to credit all four
+now-real layers (Cities · Population · Climate · Events · Sky). The
+"built-in historical estimates" caveat is now shown **only** when a data file
+fails to load (`usingFallbackData`), reworded to "some layers are showing
+built-in fallback estimates (data file unavailable)."
 
 ---
 
