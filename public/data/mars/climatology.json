@@ -1,0 +1,33 @@
+{
+  "meta": {
+    "source": "NASA PDS Atmospheres Node — Viking Lander 1 VMIS daily-average surface pressure (VL1/VL2-M-MET-4-DAILY-AVG-PRESSURE-V1.0)",
+    "note": "Measured seasonal CO2 condensation cycle, binned by areocentric solar longitude (Ls) in 15-degree bins. Real in-situ data, not a model and not a live forecast. Derived from public/data/mars/seasonal_pressure.json (see docs/MARS_DATA_SOURCES.md).",
+    "site": "Viking Lander 1 — Chryse Planitia (22.3N)"
+  },
+  "byLs": [
+    { "ls": 7.5, "pressurePa": 807 },
+    { "ls": 22.5, "pressurePa": 818 },
+    { "ls": 37.5, "pressurePa": 826 },
+    { "ls": 52.5, "pressurePa": 832 },
+    { "ls": 67.5, "pressurePa": 824 },
+    { "ls": 82.5, "pressurePa": 798 },
+    { "ls": 97.5, "pressurePa": 762 },
+    { "ls": 112.5, "pressurePa": 725 },
+    { "ls": 127.5, "pressurePa": 697 },
+    { "ls": 142.5, "pressurePa": 685 },
+    { "ls": 157.5, "pressurePa": 686 },
+    { "ls": 172.5, "pressurePa": 702 },
+    { "ls": 187.5, "pressurePa": 729 },
+    { "ls": 202.5, "pressurePa": 768 },
+    { "ls": 217.5, "pressurePa": 816 },
+    { "ls": 232.5, "pressurePa": 858 },
+    { "ls": 247.5, "pressurePa": 886 },
+    { "ls": 262.5, "pressurePa": 891 },
+    { "ls": 277.5, "pressurePa": 884 },
+    { "ls": 292.5, "pressurePa": 865 },
+    { "ls": 307.5, "pressurePa": 846 },
+    { "ls": 322.5, "pressurePa": 821 },
+    { "ls": 337.5, "pressurePa": 808 },
+    { "ls": 352.5, "pressurePa": 801 }
+  ]
+}

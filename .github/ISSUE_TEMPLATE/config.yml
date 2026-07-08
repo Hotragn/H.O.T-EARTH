@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions & ideas (Discussions)
+    url: https://github.com/Hotragn/H.O.T-EARTH/discussions
+    about: Ask a question, share what you built, or float an idea before opening an issue.
+  - name: Live demo
+    url: https://github.com/Hotragn/H.O.T-EARTH#h-o-t-earth
+    about: "Live demo is deploying. This link points to the README for now; it will be swapped for the live URL once the app is deployed."
+  - name: Data sources & licensing
+    url: https://github.com/Hotragn/H.O.T-EARTH/blob/main/docs/DATA_SOURCES.md
+    about: Every dataset, its license, and how it's used, verified against official sources.

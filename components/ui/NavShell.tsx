@@ -3,17 +3,19 @@
 import Link from "next/link";
 import { Info } from "@phosphor-icons/react";
 
-export type WorldTab = "earth" | "living";
+export type WorldTab = "earth" | "living" | "mars" | "virtual";
 
 const TABS: Array<{ id: WorldTab; label: string; href: string }> = [
   { id: "earth", label: "Earth", href: "/" },
   { id: "living", label: "Living Earth", href: "/living-earth" },
+  { id: "mars", label: "Mars", href: "/mars" },
+  { id: "virtual", label: "Virtual Earth", href: "/virtual-earth" },
 ];
 
 /**
  * Top HUD bar: brand block, world tabs, about trigger.
- * Earth and Living Earth are live routes; Mars and Moon are honest "coming"
- * markers, not dead links.
+ * Earth, Living Earth and Mars are live routes; Moon is an honest "coming"
+ * marker, not a dead link.
  */
 export default function NavShell({
   onAbout,
@@ -67,12 +69,6 @@ export default function NavShell({
             </Link>
           )
         )}
-        <span className="flex cursor-default items-center gap-1.5 rounded-full px-4 py-1.5 text-xs text-faint">
-          Mars
-          <span className="font-mono text-[9px] uppercase tracking-wider text-faint/80">
-            soon
-          </span>
-        </span>
         <span className="flex cursor-default items-center gap-1.5 rounded-full px-3 py-1.5 text-xs text-faint">
           Moon
           <span className="font-mono text-[9px] uppercase tracking-wider text-faint/80">
