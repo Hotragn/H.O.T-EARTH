@@ -270,6 +270,46 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Dwarf planets — orbital mechanics, not weather
+          </h3>
+          <p className="mt-2">
+            The Dwarfs tab covers the five IAU dwarf planets (Ceres, Pluto,
+            Haumea, Makemake, Eris) plus Pluto&apos;s moon Charon. The{" "}
+            <span className="text-ice">mini-orrery</span> places each on its real,
+            eccentric orbit (from JPL Small-Body Database elements), at its real
+            heliocentric longitude, so relative speeds are physical — only the
+            radial distance is log-compressed so Ceres (~2.8 AU) and Eris (~68 AU)
+            fit together (the control says so). Neptune&apos;s orbit is drawn as
+            the trans-Neptunian reference ring, and Pluto&apos;s traced orbit
+            visibly crosses it: Pluto&apos;s{" "}
+            <span className="text-ice">3:2 mean-motion resonance</span> with
+            Neptune is computed from the period table, not asserted. Each detail
+            globe carries a real, computed day/night terminator that sweeps at the
+            body&apos;s real rotation rate. Dwarf planets have{" "}
+            <span className="text-ice">no weather</span>, so we invent none. Only
+            three have ever been imaged up close, so only three have real maps:
+            Pluto and Charon (New Horizons, 2015) and Ceres (Dawn, 2015–2018),
+            shown as grayscale albedo mosaics (real data, not colourised; the
+            single-flyby Pluto/Charon far sides are lower-resolution).{" "}
+            <span className="text-ice">Eris, Haumea and Makemake have never been
+            visited</span> — there is no surface map, so they are rendered as
+            clearly-labelled illustrative spheres, never implying real imagery.
+            Haumea is the exception worth the caveat: its{" "}
+            <span className="text-ice">triaxial ellipsoid shape</span>{" "}
+            (~2100×1680×1074 km, forced by a ~3.9 h spin) and its{" "}
+            <span className="text-ice">ring</span> (the first found around a
+            trans-Neptunian object, Ortiz et al. 2017) are real, measured geometry
+            even though its surface colour is illustrative. Charon shows the
+            Pluto–Charon <span className="text-ice">binary</span> (the barycenter
+            lies outside Pluto). Core numbers are JPL SBDB / mission values; the
+            per-body measured facts are cited individually (Stern et al. 2015,
+            Moore et al. 2016, Gladstone et al. 2016, Grundy et al. 2016, Nathues
+            2015 / De Sanctis et al. 2016, Sicardy et al. 2011, Ortiz et al.
+            2017/2012), with genuinely uncertain items (Eris and Makemake rotation
+            periods) flagged. All dwarf maps this phase are public domain.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Attribution
           </h3>
           <ul className="mt-2 space-y-1.5">
@@ -295,6 +335,17 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["Titan surface & methane cycle: Huygens (Fulchignoni et al. 2005)", "https://doi.org/10.1038/nature04314"],
               ["Triton geysers & atmosphere: Voyager 2 (Smith et al. 1989)", "https://doi.org/10.1126/science.246.4936.1422"],
               ["Io heat flow: Veeder et al. 2012", "https://doi.org/10.1016/j.icarus.2012.03.031"],
+              ["Dwarf-planet orbits & constants: JPL SBDB", "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html"],
+              ["Pluto & Charon maps: NASA/JHU-APL/SwRI (New Horizons, PD)", "https://www.nasa.gov/mission/new-horizons/"],
+              ["Ceres map: NASA/JPL-Caltech/UCLA/MPS/DLR/IDA (Dawn, PD)", "https://www.nasa.gov/mission/dawn/"],
+              ["Pluto surface: Stern et al. 2015", "https://doi.org/10.1126/science.aad1815"],
+              ["Sputnik Planitia: Moore et al. 2016", "https://doi.org/10.1126/science.aad7055"],
+              ["Pluto atmosphere/haze: Gladstone et al. 2016", "https://doi.org/10.1126/science.aad8866"],
+              ["Charon Mordor Macula: Grundy et al. 2016", "https://doi.org/10.1038/nature19340"],
+              ["Ceres Occator salts: De Sanctis et al. 2016", "https://doi.org/10.1038/nature18290"],
+              ["Eris size & albedo: Sicardy et al. 2011", "https://doi.org/10.1038/nature10550"],
+              ["Haumea ring & shape: Ortiz et al. 2017", "https://doi.org/10.1038/nature24051"],
+              ["Makemake occultation: Ortiz et al. 2012", "https://doi.org/10.1038/nature11597"],
             ].map(([label, href]) => (
               <li key={href}>
                 <a

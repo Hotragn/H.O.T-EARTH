@@ -11,7 +11,8 @@ export type WorldTab =
   | "virtual"
   | "moon"
   | "solar"
-  | "moons";
+  | "moons"
+  | "dwarfs";
 
 const TABS: Array<{ id: WorldTab; label: string; href: string }> = [
   { id: "earth", label: "Earth", href: "/" },
@@ -21,12 +22,15 @@ const TABS: Array<{ id: WorldTab; label: string; href: string }> = [
   { id: "moon", label: "Moon", href: "/moon" },
   { id: "solar", label: "Solar System", href: "/solar-system" },
   { id: "moons", label: "Moons", href: "/moons" },
+  // "Dwarfs" kept short: the desktop pill row is full at 8 items, and the full
+  // label "Dwarf Planets" would overflow the centered row on narrower desktops.
+  { id: "dwarfs", label: "Dwarfs", href: "/dwarf-planets" },
 ];
 
 /**
  * Top HUD bar: brand block, world tabs, about trigger.
- * Earth, Living Earth, Mars, Virtual Earth, Moon and Solar System are all live
- * routes.
+ * Earth, Living Earth, Mars, Virtual Earth, Moon, Solar System, Moons and
+ * Dwarfs are all live routes.
  *
  * Nav is responsive:
  *  - desktop (md+): a centered pill row with every tab (unchanged layout).
