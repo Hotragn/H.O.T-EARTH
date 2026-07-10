@@ -27,6 +27,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Full history so the robust push step below can rebase our data
+          # commit onto main if the branch advanced during the run.
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -54,7 +58,22 @@ jobs:
           git add public/data/wind/current.json
           if git diff --cached --quiet; then
             echo "No changes to commit (same cycle as last run)."
-          else
-            git commit -m "chore(data): update GFS 10m wind field"
-            git push
+            exit 0
           fi
+          git commit -m "chore(data): update GFS 10m wind field"
+          # main can advance between checkout and push — a PR merge or a prior
+          # scheduled run — which rejects a plain push as non-fast-forward and
+          # fails the job (the sole cause of the intermittent failures). Rebase
+          # our single data commit onto the latest main and retry instead of
+          # failing. This is a fresh generated artifact, so rebasing is safe.
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo "Pushed on attempt $attempt."
+              exit 0
+            fi
+            echo "Push rejected (main advanced); rebasing and retrying ($attempt/5)..."
+            git pull --rebase --autostash origin main || true
+            sleep 5
+          done
+          echo "::error::Failed to push wind data after 5 attempts."
+          exit 1
