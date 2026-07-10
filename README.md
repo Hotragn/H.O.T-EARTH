@@ -54,6 +54,7 @@ Most "3D earth" projects are a spinning texture with decorative numbers. This on
 | 🌑 **Moon tab** | Meeus-computed phase, illumination, and optical libration; real terminator; LRO Diviner surface-temperature swing (~392 K → ~95 K). No atmosphere, no faked weather |
 | 🪐 **Solar System tab** | Keplerian orrery (real orbits) + focus globes for Mercury→Neptune: true axial tilts, Saturn's rings to scale, measured gas-giant zonal winds, Neptune's record gales |
 | 🌙 **Moons tab** | major moons by parent with mini-orreries + the live 1:2:4 Laplace resonance; Io volcanism, ocean worlds, Titan's real methane weather, retrograde Triton — measured phenomena only |
+| ❄️ **Dwarf planets tab** | trans-Neptunian orrery + Pluto/Charon/Ceres real maps and the three never-visited worlds shown as honest illustrative spheres; Haumea's real triaxial shape + ring |
 
 ## Quickstart
 
@@ -108,7 +109,8 @@ Every dataset, its license, and how it's used is logged in [docs/DATA_SOURCES.md
 - [x] **Virtual Earth — time machine.** A deep-zoomable Earth played through history: 1,730 real cities appearing and growing over 6,000 years (Reba et al. 2016), a precession-shifted night sky, world population, and dated events including the World Wars.
 - [x] **Phase 3 — Moon.** No atmosphere, so no fake weather — Meeus-computed phase/illumination, optical libration, a real terminator, and LRO Diviner surface-temperature swings (~392 K day → ~95 K night).
 - [x] **Solar System — the other planets.** A Keplerian orrery (real orbits, honestly compressed for visibility) plus click-to-focus globes for Mercury → Neptune: real axial tilts (Uranus on its side), Saturn's rings to scale, measured zonal-wind profiles for the giants, and Neptune's record winds. Orbital mechanics for all; measured data only where it exists; no invented weather.
-- [x] **Major moons.** Per-planet mini-orreries (Io whipping around, Triton retrograde) with the live Io–Europa–Ganymede 1:2:4 Laplace-resonance readout, plus focus globes for the nine major moons: Io's volcanism, Europa/Enceladus's subsurface oceans, **Titan's real methane weather** (the one moon that has weather), Triton's nitrogen geysers. Tidal locking and measured phenomena only — texture caveats (Titan's near-IR surface, Triton's synthetic northern hemisphere) surfaced in-app. *(this release)*
+- [x] **Major moons.** Per-planet mini-orreries (Io whipping around, Triton retrograde) with the live Io–Europa–Ganymede 1:2:4 Laplace-resonance readout, plus focus globes for the nine major moons: Io's volcanism, Europa/Enceladus's subsurface oceans, **Titan's real methane weather** (the one moon that has weather), Triton's nitrogen geysers. Tidal locking and measured phenomena only — texture caveats (Titan's near-IR surface, Triton's synthetic northern hemisphere) surfaced in-app.
+- [x] **Dwarf planets.** A trans-Neptunian orrery (real eccentric orbits against a Neptune reference ring; Pluto's 3:2 resonance called out) plus detail views for Pluto, Charon, Ceres, Eris, Haumea, Makemake. Real New Horizons/Dawn maps for the three visited worlds (Pluto's glaciers, Ceres's Occator spots, the Pluto–Charon binary); the three never-visited worlds are **clearly-labeled illustrative spheres — no faked imagery**. Haumea rendered as its real self: a triaxial ellipsoid with a ring. *(this release)*
 
 Next up (optional): richer per-body measured layers as open data allows.
 
