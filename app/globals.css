@@ -23,6 +23,9 @@
 
   --animate-hud-in: hud-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-pulse-dot: pulse-dot 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-overlay-in: overlay-in 0.2s ease-out both;
+  --animate-palette-in: palette-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-menu-in: menu-in 0.18s cubic-bezier(0.22, 1, 0.36, 1) both;
 
   @keyframes hud-in {
     from {
@@ -46,6 +49,37 @@
     50% {
       opacity: 0.75;
       box-shadow: 0 0 0 6px rgb(242 166 59 / 0);
+    }
+  }
+
+  @keyframes overlay-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes palette-in {
+    from {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 }
@@ -140,6 +174,31 @@ body {
 .hud-scroll::-webkit-scrollbar-thumb {
   background: rgb(255 255 255 / 0.16);
   border-radius: 9999px;
+}
+
+/* --- app-wide focus-visible polish -----------------------------------
+ * Zero-specificity (:where) so any component that sets its own
+ * focus-visible:outline-* utility still wins. Outline follows each
+ * element's own border-radius, so pills stay pills. */
+:where(a, button, [role="button"], [role="menuitem"], [role="option"], input, [tabindex="0"]):focus-visible {
+  outline: 2px solid rgb(242 166 59 / 0.7);
+  outline-offset: 2px;
+}
+
+/* --- cross-route transition (app/template.tsx) -----------------------
+ * Opacity-only fade so it never triggers layout or fights the fixed
+ * full-viewport scene canvases. Neutralized by the reduced-motion block. */
+.route-fade {
+  animation: route-fade 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes route-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
