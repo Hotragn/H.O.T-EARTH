@@ -23,15 +23,15 @@ export type WorldTab =
   | "moon"
   | "solar"
   | "moons"
-  | "dwarfs";
+  | "dwarfs"
+  | "exoplanets";
 
 /**
- * World groups. Designed so a third group (e.g. "beyond" for comets /
- * exoplanets) can be added by extending this union + WORLD_GROUPS and tagging
- * new worlds with it — no consumer code changes required. Only the two groups
- * below exist today.
+ * World groups. Designed so a third group can be added by extending this union +
+ * WORLD_GROUPS and tagging new worlds with it — no consumer code changes
+ * required. "beyond" is that third group: worlds outside our Solar System.
  */
-export type WorldGroupId = "earth" | "solar-system";
+export type WorldGroupId = "earth" | "solar-system" | "beyond";
 
 export interface WorldGroup {
   id: WorldGroupId;
@@ -76,6 +76,11 @@ export const WORLD_GROUPS: readonly WorldGroup[] = [
     id: "solar-system",
     label: "Solar System",
     blurb: "The other worlds, on real orbits.",
+  },
+  {
+    id: "beyond",
+    label: "Beyond",
+    blurb: "Real planetary systems around other stars.",
   },
 ] as const;
 
@@ -168,6 +173,31 @@ export const WORLDS: readonly World[] = [
     keywords: ["dwarf planets", "dwarfs", "pluto", "ceres", "charon", "haumea", "makemake", "eris", "kuiper", "tno"],
     thumb: "/textures/dwarf-planets/pluto.jpg",
     thumbBody: "Pluto",
+  },
+  // --- Beyond ---------------------------------------------------------------
+  {
+    id: "exoplanets",
+    label: "Exoplanets",
+    href: "/exoplanets",
+    group: "beyond",
+    blurb:
+      "Real exoplanet systems from the NASA Exoplanet Archive — orbits to scale, computed habitable zones, illustrative worlds.",
+    accent: "#8f7dff",
+    keywords: [
+      "exoplanets",
+      "exoplanet",
+      "systems",
+      "other stars",
+      "habitable zone",
+      "trappist-1",
+      "proxima centauri",
+      "kepler",
+      "hot jupiter",
+      "51 pegasi",
+      "hr 8799",
+      "nasa exoplanet archive",
+      "beyond",
+    ],
   },
 ] as const;
 

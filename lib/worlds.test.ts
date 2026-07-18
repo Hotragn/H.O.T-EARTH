@@ -20,8 +20,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the eight world views, all unique", () => {
-    expect(WORLDS).toHaveLength(8);
+  it("has the nine world views, all unique", () => {
+    expect(WORLDS).toHaveLength(9);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -39,6 +39,7 @@ describe("worlds registry", () => {
       solar: "/solar-system",
       moons: "/moons",
       dwarfs: "/dwarf-planets",
+      exoplanets: "/exoplanets",
     });
   });
 
@@ -49,7 +50,7 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 3 Earth worlds and 5 Solar System worlds", () => {
+  it("splits 3 Earth, 5 Solar System and 1 Beyond world", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
@@ -62,6 +63,7 @@ describe("worlds registry", () => {
       "moons",
       "dwarfs",
     ]);
+    expect(getWorldsInGroup("beyond").map((w) => w.id)).toEqual(["exoplanets"]);
   });
 
   it("gives every world a non-empty label, blurb and hex accent", () => {
@@ -84,9 +86,14 @@ describe("worlds registry", () => {
 
   it("groups worlds in canonical order", () => {
     const grouped = groupedWorlds();
-    expect(grouped.map((g) => g.group.id)).toEqual(["earth", "solar-system"]);
+    expect(grouped.map((g) => g.group.id)).toEqual([
+      "earth",
+      "solar-system",
+      "beyond",
+    ]);
     expect(grouped[0].worlds).toHaveLength(3);
     expect(grouped[1].worlds).toHaveLength(5);
+    expect(grouped[2].worlds).toHaveLength(1);
   });
 });
 
@@ -117,7 +124,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(8);
+    expect(searchWorlds("   ")).toHaveLength(9);
   });
 
   it("finds a world by exact label", () => {
@@ -130,6 +137,8 @@ describe("searchWorlds", () => {
     expect(searchWorlds("time machine")[0].id).toBe("virtual");
     expect(searchWorlds("city lights")[0].id).toBe("living");
     expect(searchWorlds("orrery")[0].id).toBe("solar");
+    expect(searchWorlds("trappist")[0].id).toBe("exoplanets");
+    expect(searchWorlds("habitable zone")[0].id).toBe("exoplanets");
   });
 
   it("returns nothing for gibberish", () => {
@@ -163,8 +172,12 @@ describe("groupSearchResults", () => {
     expect(grouped[0].worlds[0].id).toBe("dwarfs");
   });
 
-  it("keeps both groups for the full list", () => {
+  it("keeps all groups for the full list", () => {
     const grouped = groupSearchResults(searchWorlds(""));
-    expect(grouped.map((g) => g.group.id)).toEqual(["earth", "solar-system"]);
+    expect(grouped.map((g) => g.group.id)).toEqual([
+      "earth",
+      "solar-system",
+      "beyond",
+    ]);
   });
 });
