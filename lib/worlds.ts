@@ -24,6 +24,7 @@ export type WorldTab =
   | "solar"
   | "moons"
   | "dwarfs"
+  | "small-bodies"
   | "exoplanets";
 
 /**
@@ -173,6 +174,36 @@ export const WORLDS: readonly World[] = [
     keywords: ["dwarf planets", "dwarfs", "pluto", "ceres", "charon", "haumea", "makemake", "eris", "kuiper", "tno"],
     thumb: "/textures/dwarf-planets/pluto.jpg",
     thumbBody: "Pluto",
+  },
+  {
+    id: "small-bodies",
+    label: "Comets & Asteroids",
+    href: "/small-bodies",
+    group: "solar-system",
+    blurb:
+      "Real comet and near-Earth-asteroid orbits from JPL, with factual close approaches — hazards stated plainly.",
+    accent: "#5fd3e6",
+    keywords: [
+      "comet",
+      "asteroid",
+      "near-earth",
+      "neo",
+      "pha",
+      "potentially hazardous",
+      "small bodies",
+      "halley",
+      "apophis",
+      "bennu",
+      "eros",
+      "vesta",
+      "oumuamua",
+      "borisov",
+      "interstellar",
+      "meteor",
+      "close approach",
+    ],
+    thumb: "/textures/small-bodies/eros.jpg",
+    thumbBody: "Eros",
   },
   // --- Beyond ---------------------------------------------------------------
   {

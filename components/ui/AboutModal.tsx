@@ -310,6 +310,61 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Comets & asteroids — real orbits, factual hazards
+          </h3>
+          <p className="mt-2">
+            The Comets &amp; Asteroids tab draws real comet and near-Earth-asteroid
+            orbits from the <span className="text-ice">JPL Small-Body Database</span>{" "}
+            around the Sun, with the planet orbits (Mercury→Jupiter) for reference.
+            Every orbital element and physical parameter is a measured SBDB value;
+            the classification (near-Earth group, comet family, Tisserand) is
+            computed. Bound bodies trace{" "}
+            <span className="text-ice">closed ellipses</span>; the hyperbolic and
+            interstellar visitors —{" "}
+            <span className="text-ice">1I/&apos;Oumuamua</span> and{" "}
+            <span className="text-ice">2I/Borisov</span> — trace{" "}
+            <span className="text-ice">open arcs</span>, labelled unbound. Radial
+            distances are log-compressed (comet aphelia reach tens–thousands of AU)
+            and, because the catalogue carries no epoch anchor, bodies are marked at
+            perihelion rather than at a faked live position; comet tails are
+            illustrative anti-sunward cues, not photometry.
+          </p>
+          <p className="mt-2">
+            Hazard facts are stated plainly, never sensationalised. The{" "}
+            <span className="text-ice">Potentially Hazardous Asteroid</span> (PHA)
+            flag is the CNEOS definition — Earth MOID ≤ 0.05 AU and absolute
+            magnitude H ≤ 22 — reported as the classification it is. The
+            close-approach panel lists real CNEOS distances in lunar distances and
+            km. <span className="text-ice">Apophis</span>&apos;s 13 April 2029 pass
+            is a real close approach — about 31,600 km above Earth&apos;s surface
+            (~0.099 lunar distances), bright enough to see with the naked eye — and
+            its 2029 / 2036 / 2068 impact scenarios were{" "}
+            <span className="text-ice">ruled out</span> after 2021 radar tracking;
+            NASA removed Apophis from the Sentry risk list.
+          </p>
+          <p className="mt-2">
+            Appearances follow the honesty rule. Most small bodies have never been
+            imaged, so they are{" "}
+            <span className="text-ice">illustrative procedural rocks</span>,
+            labelled. A few carry real imagery: Eros, Vesta and Bennu as
+            equirectangular NASA/USGS mosaics wrapped on a slightly-irregular sphere
+            (public domain, shape approximated); Gaspra, Ida, Didymos and{" "}
+            67P/Churyumov-Gerasimenko as flat single-view mission photos in the
+            detail panel, not wrapped on a sphere. The 67P photo is{" "}
+            <span className="text-ice">ESA/Rosetta/NAVCAM, CC BY-SA 3.0 IGO</span>;
+            the others are NASA public domain.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> Orbits, physical
+            parameters and close approaches: NASA/JPL Small-Body Database (SBDB) and
+            CNEOS Close-Approach Data — US-Government (NASA/JPL-Caltech) data, freely
+            usable; courtesy credit given. Real imagery: NASA / JPL / USGS public
+            domain for Eros, Vesta, Bennu, Gaspra, Ida and Didymos (NEAR, Dawn,
+            OSIRIS-REx, Galileo, DART). 67P/Churyumov-Gerasimenko photo:{" "}
+            ESA/Rosetta/NAVCAM, CC BY-SA 3.0 IGO.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Exoplanets — measured data, illustrative worlds
           </h3>
           <p className="mt-2">
@@ -387,6 +442,11 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["Eris size & albedo: Sicardy et al. 2011", "https://doi.org/10.1038/nature10550"],
               ["Haumea ring & shape: Ortiz et al. 2017", "https://doi.org/10.1038/nature24051"],
               ["Makemake occultation: Ortiz et al. 2012", "https://doi.org/10.1038/nature11597"],
+              ["Small bodies: JPL Small-Body Database (SBDB)", "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html"],
+              ["Close approaches: NASA/JPL CNEOS", "https://cneos.jpl.nasa.gov/"],
+              ["Apophis 2029 (impact ruled out): CNEOS", "https://cneos.jpl.nasa.gov/apophis/"],
+              ["Comet 67P photo: ESA/Rosetta/NAVCAM (CC BY-SA 3.0 IGO)", "https://www.esa.int/ESA_Multimedia/Sets/Rosetta_NavCam_images/(result_type)/images"],
+              ["Asteroid imagery (Eros/Vesta/Bennu/Gaspra/Ida/Didymos): NASA/JPL/USGS (PD)", "https://astrogeology.usgs.gov/search"],
               ["Exoplanets: NASA Exoplanet Archive (Caltech/IPAC)", "https://exoplanetarchive.ipac.caltech.edu/"],
               ["Exoplanet Archive PSCompPars: Christiansen et al. 2025", "https://exoplanetarchive.ipac.caltech.edu/docs/pscp_about.html"],
               ["Habitable zones: Kopparapu et al. 2013", "https://doi.org/10.1088/0004-637X/765/2/131"],
