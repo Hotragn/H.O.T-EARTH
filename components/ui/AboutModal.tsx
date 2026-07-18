@@ -310,6 +310,47 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Exoplanets — measured data, illustrative worlds
+          </h3>
+          <p className="mt-2">
+            The Exoplanets tab (the &quot;Beyond&quot; group) is a system explorer
+            for real planetary systems around other stars. Every measured
+            number — orbital period, semi-major axis, radius, mass, equilibrium
+            temperature, insolation, discovery method/year and the host-star
+            properties — is a{" "}
+            <span className="text-ice">NASA Exoplanet Archive</span> value
+            (Planetary Systems Composite Parameters table); a missing value is
+            shown as &quot;not measured&quot;, never filled in. Masses from radial
+            velocity are <span className="text-ice">minimum masses</span> (M·sin
+            i) and labelled as such. The system architecture places planets on
+            their real relative orbits — the order and relative speeds are
+            physical, but the radial distances are log-compressed and the absolute
+            orbital phase is unknown, so it is seeded illustratively (the app says
+            so). The green{" "}
+            <span className="text-ice">habitable zone</span> is computed, not
+            measured: the Kopparapu et al. (2013) parametrization from the star&apos;s
+            luminosity and temperature; composition classes come from the radius
+            valley (Fulton et al. 2017). Crucially,{" "}
+            <span className="text-ice">no exoplanet has been imaged in surface
+            detail</span> — every planet&apos;s appearance here is an illustrative
+            temperature/composition cue, not an observation. Even the seven{" "}
+            <span className="text-ice">directly-imaged</span> planets (HR 8799 b/c/d/e,
+            β Pic b/d, 51 Eri b) were captured only as unresolved points of light,
+            not surface maps, and are labelled so. The honest substance is the
+            measured parameters, the system architecture and the computed
+            habitable zones.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> This research has
+            made use of the NASA Exoplanet Archive, which is operated by the
+            California Institute of Technology, under contract with the National
+            Aeronautics and Space Administration under the Exoplanet Exploration
+            Program. Primary citation: Christiansen et al. (2025), Planetary
+            Science Journal. This catalogue also includes planets from the WASP
+            (Wide Angle Search for Planets) survey — Butters et al. (2010).
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Attribution
           </h3>
           <ul className="mt-2 space-y-1.5">
@@ -346,6 +387,11 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["Eris size & albedo: Sicardy et al. 2011", "https://doi.org/10.1038/nature10550"],
               ["Haumea ring & shape: Ortiz et al. 2017", "https://doi.org/10.1038/nature24051"],
               ["Makemake occultation: Ortiz et al. 2012", "https://doi.org/10.1038/nature11597"],
+              ["Exoplanets: NASA Exoplanet Archive (Caltech/IPAC)", "https://exoplanetarchive.ipac.caltech.edu/"],
+              ["Exoplanet Archive PSCompPars: Christiansen et al. 2025", "https://exoplanetarchive.ipac.caltech.edu/docs/pscp_about.html"],
+              ["Habitable zones: Kopparapu et al. 2013", "https://doi.org/10.1088/0004-637X/765/2/131"],
+              ["Radius valley (composition): Fulton et al. 2017", "https://doi.org/10.3847/1538-3881/aa80eb"],
+              ["WASP survey: Butters et al. 2010", "https://doi.org/10.1051/0004-6361/201015655"],
             ].map(([label, href]) => (
               <li key={href}>
                 <a
