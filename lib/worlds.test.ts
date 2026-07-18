@@ -20,8 +20,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the ten world views, all unique", () => {
-    expect(WORLDS).toHaveLength(10);
+  it("has the eleven world views, all unique", () => {
+    expect(WORLDS).toHaveLength(11);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -40,6 +40,7 @@ describe("worlds registry", () => {
       moons: "/moons",
       dwarfs: "/dwarf-planets",
       "small-bodies": "/small-bodies",
+      sun: "/sun",
       exoplanets: "/exoplanets",
     });
   });
@@ -51,7 +52,7 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 3 Earth, 6 Solar System and 1 Beyond world", () => {
+  it("splits 3 Earth, 7 Solar System and 1 Beyond world", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
@@ -64,6 +65,7 @@ describe("worlds registry", () => {
       "moons",
       "dwarfs",
       "small-bodies",
+      "sun",
     ]);
     expect(getWorldsInGroup("beyond").map((w) => w.id)).toEqual(["exoplanets"]);
   });
@@ -94,7 +96,7 @@ describe("worlds registry", () => {
       "beyond",
     ]);
     expect(grouped[0].worlds).toHaveLength(3);
-    expect(grouped[1].worlds).toHaveLength(6);
+    expect(grouped[1].worlds).toHaveLength(7);
     expect(grouped[2].worlds).toHaveLength(1);
   });
 });
@@ -126,7 +128,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(10);
+    expect(searchWorlds("   ")).toHaveLength(11);
   });
 
   it("finds a world by exact label", () => {
@@ -143,6 +145,10 @@ describe("searchWorlds", () => {
     expect(searchWorlds("habitable zone")[0].id).toBe("exoplanets");
     expect(searchWorlds("apophis")[0].id).toBe("small-bodies");
     expect(searchWorlds("comet")[0].id).toBe("small-bodies");
+    expect(searchWorlds("aurora")[0].id).toBe("sun");
+    expect(searchWorlds("space weather")[0].id).toBe("sun");
+    expect(searchWorlds("sunspot")[0].id).toBe("sun");
+    expect(searchWorlds("solar wind")[0].id).toBe("sun");
   });
 
   it("returns nothing for gibberish", () => {

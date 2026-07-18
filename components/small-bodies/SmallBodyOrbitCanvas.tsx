@@ -8,6 +8,11 @@ import SmallBodyOrbitScene from "./SmallBodyOrbitScene";
 interface SmallBodyOrbitCanvasProps {
   objects: SmallBodyObject[];
   onFocus: (o: SmallBodyObject) => void;
+  /** simulated wall-clock (ms) advanced by the time control, read per-frame */
+  simMsRef: React.RefObject<number>;
+  playing: boolean;
+  /** simulated Earth days advanced per real second while playing */
+  speedDaysPerSec: number;
 }
 
 /**
@@ -19,6 +24,9 @@ interface SmallBodyOrbitCanvasProps {
 export default function SmallBodyOrbitCanvas({
   objects,
   onFocus,
+  simMsRef,
+  playing,
+  speedDaysPerSec,
 }: SmallBodyOrbitCanvasProps) {
   return (
     <Canvas
@@ -38,7 +46,13 @@ export default function SmallBodyOrbitCanvas({
         fade
         speed={0.15}
       />
-      <SmallBodyOrbitScene objects={objects} onFocus={onFocus} />
+      <SmallBodyOrbitScene
+        objects={objects}
+        onFocus={onFocus}
+        simMsRef={simMsRef}
+        playing={playing}
+        speedDaysPerSec={speedDaysPerSec}
+      />
       <OrbitControls
         makeDefault
         enablePan={false}

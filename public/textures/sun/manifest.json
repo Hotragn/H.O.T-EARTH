@@ -1,0 +1,59 @@
+{
+  "_comment": "NASA SDO full-disk Sun images (public domain). These are SQUARE disk images of the Sun's Earth-facing side, NOT equirectangular maps. AIA channels are false-color by wavelength. Credit: NASA/SDO and the AIA/EVE/HMI science teams. Fetched from the SDO 'latest images' service; each image is a real observation timestamped by Last-Modified.",
+  "provider": "NASA Solar Dynamics Observatory (SDO)",
+  "license": "Public domain (NASA media usage guidelines)",
+  "credit": "NASA/SDO and the AIA, EVE, and HMI science teams",
+  "fetched_utc": "2026-07-18T21:15:38Z",
+  "source_service": "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_{CHANNEL}.jpg",
+  "cors": "SDO images send NO Access-Control-Allow-Origin header (verified) -- cross-origin WebGL textures would be tainted, so images are COMMITTED here rather than fetched live.",
+  "images": [
+    {
+      "channel": "aia171",
+      "sdo_token": "0171",
+      "source_url": "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0171.jpg",
+      "observation_time": "Sat, 18 Jul 2026 21:12:06 GMT",
+      "dimensions": "1024x1024",
+      "bytes": 160557
+    },
+    {
+      "channel": "aia193",
+      "sdo_token": "0193",
+      "source_url": "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0193.jpg",
+      "observation_time": "Sat, 18 Jul 2026 21:13:06 GMT",
+      "dimensions": "1024x1024",
+      "bytes": 123233
+    },
+    {
+      "channel": "aia211",
+      "sdo_token": "0211",
+      "source_url": "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0211.jpg",
+      "observation_time": "Sat, 18 Jul 2026 21:05:07 GMT",
+      "dimensions": "1024x1024",
+      "bytes": 116644
+    },
+    {
+      "channel": "aia304",
+      "sdo_token": "0304",
+      "source_url": "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0304.jpg",
+      "observation_time": "Sat, 18 Jul 2026 21:14:06 GMT",
+      "dimensions": "1024x1024",
+      "bytes": 155644
+    },
+    {
+      "channel": "hmi_continuum",
+      "sdo_token": "HMIIC",
+      "source_url": "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_HMIIC.jpg",
+      "observation_time": "Sat, 18 Jul 2026 21:10:05 GMT",
+      "dimensions": "1024x1024",
+      "bytes": 82336
+    },
+    {
+      "channel": "hmi_magnetogram",
+      "sdo_token": "HMIB",
+      "source_url": "https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_HMIB.jpg",
+      "observation_time": "Sat, 18 Jul 2026 21:10:19 GMT",
+      "dimensions": "1024x1024",
+      "bytes": 231313
+    }
+  ]
+}
