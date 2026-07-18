@@ -296,6 +296,8 @@ def build_object(spec: dict) -> dict:
     e = fnum(els.get("e"))
     per_days = fnum(els.get("per"))
     ad = fnum(els.get("ad"))
+    ma = fnum(els.get("ma"))       # mean anomaly at epoch [deg] (bound orbits; may be null)
+    tp = fnum(els.get("tp"))       # time of perihelion passage [JD, TDB] (anchor for open orbits)
     hyperbolic = (e is not None and e >= 1.0) or (per_days is None) or (ad is None)
 
     kind = obj.get("kind")  # an/au = asteroid numbered/unnumbered; cn/cu = comet
@@ -316,6 +318,13 @@ def build_object(spec: dict) -> dict:
         "moid_au": sig(fnum(orb.get("moid")), 5),      # Earth MOID (measured; PHA input)
         "t_jup": fixed(fnum(orb.get("t_jup")), 3),      # Tisserand param wrt Jupiter
         "epoch_jd": fnum(orb.get("epoch")),
+        # Time anchors that let the frontend propagate a LIVE heliocentric position
+        # (not just a static orbit shape): mean anomaly at the epoch (bound orbits)
+        # and the time of perihelion passage (the anchor for open/hyperbolic orbits;
+        # SBDB also reports it for bound bodies). ma may be null for some hyperbolic
+        # objects -- tp covers those. Kept from SBDB, never invented.
+        "ma": fixed(ma, 5),
+        "tp": fixed(tp, 5),
     }
 
     physical = {
@@ -461,6 +470,8 @@ def build(out_path: str) -> int:
                 "elements.moid_au": "au (Earth Minimum Orbit Intersection Distance; measured)",
                 "elements.t_jup": "Tisserand parameter with respect to Jupiter (dimensionless)",
                 "elements.epoch_jd": "Julian Date (TDB) of the osculating elements",
+                "elements.ma": "deg (mean anomaly at epoch_jd; time anchor for bound orbits; null where SBDB omits it, e.g. some hyperbolic bodies)",
+                "elements.tp": "Julian Date (TDB) of perihelion passage (time anchor for open/hyperbolic orbits; SBDB reports it for bound bodies too)",
                 "physical.diameter_km": "km",
                 "physical.rotation_h": "hours (sidereal rotation period)",
                 "physical.albedo": "dimensionless (geometric albedo)",

@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import * as THREE from "three";
 import {
-  PLANET_ORDER,
   PLANETS,
   heliocentricPosition as planetPosition,
   type PlanetName,
@@ -12,6 +12,7 @@ import {
 import {
   cometActivity,
   compressRadius,
+  heliocentricPosition,
   orbitPath,
   type CompressionOptions,
 } from "@/lib/small-bodies";
@@ -28,6 +29,11 @@ import {
 const DAY_MS = 86_400_000;
 const YEAR_DAYS = 365.25;
 const DEG2RAD = Math.PI / 180;
+
+/** Base radius of the shared unit tail cone (scaled per-frame by activity). */
+const TAIL_BASE_RADIUS = 0.2;
+/** The tail geometry extends from its apex (nucleus) along −Y; we rotate −Y → anti-sunward. */
+const TAIL_AXIS = new THREE.Vector3(0, -1, 0);
 
 /**
  * One shared, log-compressed radial scale for BOTH the planet reference orbits
@@ -49,11 +55,13 @@ const ORRERY_OPTS: CompressionOptions = {
 const REF_PLANETS: PlanetName[] = ["Mercury", "Venus", "Earth", "Mars", "Jupiter"];
 
 interface OrbitVis {
+  /** stable key (designation ?? name) — matches the React key + the ref map. */
+  key: string;
   obj: SmallBodyObject;
   line: THREE.Line;
-  /** perihelion scene point (min heliocentric distance along the drawn path) */
+  /** perihelion scene point — the graceful fallback if a live position is unresolved */
   peri: { x: number; z: number };
-  /** perihelion heliocentric distance [AU] */
+  /** perihelion heliocentric distance [AU] (fallback distance for the label) */
   qAU: number;
   color: string;
   /** the path is drawn as an open arc (near-parabolic or hyperbolic) */
@@ -64,11 +72,19 @@ interface OrbitVis {
    * comet (e.g. NEOWISE e≈0.999) is drawn as an arc but is NOT unbound.
    */
   unbound: boolean;
+  isComet: boolean;
+  /** owned tail cone (comets only) — animated per-frame, disposed on unmount */
+  tailMesh: THREE.Mesh | null;
 }
 
 interface SmallBodyOrbitSceneProps {
   objects: SmallBodyObject[];
   onFocus: (o: SmallBodyObject) => void;
+  /** simulated wall-clock (ms since epoch) advanced by the time control */
+  simMsRef: React.RefObject<number>;
+  playing: boolean;
+  /** simulated Earth days advanced per real second while playing */
+  speedDaysPerSec: number;
 }
 
 /** Colour for a body's orbit + marker. */
@@ -83,19 +99,27 @@ function colorFor(o: SmallBodyObject): string {
  * small body's REAL orbit share one compressed radial scale. Bound asteroids and
  * comets draw as CLOSED ellipses; hyperbolic / interstellar visitors draw as OPEN
  * arcs (visually distinct, labelled "unbound — passing through, not orbiting").
- * Comets get an illustrative anti-sunward tail at perihelion whose length/opacity
- * scale with cometActivity(q).
  *
- * The catalogue carries no mean-anomaly / time-of-perihelion, so a live position
- * cannot be computed — we degrade gracefully: orbit SHAPES are always drawn, and
- * each body is marked at its perihelion (clickable), never at a faked "now".
+ * The catalogue now carries a time anchor (mean anomaly + epoch for bound orbits,
+ * time-of-perihelion for open ones), so each body rides a LIVE, propagated
+ * heliocentric position advanced by the orrery clock — the same real two-body
+ * mechanics the Solar-System and dwarf-planet orreries use. Comet tails emanate
+ * from the live nucleus, point anti-sunward (away from the Sun at the origin) and
+ * grow with cometActivity(r) at the body's live heliocentric distance. Hyperbolic
+ * / interstellar bodies sweep through once and keep receding — honest to their
+ * single pass. A body whose elements still can't resolve a position (should be
+ * none) degrades gracefully to its perihelion marker, never crashing.
  *
- * All line geometries/materials are built once and disposed on unmount; the tails
- * and markers are declarative (r3f disposes them). Nothing allocates per frame.
+ * All line geometries/materials and the tail cones are built once and disposed on
+ * unmount; positions/orientations are updated by mutating existing objects with
+ * reused scratch vectors — nothing allocates per frame.
  */
 export default function SmallBodyOrbitScene({
   objects,
   onFocus,
+  simMsRef,
+  playing,
+  speedDaysPerSec,
 }: SmallBodyOrbitSceneProps) {
   // Planet reference orbits — built once (independent of the object filter).
   const planetOrbits = useMemo(() => buildPlanetOrbits(), []);
@@ -108,16 +132,89 @@ export default function SmallBodyOrbitScene({
     };
   }, [planetOrbits]);
 
-  // Small-body orbits — rebuilt when the filtered object set changes.
+  // Small-body orbits + tails — rebuilt when the filtered object set changes.
   const orbits = useMemo(() => buildOrbits(objects), [objects]);
   useEffect(() => {
     return () => {
       for (const o of orbits) {
         o.line.geometry.dispose();
         (o.line.material as THREE.Material).dispose();
+        if (o.tailMesh) {
+          o.tailMesh.geometry.dispose();
+          (o.tailMesh.material as THREE.Material).dispose();
+        }
       }
     };
   }, [orbits]);
+
+  // Group refs keyed by the stable body key, so a filter change reattaches cleanly.
+  const groupRefs = useRef(new Map<string, THREE.Group>());
+  // Live true-AU per body, mirrored to state ~4 Hz for the labels (no per-frame React).
+  const auLive = useRef<Record<string, number>>({});
+  const [auSnapshot, setAuSnapshot] = useState<Record<string, number>>({});
+  const labelAccum = useRef(0);
+
+  // Reused scratch objects — allocated once, mutated each frame.
+  const scratchDir = useMemo(() => new THREE.Vector3(), []);
+  const scratchQuat = useMemo(() => new THREE.Quaternion(), []);
+
+  useFrame((_, delta) => {
+    if (playing) {
+      simMsRef.current =
+        (simMsRef.current ?? Date.now()) + delta * speedDaysPerSec * DAY_MS;
+    }
+    const date = new Date(simMsRef.current ?? Date.now());
+
+    for (const v of orbits) {
+      const pos = heliocentricPosition(v.obj.elements, date);
+      let sx: number;
+      let sz: number;
+      let distAU: number;
+      if (pos) {
+        const r = compressRadius(pos.distanceAU, ORRERY_OPTS);
+        const lam = pos.longitudeDeg * DEG2RAD;
+        sx = r * Math.cos(lam);
+        sz = -r * Math.sin(lam);
+        distAU = pos.distanceAU;
+      } else {
+        // Graceful fallback: park at perihelion (should not happen now).
+        sx = v.peri.x;
+        sz = v.peri.z;
+        distAU = v.qAU;
+      }
+
+      const g = groupRefs.current.get(v.key);
+      if (g) g.position.set(sx, 0, sz);
+      auLive.current[v.key] = distAU;
+
+      // Comet tail: anti-sunward from the LIVE nucleus, sized by live activity.
+      const tail = v.tailMesh;
+      if (tail) {
+        const activity = pos ? cometActivity(distAU) : 0;
+        if (activity > 0) {
+          const rad = Math.hypot(sx, sz);
+          if (rad > 1e-6) {
+            scratchDir.set(sx / rad, 0, sz / rad); // outward = anti-sunward
+            scratchQuat.setFromUnitVectors(TAIL_AXIS, scratchDir);
+            tail.quaternion.copy(scratchQuat);
+          }
+          const len = 0.6 + 2.2 * activity;
+          const rScale = (0.16 + 0.24 * activity) / TAIL_BASE_RADIUS;
+          tail.scale.set(rScale, len, rScale);
+          (tail.material as THREE.MeshBasicMaterial).opacity = 0.1 + 0.28 * activity;
+          tail.visible = true;
+        } else {
+          tail.visible = false;
+        }
+      }
+    }
+
+    labelAccum.current += delta;
+    if (labelAccum.current > 0.25) {
+      labelAccum.current = 0;
+      setAuSnapshot({ ...auLive.current });
+    }
+  });
 
   return (
     <group>
@@ -150,13 +247,18 @@ export default function SmallBodyOrbitScene({
         </group>
       ))}
 
-      {/* small-body orbits, perihelion markers + comet tails */}
-      {orbits.map((o) => (
-        <group key={o.obj.designation ?? o.obj.name}>
-          <primitive object={o.line} />
-          <CometTail vis={o} />
-          <BodyMarker vis={o} onFocus={() => onFocus(o.obj)} />
-        </group>
+      {/* small-body orbits, live markers + moving comet tails */}
+      {orbits.map((v) => (
+        <BodyMarker
+          key={v.key}
+          vis={v}
+          au={auSnapshot[v.key]}
+          groupRef={(el) => {
+            if (el) groupRefs.current.set(v.key, el);
+            else groupRefs.current.delete(v.key);
+          }}
+          onFocus={() => onFocus(v.obj)}
+        />
       ))}
     </group>
   );
@@ -213,7 +315,25 @@ function buildPlanetOrbits(): PlanetOrbitVis[] {
   return out;
 }
 
-/** Build the drawn orbit, perihelion marker + tail data for each object. */
+/** Build a shared-shape unit tail cone: apex at the origin, extending along −Y. */
+function buildTailMesh(): THREE.Mesh {
+  const g = new THREE.ConeGeometry(TAIL_BASE_RADIUS, 1, 20, 1, true);
+  g.translate(0, -0.5, 0); // apex at origin (nucleus), wide base at −Y
+  const m = new THREE.MeshBasicMaterial({
+    color: "#8fe9ff",
+    transparent: true,
+    opacity: 0,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false,
+    side: THREE.DoubleSide,
+    toneMapped: false,
+  });
+  const mesh = new THREE.Mesh(g, m);
+  mesh.visible = false;
+  return mesh;
+}
+
+/** Build the drawn orbit line, perihelion fallback + tail cone for each object. */
 function buildOrbits(objects: SmallBodyObject[]): OrbitVis[] {
   const out: OrbitVis[] = [];
   for (const obj of objects) {
@@ -252,7 +372,9 @@ function buildOrbits(objects: SmallBodyObject[]): OrbitVis[] {
       obj.interstellar ||
       obj.elements.hyperbolic ||
       (obj.elements.e !== null && obj.elements.e > 1);
+    const isComet = obj.kind === "comet";
     out.push({
+      key: obj.designation ?? obj.name,
       obj,
       line,
       peri: { x: periPt.x, z: periPt.z },
@@ -260,6 +382,8 @@ function buildOrbits(objects: SmallBodyObject[]): OrbitVis[] {
       color,
       open,
       unbound,
+      isComet,
+      tailMesh: isComet ? buildTailMesh() : null,
     });
   }
   return out;
@@ -290,71 +414,26 @@ function Sun() {
   );
 }
 
-/**
- * Illustrative anti-sunward comet tail at perihelion. Direction is the outward
- * radial (away-from-Sun) unit vector in the ecliptic projection — physically
- * anti-sunward — and length/opacity scale with cometActivity(q). Only drawn for
- * comets active at perihelion (q < ~3 AU). Purely illustrative; labelled so.
- */
-function CometTail({ vis }: { vis: OrbitVis }) {
-  const { obj, peri, qAU } = vis;
-  const activity = cometActivity(qAU);
-  const isComet = obj.kind === "comet";
-  const geometry = useMemo(() => {
-    if (!isComet || activity <= 0) return null;
-    const len = 0.6 + 2.2 * activity;
-    const rad = 0.16 + 0.24 * activity;
-    // Cone default apex at +Y; we orient +Y toward the Sun so the wide base points
-    // outward (anti-sunward) — a comet tail widens away from the nucleus.
-    const outward = new THREE.Vector3(peri.x, 0, peri.z);
-    if (outward.lengthSq() === 0) return null;
-    outward.normalize();
-    const g = new THREE.ConeGeometry(rad, len, 20, 1, true);
-    g.translate(0, -len / 2, 0); // apex at origin, base at -Y
-    const q = new THREE.Quaternion().setFromUnitVectors(
-      new THREE.Vector3(0, 1, 0),
-      outward.clone().negate() // +Y → toward the Sun; base (-Y) → anti-sunward
-    );
-    g.applyQuaternion(q);
-    g.translate(peri.x, 0, peri.z);
-    return g;
-  }, [isComet, activity, peri.x, peri.z]);
-
-  useEffect(() => {
-    return () => {
-      geometry?.dispose();
-    };
-  }, [geometry]);
-
-  if (!geometry) return null;
-  return (
-    <mesh geometry={geometry}>
-      <meshBasicMaterial
-        color="#8fe9ff"
-        transparent
-        opacity={0.1 + 0.28 * activity}
-        blending={THREE.AdditiveBlending}
-        depthWrite={false}
-        side={THREE.DoubleSide}
-        toneMapped={false}
-      />
-    </mesh>
-  );
-}
-
 function BodyMarker({
   vis,
+  au,
+  groupRef,
   onFocus,
 }: {
   vis: OrbitVis;
+  au: number | undefined;
+  groupRef: (el: THREE.Group | null) => void;
   onFocus: () => void;
 }) {
   const [hovered, setHovered] = useState(false);
-  const { obj, peri, color, unbound } = vis;
+  const { obj, color, unbound, tailMesh } = vis;
   const r = 0.085;
 
   return (
-    <group position={[peri.x, 0, peri.z]}>
+    <group ref={groupRef}>
+      {/* live comet tail — animated in the parent useFrame (anti-sunward) */}
+      {tailMesh && <primitive object={tailMesh} />}
+
       {/* visible marker dot */}
       <mesh>
         <sphereGeometry args={[r, 20, 20]} />
@@ -412,6 +491,11 @@ function BodyMarker({
           }}
         >
           <div style={{ color, fontWeight: 600 }}>{obj.name}</div>
+          {typeof au === "number" && Number.isFinite(au) && (
+            <div style={{ color: "#9aa2b1", fontSize: 8.5 }}>
+              {au < 10 ? au.toFixed(2) : au.toFixed(1)} AU
+            </div>
+          )}
           {unbound && (
             <div style={{ color: OPEN_ORBIT_COLOR, fontSize: 8.5 }}>
               unbound — passing through

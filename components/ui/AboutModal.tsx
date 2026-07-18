@@ -365,6 +365,62 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Sun & space weather — real forecasts, attributed
+          </h3>
+          <p className="mt-2">
+            The Sun tab reconnects to the project&apos;s honest-forecasting theme:
+            space weather is a genuine operational forecasting domain, so we show{" "}
+            <span className="text-ice">NOAA SWPC&apos;s own measurements and
+            forecasts</span> and attribute them. We visualize them; we do not
+            predict. The disk is real{" "}
+            <span className="text-ice">NASA/SDO full-disk imagery</span> in six
+            wavelengths — AIA 171 (~600,000 K corona), 193 (~1.2 MK, coronal
+            holes), 211 (~2 MK active regions) and 304 Å (~50,000 K chromosphere /
+            prominences), plus HMI continuum (visible photosphere, sunspots) and
+            the HMI magnetogram (line-of-sight magnetic field). These are{" "}
+            <span className="text-ice">square snapshots of the Sun&apos;s
+            Earth-facing side</span> — not equirectangular maps, not live (the
+            corona changes hour to hour), and the AIA colours are false-colour by
+            wavelength — so they are rendered as the observed disk, labelled with
+            each image&apos;s real observation time. A single snapshot does not
+            rotate, so the disk does not spin.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Measured</span> signals are fetched{" "}
+            <span className="text-ice">live client-side from NOAA SWPC</span>{" "}
+            (public domain, CORS-enabled), with a committed snapshot as a
+            defensive fallback and a live / snapshot badge either way: solar-wind
+            speed and IMF Bz/Bt (DSCOVR/ACE at L1), estimated planetary Kp with the
+            NOAA G-scale, GOES X-ray flux with the A/B/C/M/X flare class, and
+            monthly F10.7 and sunspot number.{" "}
+            <span className="text-ice">Forecast</span> signals are SWPC&apos;s own
+            model output, tagged as theirs: the{" "}
+            <span className="text-ice">OVATION aurora nowcast</span> and the
+            predicted Solar Cycle 25 curve.{" "}
+            <span className="text-ice">Computed</span> values are labelled derived
+            — the flare class from the GOES flux, the G-scale from Kp, and the
+            rough auroral-oval latitude from Kp (a rule of thumb, approximate). The
+            solar-cycle chart plots the observed monthly count against SWPC&apos;s
+            predicted curve: Cycle 25 ran hotter than the 2019 panel forecast
+            (~115), peaking ~161 around late 2024, shown truthfully. The body facts
+            (radius ~109 R⊕ / 695,700 km, T_eff 5772 K, Carrington rotation,
+            differential rotation ~24.5→34 d) are IAU-2015 constants and lib/sun
+            geometry.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Sunspot honesty:</span> two counts exist. We
+            display NOAA&apos;s own public-domain sunspot number, not the
+            International Sunspot Number from WDC-SILSO, whose CC BY-NC
+            (NonCommercial) license we cannot accept for this project.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> Imagery: NASA/SDO and
+            the AIA, EVE and HMI science teams (public domain). Space-weather data
+            and forecasts: NOAA Space Weather Prediction Center (public domain,
+            17 U.S.C. 105). SILSO sunspot data (CC BY-NC) was not used.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Exoplanets — measured data, illustrative worlds
           </h3>
           <p className="mt-2">
@@ -452,6 +508,10 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["Habitable zones: Kopparapu et al. 2013", "https://doi.org/10.1088/0004-637X/765/2/131"],
               ["Radius valley (composition): Fulton et al. 2017", "https://doi.org/10.3847/1538-3881/aa80eb"],
               ["WASP survey: Butters et al. 2010", "https://doi.org/10.1051/0004-6361/201015655"],
+              ["Sun imagery: NASA/SDO (AIA/EVE/HMI teams)", "https://sdo.gsfc.nasa.gov/"],
+              ["Space weather: NOAA SWPC", "https://www.swpc.noaa.gov/"],
+              ["Aurora forecast: NOAA SWPC OVATION", "https://www.swpc.noaa.gov/products/aurora-30-minute-forecast"],
+              ["Solar cycle: NOAA SWPC (observed + predicted)", "https://www.swpc.noaa.gov/products/solar-cycle-progression"],
             ].map(([label, href]) => (
               <li key={href}>
                 <a

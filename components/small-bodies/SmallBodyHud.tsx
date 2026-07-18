@@ -239,7 +239,7 @@ export default function SmallBodyHud({
               {activity > 0
                 ? `Water-ice sublimation switches on inside ~3 AU; near perihelion (q = ${fmtAU(
                     el.q
-                  )}) this comet is at its most active. The tail is drawn anti-sunward (away from the Sun) at perihelion — its length is an illustrative activity cue, not a photometric measurement.`
+                  )}) this comet is at its most active. In the orbit view the tail is drawn anti-sunward (away from the Sun) from the comet's live position and grows as it nears the Sun — an illustrative activity cue, not a photometric measurement.`
                 : `Its perihelion (q = ${fmtAU(
                     el.q
                   )}) lies beyond the ~3 AU water-ice activity onset, so little dust/gas tail is expected. Any tail shown is illustrative.`}

@@ -25,6 +25,7 @@ export type WorldTab =
   | "moons"
   | "dwarfs"
   | "small-bodies"
+  | "sun"
   | "exoplanets";
 
 /**
@@ -204,6 +205,33 @@ export const WORLDS: readonly World[] = [
     ],
     thumb: "/textures/small-bodies/eros.jpg",
     thumbBody: "Eros",
+  },
+  {
+    id: "sun",
+    label: "Sun",
+    href: "/sun",
+    group: "solar-system",
+    blurb: "The Sun in six wavelengths, with live NOAA space weather.",
+    accent: "#ffa41b",
+    keywords: [
+      "sun",
+      "solar",
+      "space weather",
+      "aurora",
+      "solar wind",
+      "sunspot",
+      "flare",
+      "kp",
+      "corona",
+      "solar cycle",
+      "sdo",
+      "swpc",
+      "geomagnetic storm",
+      "coronal hole",
+      "photosphere",
+      "magnetogram",
+    ],
+    thumb: "/textures/sun/aia171.jpg",
   },
   // --- Beyond ---------------------------------------------------------------
   {

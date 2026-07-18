@@ -17,8 +17,8 @@ import {
  * orbit view, a compact stat row, the filter chips (which also filter which
  * orbits are drawn), a legend for the orbit types, and launchers for the object
  * browser and the close-approaches panel. Every honesty caveat is stated: the
- * radial scale is compressed, and — because the catalogue carries no epoch
- * anchor — bodies are marked at perihelion, not at a faked live position.
+ * radial scale is compressed, while the angular position and the live, propagated
+ * heliocentric position (from JPL elements at epoch) are both real.
  */
 export default function SmallBodyOverview({
   stats,
@@ -52,7 +52,8 @@ export default function SmallBodyOverview({
           the planet orbits (Mercury→Jupiter) for reference. Bound bodies trace{" "}
           <span className="text-ice">closed ellipses</span>; the hyperbolic and
           interstellar visitors trace{" "}
-          <span style={{ color: OPEN_ORBIT_COLOR }}>open arcs</span>. Click any
+          <span style={{ color: OPEN_ORBIT_COLOR }}>open arcs</span>. Press play to
+          watch each body ride its orbit at the correct relative speed; click any
           marker to open its record.
         </p>
 
@@ -121,10 +122,10 @@ export default function SmallBodyOverview({
 
         {/* honesty note */}
         <p className="mt-3 border-t border-line pt-2.5 font-mono text-[9px] leading-relaxed text-faint">
-          Angular positions along each orbit are real; radial distances are
-          log-compressed (aphelia reach tens–thousands of AU). The catalogue has no
-          epoch anchor, so bodies are marked at perihelion, not a live position
-          {omittedCount > 0 ? `; ${omittedCount} orbit(s) could not be drawn` : ""}.
+          Each body rides its real orbit at a live, propagated position (JPL
+          elements at epoch); angular positions are real heliocentric longitudes and
+          only the radial distance is log-compressed (aphelia reach tens–thousands of
+          AU){omittedCount > 0 ? `; ${omittedCount} orbit(s) could not be drawn` : ""}.
           Comet tails are illustrative.
         </p>
       </div>
