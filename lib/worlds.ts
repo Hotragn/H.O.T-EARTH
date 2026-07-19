@@ -27,6 +27,7 @@ export type WorldTab =
   | "jupiter-moons"
   | "saturn-moons"
   | "other-moons"
+  | "dwarf-moons"
   | "dwarfs"
   | "small-bodies"
   | "meteor-showers"
@@ -278,6 +279,35 @@ export const WORLDS: readonly World[] = [
     ],
     thumb: "/textures/planets/uranus.jpg",
     thumbBody: "Uranus",
+  },
+  {
+    id: "dwarf-moons",
+    label: "Dwarf Moons",
+    href: "/dwarf-moons",
+    group: "solar-system",
+    blurb:
+      "Pluto's true binary with Charon and its four small moons, plus the moons of Eris, Haumea and Makemake.",
+    accent: "#c9a98c",
+    keywords: [
+      "dwarf moons",
+      "pluto",
+      "charon",
+      "styx",
+      "nix",
+      "kerberos",
+      "hydra",
+      "eris",
+      "dysnomia",
+      "haumea",
+      "hiiaka",
+      "namaka",
+      "makemake",
+      "mk2",
+      "binary",
+      "barycenter",
+    ],
+    thumb: "/textures/dwarf-planets/pluto.jpg",
+    thumbBody: "Pluto",
   },
   {
     id: "dwarfs",
