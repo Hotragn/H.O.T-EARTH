@@ -319,6 +319,49 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Jupiter&apos;s Moons — computed events, real geometry
+          </h3>
+          <p className="mt-2">
+            The Jupiter&apos;s Moons tab predicts the mutual events of the four
+            Galilean satellites (Io, Europa, Ganymede, Callisto) against
+            Jupiter&apos;s disk. <span className="text-ice">Computed:</span> each
+            moon&apos;s apparent position relative to Jupiter, and every{" "}
+            <span className="text-ice">transit</span> (moon in front of the disk),{" "}
+            <span className="text-ice">shadow transit</span> (its shadow on the
+            cloud tops), <span className="text-ice">occultation</span> (moon behind
+            the disk) and <span className="text-ice">eclipse</span> (moon in
+            Jupiter&apos;s shadow), come from a published algorithm, Meeus,{" "}
+            <span className="text-ice">Astronomical Algorithms</span> (2nd ed.),
+            Chapter 44 (the low-accuracy method, from Lieske&apos;s E5 / Sampson
+            theory), implemented in our own code with no runtime API, the same
+            posture as Mars24, SGP4 and the Meeus lunar theory. A moon and its
+            shadow are offset on the disk because the Sun and Earth view Jupiter
+            from slightly different directions (the Sun-Jupiter-Earth phase angle):
+            the gap is near zero at opposition and widest near quadrature, and that
+            geometry is the point of the tab. Jupiter&apos;s sky position (whether
+            it is above your horizon) is computed the same way.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Accuracy, stated:</span> the low-accuracy
+            method places the moons to about a tenth of a Jupiter radius, so transit
+            and occultation times are good to about a minute and eclipse and
+            shadow-transit times can differ by a few minutes near quadrature. These
+            are real, observable events (a shadow transit is a crisp black dot
+            amateurs watch in small telescopes), but for critical or
+            observing-grade timing the tab points to{" "}
+            <span className="text-ice">JPL Horizons</span> and does not claim
+            second-level precision. <span className="text-ice">Reused / real:</span>{" "}
+            the Jupiter disk (NASA/JPL/SSI Cassini map, a snapshot, the belts
+            drift) and the four moon maps (USGS Galileo/Voyager mosaics; Io and
+            Ganymede color, Europa and Callisto grayscale) are the same
+            public-domain textures from earlier phases, no new download.{" "}
+            <span className="text-ice">Illustrative:</span> real Galilean moons are
+            only ~1 arcsec across against Jupiter&apos;s ~40 arcsec, so the on-screen
+            markers are enlarged for visibility (the positions and timings are to
+            scale), and a toggle shows their true angular size.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Dwarf planets — orbital mechanics, not weather
           </h3>
           <p className="mt-2">
@@ -628,6 +671,8 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["Planet & ring textures: Solar System Scope (CC BY 4.0)", "https://www.solarsystemscope.com/textures/"],
               ["Moon orbits & constants: JPL SSD satellite parameters", "https://ssd.jpl.nasa.gov/sats/elem/"],
               ["Moon maps: NASA / JPL / USGS (public domain)", "https://astrogeology.usgs.gov/search"],
+              ["Jupiter's Galilean moon events: Meeus, Astronomical Algorithms Ch. 44", "https://en.wikipedia.org/wiki/Jean_Meeus"],
+              ["Galilean event cross-check: JPL Horizons", "https://ssd.jpl.nasa.gov/horizons/"],
               ["Enceladus plumes: Porco et al. 2006", "https://doi.org/10.1126/science.1123013"],
               ["Titan surface & methane cycle: Huygens (Fulchignoni et al. 2005)", "https://doi.org/10.1038/nature04314"],
               ["Triton geysers & atmosphere: Voyager 2 (Smith et al. 1989)", "https://doi.org/10.1126/science.246.4936.1422"],

@@ -24,6 +24,7 @@ export type WorldTab =
   | "moon"
   | "solar"
   | "moons"
+  | "jupiter-moons"
   | "dwarfs"
   | "small-bodies"
   | "meteor-showers"
@@ -189,6 +190,32 @@ export const WORLDS: readonly World[] = [
     keywords: ["moons", "satellites", "europa", "io", "ganymede", "callisto", "titan", "enceladus", "triton", "mimas", "iapetus"],
     thumb: "/textures/moons/europa.jpg",
     thumbBody: "Europa",
+  },
+  {
+    id: "jupiter-moons",
+    label: "Jupiter's Moons",
+    href: "/jupiter-moons",
+    group: "solar-system",
+    blurb:
+      "The four Galilean moons in live positions, with shadow transits, eclipses and occultations computed from Meeus.",
+    accent: "#d9a066",
+    keywords: [
+      "jupiter",
+      "galilean",
+      "io",
+      "europa",
+      "ganymede",
+      "callisto",
+      "shadow transit",
+      "transit",
+      "eclipse",
+      "occultation",
+      "jovian",
+      "telescope",
+      "meeus",
+    ],
+    thumb: "/textures/planets/jupiter.jpg",
+    thumbBody: "Jupiter",
   },
   {
     id: "dwarfs",
