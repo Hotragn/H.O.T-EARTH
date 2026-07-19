@@ -20,8 +20,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the thirteen world views, all unique", () => {
-    expect(WORLDS).toHaveLength(13);
+  it("has the fourteen world views, all unique", () => {
+    expect(WORLDS).toHaveLength(14);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -33,6 +33,7 @@ describe("worlds registry", () => {
     expect(map).toEqual({
       earth: "/",
       living: "/living-earth",
+      iss: "/iss",
       mars: "/mars",
       virtual: "/virtual-earth",
       moon: "/moon",
@@ -54,11 +55,12 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 3 Earth, 8 Solar System and 2 Beyond worlds", () => {
+  it("splits 4 Earth, 8 Solar System and 2 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
       "virtual",
+      "iss",
     ]);
     expect(getWorldsInGroup("solar-system").map((w) => w.id)).toEqual([
       "mars",
@@ -101,7 +103,7 @@ describe("worlds registry", () => {
       "solar-system",
       "beyond",
     ]);
-    expect(grouped[0].worlds).toHaveLength(3);
+    expect(grouped[0].worlds).toHaveLength(4);
     expect(grouped[1].worlds).toHaveLength(8);
     expect(grouped[2].worlds).toHaveLength(2);
   });
@@ -134,7 +136,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(13);
+    expect(searchWorlds("   ")).toHaveLength(14);
   });
 
   it("finds a world by exact label", () => {
@@ -165,6 +167,14 @@ describe("searchWorlds", () => {
     expect(searchWorlds("space weather")[0].id).toBe("sun");
     expect(searchWorlds("sunspot")[0].id).toBe("sun");
     expect(searchWorlds("solar wind")[0].id).toBe("sun");
+    // ISS Tracker — guarded by terms unique to it. ("satellite" is intentionally
+    // NOT asserted here: it is a shared keyword of the Earth world, which sorts
+    // first on the tie, so the honest guard uses ISS-only phrases.)
+    expect(searchWorlds("iss")[0].id).toBe("iss");
+    expect(searchWorlds("space station")[0].id).toBe("iss");
+    expect(searchWorlds("spot the station")[0].id).toBe("iss");
+    expect(searchWorlds("sgp4")[0].id).toBe("iss");
+    expect(searchWorlds("tiangong")[0].id).toBe("iss");
   });
 
   it("returns nothing for gibberish", () => {

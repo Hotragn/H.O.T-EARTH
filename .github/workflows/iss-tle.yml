@@ -1,0 +1,78 @@
+name: iss-tle
+
+# The ISS Tracker tab propagates a real TLE with SGP4 in the browser. TLEs go
+# stale (SGP4 error grows ~1-3 km/day), so we refresh the committed mirror
+# twice a day. CelesTrak updates its GP (TLE) data once every ~2 hours and its
+# usage policy asks callers to fetch at most once per update and to cache, so a
+# single twice-daily cron that every app user then reads from the CDN is well
+# within etiquette (one machine hits CelesTrak, not thousands of browsers).
+#
+# 05:37 and 17:37 UTC: ~12 h apart for freshness, and the :37 offset avoids the
+# top-of-hour GitHub Actions congestion where scheduled jobs get delayed. If a
+# run is skipped, the previous committed TLE (a few hours older) is still valid,
+# so the tab degrades gracefully rather than breaking.
+on:
+  schedule:
+    - cron: "37 5,17 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: iss-tle
+  cancel-in-progress: false
+
+jobs:
+  update-iss-tle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Full history so the robust push step below can rebase our data
+          # commit onto main if the branch advanced during the run.
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # No third-party dependencies: fetch_tle.py uses only the standard library
+      # (urllib). Nothing to install.
+
+      # The script validates the TLE (catalog number + mod-10 checksums + epoch
+      # parse) and only writes the JSON after validation passes, so a bad or
+      # error response from CelesTrak fails the job loudly here and nothing below
+      # runs (no garbage commits).
+      - name: Fetch ISS TLE from CelesTrak
+        run: python scripts/iss/fetch_tle.py --out public/data/iss/tle.json
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/iss/tle.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit (same TLE as last run)."
+            exit 0
+          fi
+          git commit -m "chore(data): update ISS TLE mirror"
+          # main can advance between checkout and push -- a PR merge or a prior
+          # scheduled run -- which rejects a plain push as non-fast-forward and
+          # fails the job. Rebase our single data commit onto the latest main and
+          # retry instead of failing. This is a fresh generated artifact, so
+          # rebasing is safe.
+          for attempt in 1 2 3 4 5; do
+            if git push origin HEAD:main; then
+              echo "Pushed on attempt $attempt."
+              exit 0
+            fi
+            echo "Push rejected (main advanced); rebasing and retrying ($attempt/5)..."
+            git pull --rebase --autostash origin main || true
+            sleep 5
+          done
+          echo "::error::Failed to push ISS TLE after 5 attempts."
+          exit 1
