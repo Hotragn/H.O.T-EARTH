@@ -365,6 +365,57 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Meteor showers — real catalog data, idealised rates
+          </h3>
+          <p className="mt-2">
+            The Meteor Showers tab sits beside Comets &amp; Asteroids because a
+            shower is the <span className="text-ice">debris of one of those bodies</span>:
+            Earth ploughs through a stream shed by a comet or asteroid, and the
+            particles&apos; parallel paths appear by perspective to diverge from a
+            single point, the <span className="text-ice">radiant</span>.{" "}
+            <span className="text-ice">Measured / catalog:</span> each shower&apos;s
+            radiant RA/Dec (J2000), activity window, peak date, peak solar longitude,
+            entry velocity (V∞) and parent body come from the{" "}
+            <span className="text-ice">IAU Meteor Data Center</span> shower database
+            (Jopek &amp; Kaňuchová 2017) and the{" "}
+            <span className="text-ice">IMO Working List of Visual Meteor Showers</span>{" "}
+            (2026 IMO Meteor Shower Calendar), cross-checked with the American Meteor
+            Society. The radiants are plotted in the same J2000 celestial frame as the
+            Night Sky.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">ZHR is an idealised peak rate</span> — the
+            zenithal hourly rate assumes the radiant at the zenith under a perfect,
+            magnitude-6.5 dark sky, so real observed rates are{" "}
+            <span className="text-ice">lower</span>. We say so everywhere and compute
+            the honest first-order estimate — ZHR·sin(radiant altitude), scaled by an
+            illustrative activity profile — for your location and time; a variable /
+            outburst-driven shower carries no fixed ZHR and is labelled so, never
+            invented. <span className="text-ice">Computed:</span> solar longitude
+            λ☉, is-active / days-to-peak, the radiant&apos;s altitude and best
+            viewing time, and the <span className="text-ice">moon phase at peak</span>{" "}
+            (from the same Meeus lunar theory as the Moon tab) that tells you whether
+            moonlight will wash the shower out. Peak dates{" "}
+            <span className="text-ice">drift ~1 day per year</span>, so timing is
+            keyed to solar longitude (stable), not the calendar. Parent bodies
+            cross-link to Comets &amp; Asteroids only when that catalogue actually
+            carries the object; the Geminids (asteroid 3200 Phaethon) and Quadrantids
+            (asteroid 2003 EH1) are flagged as the unusual asteroid-parent cases.{" "}
+            <span className="text-ice">Illustrative:</span> the drawn meteor streaks
+            and the debris-stream diagram (real geometry, drawn particles).
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> Shower catalog
+            (radiants, solar longitude, velocity, parent bodies): IAU Meteor Data
+            Center shower database — Jopek &amp; Kaňuchová (2017), Planet. Space Sci.
+            143, 3. Activity windows, peak dates, ZHR and population index: IMO
+            Working List of Visual Meteor Showers (2026 IMO Meteor Shower Calendar,
+            ed. J. Rendtel) — facts used and credited; the IMO Calendar itself is not
+            redistributed (its terms are restrictive). Cross-checked with the American
+            Meteor Society meteor-shower calendar.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Sun & space weather — real forecasts, attributed
           </h3>
           <p className="mt-2">
@@ -548,6 +599,9 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["Apophis 2029 (impact ruled out): CNEOS", "https://cneos.jpl.nasa.gov/apophis/"],
               ["Comet 67P photo: ESA/Rosetta/NAVCAM (CC BY-SA 3.0 IGO)", "https://www.esa.int/ESA_Multimedia/Sets/Rosetta_NavCam_images/(result_type)/images"],
               ["Asteroid imagery (Eros/Vesta/Bennu/Gaspra/Ida/Didymos): NASA/JPL/USGS (PD)", "https://astrogeology.usgs.gov/search"],
+              ["Meteor showers: IAU Meteor Data Center (Jopek & Kaňuchová 2017)", "http://www.ta3.sk/IAUC22DB/MDC2022/Roje/roje_lista.php"],
+              ["Meteor showers: IMO Working List (2026 IMO Meteor Shower Calendar)", "https://www.imo.net/files/meteor-shower/cal2026.pdf"],
+              ["Meteor cross-check: American Meteor Society calendar", "https://www.amsmeteors.org/meteor-showers/meteor-shower-calendar/"],
               ["Exoplanets: NASA Exoplanet Archive (Caltech/IPAC)", "https://exoplanetarchive.ipac.caltech.edu/"],
               ["Exoplanet Archive PSCompPars: Christiansen et al. 2025", "https://exoplanetarchive.ipac.caltech.edu/docs/pscp_about.html"],
               ["Habitable zones: Kopparapu et al. 2013", "https://doi.org/10.1088/0004-637X/765/2/131"],
