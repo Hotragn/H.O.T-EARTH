@@ -20,8 +20,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the fourteen world views, all unique", () => {
-    expect(WORLDS).toHaveLength(14);
+  it("has the fifteen world views, all unique", () => {
+    expect(WORLDS).toHaveLength(15);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -39,6 +39,7 @@ describe("worlds registry", () => {
       moon: "/moon",
       solar: "/solar-system",
       moons: "/moons",
+      "jupiter-moons": "/jupiter-moons",
       dwarfs: "/dwarf-planets",
       "small-bodies": "/small-bodies",
       "meteor-showers": "/meteor-showers",
@@ -55,7 +56,7 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 4 Earth, 8 Solar System and 2 Beyond worlds", () => {
+  it("splits 4 Earth, 9 Solar System and 2 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
@@ -67,6 +68,7 @@ describe("worlds registry", () => {
       "moon",
       "solar",
       "moons",
+      "jupiter-moons",
       "dwarfs",
       "small-bodies",
       "meteor-showers",
@@ -104,7 +106,7 @@ describe("worlds registry", () => {
       "beyond",
     ]);
     expect(grouped[0].worlds).toHaveLength(4);
-    expect(grouped[1].worlds).toHaveLength(8);
+    expect(grouped[1].worlds).toHaveLength(9);
     expect(grouped[2].worlds).toHaveLength(2);
   });
 });
@@ -136,7 +138,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(14);
+    expect(searchWorlds("   ")).toHaveLength(15);
   });
 
   it("finds a world by exact label", () => {
@@ -175,6 +177,13 @@ describe("searchWorlds", () => {
     expect(searchWorlds("spot the station")[0].id).toBe("iss");
     expect(searchWorlds("sgp4")[0].id).toBe("iss");
     expect(searchWorlds("tiangong")[0].id).toBe("iss");
+    // Jupiter's Moons (Galilean events) — guarded by terms unique to it. "io",
+    // "europa", "ganymede" and "callisto" are shared with the Moons world (which
+    // sorts first on the tie), so the honest guard uses Jupiter-events-only phrases.
+    expect(searchWorlds("galilean")[0].id).toBe("jupiter-moons");
+    expect(searchWorlds("shadow transit")[0].id).toBe("jupiter-moons");
+    expect(searchWorlds("jovian")[0].id).toBe("jupiter-moons");
+    expect(searchWorlds("meeus")[0].id).toBe("jupiter-moons");
   });
 
   it("returns nothing for gibberish", () => {
