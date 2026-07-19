@@ -20,8 +20,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the sixteen world views, all unique", () => {
-    expect(WORLDS).toHaveLength(16);
+  it("has the seventeen world views, all unique", () => {
+    expect(WORLDS).toHaveLength(17);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -41,6 +41,7 @@ describe("worlds registry", () => {
       moons: "/moons",
       "jupiter-moons": "/jupiter-moons",
       "saturn-moons": "/saturn-moons",
+      "other-moons": "/other-moons",
       dwarfs: "/dwarf-planets",
       "small-bodies": "/small-bodies",
       "meteor-showers": "/meteor-showers",
@@ -57,7 +58,7 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 4 Earth, 10 Solar System and 2 Beyond worlds", () => {
+  it("splits 4 Earth, 11 Solar System and 2 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
@@ -71,6 +72,7 @@ describe("worlds registry", () => {
       "moons",
       "jupiter-moons",
       "saturn-moons",
+      "other-moons",
       "dwarfs",
       "small-bodies",
       "meteor-showers",
@@ -108,7 +110,7 @@ describe("worlds registry", () => {
       "beyond",
     ]);
     expect(grouped[0].worlds).toHaveLength(4);
-    expect(grouped[1].worlds).toHaveLength(10);
+    expect(grouped[1].worlds).toHaveLength(11);
     expect(grouped[2].worlds).toHaveLength(2);
   });
 });
@@ -140,7 +142,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(16);
+    expect(searchWorlds("   ")).toHaveLength(17);
   });
 
   it("finds a world by exact label", () => {
@@ -199,6 +201,18 @@ describe("searchWorlds", () => {
     expect(searchWorlds("phesat")[0].id).toBe("saturn-moons");
     expect(searchWorlds("cassini")[0].id).toBe("saturn-moons");
     expect(searchWorlds("saturnian")[0].id).toBe("saturn-moons");
+    // Other Moons (Mars/Uranus/Neptune satellites) — guarded by terms unique to
+    // it. "uranus" and "neptune" are shared with the Planets (`solar`) world and
+    // "triton" is shared with the `moons` world, all of which sort first on the
+    // tie, so the honest guard uses terms only this tab carries: the multi-word
+    // "other moons" plus the moon names "phobos", "miranda", "oberon", "titania"
+    // and "nereid".
+    expect(searchWorlds("other moons")[0].id).toBe("other-moons");
+    expect(searchWorlds("phobos")[0].id).toBe("other-moons");
+    expect(searchWorlds("miranda")[0].id).toBe("other-moons");
+    expect(searchWorlds("oberon")[0].id).toBe("other-moons");
+    expect(searchWorlds("titania")[0].id).toBe("other-moons");
+    expect(searchWorlds("nereid")[0].id).toBe("other-moons");
   });
 
   it("returns nothing for gibberish", () => {
