@@ -462,6 +462,51 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Night Sky — real stars, cultural figures
+          </h3>
+          <p className="mt-2">
+            The Night Sky tab (the second &quot;Beyond&quot; world) is a real star
+            map. <span className="text-ice">Measured:</span> about 9,000 stars at
+            their real positions, apparent magnitudes, colours (B−V index),
+            parallax distances and spectral types — the{" "}
+            <span className="text-ice">HYG database v4.4</span> (compiled from
+            Hipparcos, the Yale Bright Star Catalog and Gliese). Every star&apos;s
+            direction on the celestial sphere is its real J2000 RA/Dec; its size
+            comes from apparent magnitude and its colour is the real physical
+            black-body colour of its temperature.{" "}
+            <span className="text-ice">Computed:</span> the temperature from the
+            B−V index (Ballesteros 2012) and the resulting colour, plus — in the{" "}
+            <span className="text-ice">&quot;sky from your location&quot;</span>{" "}
+            mode — the altitude/azimuth of every star for your latitude, longitude
+            and time, from real local-sidereal-time astronomy (Meeus), so stars
+            below your horizon are correctly hidden and the current LST is shown.{" "}
+            <span className="text-ice">Cultural overlay:</span> the constellation
+            stick figures. The stars are real measured objects, but the lines
+            joining them into figures are a human construct (the modern IAU /
+            Western set); other cultures draw the sky differently. The{" "}
+            <span className="text-ice">Milky Way</span> backdrop is an ESO
+            panorama in galactic coordinates, rotated into the equatorial frame
+            using the standard IAU galactic pole (RA 192.859°, Dec +27.128°) and
+            centre (RA 266.405°, Dec −28.936°) so its band registers with the real
+            stars. <span className="text-ice">Messier</span> deep-sky objects
+            (OpenNGC) are marked at their measured J2000 positions and coloured by
+            type (galaxy / nebula / cluster); no deep-sky distances are shipped
+            because OpenNGC has no single reliable value for every object. Epoch is
+            J2000.0; proper motion and precession are ignored for present-day
+            display (sub-arcminute over decades). Nulls are shown as &quot;not
+            measured&quot;, never filled in.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> Star data: HYG
+            database v4.4, astronexus / David Nash, CC BY-SA 4.0 (Hipparcos / Yale
+            BSC / Gliese). This subset shared under CC BY-SA 4.0. Constellation
+            lines: Marc van der Sluys, &quot;ConstellationLines&quot;, CC BY 4.0
+            (DOI 10.5281/zenodo.10397192). Deep-sky objects: OpenNGC, Mattia Verga,
+            CC BY-SA 4.0. Star names: IAU WGSN (IAU-CSN). Milky Way: ESO/S. Brunier,
+            CC BY 4.0.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Attribution
           </h3>
           <ul className="mt-2 space-y-1.5">
@@ -512,6 +557,11 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["Space weather: NOAA SWPC", "https://www.swpc.noaa.gov/"],
               ["Aurora forecast: NOAA SWPC OVATION", "https://www.swpc.noaa.gov/products/aurora-30-minute-forecast"],
               ["Solar cycle: NOAA SWPC (observed + predicted)", "https://www.swpc.noaa.gov/products/solar-cycle-progression"],
+              ["Star data: HYG database v4.4 (astronexus / David Nash, CC BY-SA 4.0)", "https://codeberg.org/astronexus/hyg"],
+              ["Constellation lines: M. van der Sluys, CC BY 4.0 (DOI 10.5281/zenodo.10397192)", "https://doi.org/10.5281/zenodo.10397192"],
+              ["Deep-sky objects: OpenNGC, Mattia Verga, CC BY-SA 4.0", "https://github.com/mattiaverga/OpenNGC"],
+              ["Star names: IAU WGSN (IAU Catalog of Star Names)", "https://www.iau.org/public/themes/naming_stars/"],
+              ["Milky Way panorama: ESO/S. Brunier, CC BY 4.0", "https://www.eso.org/public/images/eso0932a/"],
             ].map(([label, href]) => (
               <li key={href}>
                 <a

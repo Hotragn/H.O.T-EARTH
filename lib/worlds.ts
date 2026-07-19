@@ -26,7 +26,8 @@ export type WorldTab =
   | "dwarfs"
   | "small-bodies"
   | "sun"
-  | "exoplanets";
+  | "exoplanets"
+  | "night-sky";
 
 /**
  * World groups. Designed so a third group can be added by extending this union +
@@ -255,6 +256,41 @@ export const WORLDS: readonly World[] = [
       "51 pegasi",
       "hr 8799",
       "nasa exoplanet archive",
+      "beyond",
+    ],
+  },
+  {
+    id: "night-sky",
+    label: "Night Sky",
+    href: "/night-sky",
+    group: "beyond",
+    blurb:
+      "A star map of ~9,000 real measured stars on the celestial sphere, with constellation figures marked as a cultural overlay and a sky-from-your-location mode.",
+    accent: "#8aa0ff",
+    keywords: [
+      "star",
+      "stars",
+      "star map",
+      "starmap",
+      "night sky",
+      "planetarium",
+      "constellation",
+      "constellations",
+      "milky way",
+      "messier",
+      "deep sky",
+      "celestial sphere",
+      "sidereal",
+      "sirius",
+      "vega",
+      "orion",
+      "big dipper",
+      "hipparcos",
+      "hyg",
+      "hygdb",
+      "nebula",
+      "galaxy",
+      "cluster",
       "beyond",
     ],
   },
