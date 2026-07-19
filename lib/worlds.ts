@@ -26,6 +26,7 @@ export type WorldTab =
   | "moons"
   | "jupiter-moons"
   | "saturn-moons"
+  | "other-moons"
   | "dwarfs"
   | "small-bodies"
   | "meteor-showers"
@@ -248,6 +249,35 @@ export const WORLDS: readonly World[] = [
     ],
     thumb: "/textures/planets/saturn.jpg",
     thumbBody: "Saturn",
+  },
+  {
+    id: "other-moons",
+    label: "Other Moons",
+    href: "/other-moons",
+    group: "solar-system",
+    blurb:
+      "Mars, Uranus and Neptune's moons at real positions: a side-tipped Uranus, retrograde Triton, and Phobos racing around Mars.",
+    accent: "#7f9fe0",
+    keywords: [
+      "other moons",
+      "mars moons",
+      "phobos",
+      "deimos",
+      "uranus",
+      "miranda",
+      "ariel",
+      "umbriel",
+      "titania",
+      "oberon",
+      "neptune",
+      "triton",
+      "proteus",
+      "nereid",
+      "retrograde",
+      "ice giant",
+    ],
+    thumb: "/textures/planets/uranus.jpg",
+    thumbBody: "Uranus",
   },
   {
     id: "dwarfs",

@@ -417,6 +417,67 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Other Moons — a configuration view, not an events clock
+          </h3>
+          <p className="mt-2">
+            The Other Moons tab combines the major moons of{" "}
+            <span className="text-ice">Mars</span> (Phobos, Deimos),{" "}
+            <span className="text-ice">Uranus</span> (Miranda, Ariel, Umbriel,
+            Titania, Oberon) and <span className="text-ice">Neptune</span> (Triton,
+            Proteus, Nereid) behind a planet selector. Its most important honest
+            caveat leads: unlike Jupiter, these three planets show{" "}
+            <span className="text-ice">tiny disks</span> from Earth (Mars ~4 to
+            25 arcsec, Uranus ~3.7 arcsec, Neptune ~2.3 arcsec), so a moon
+            transiting the disk, casting a shadow on it, or being occulted is{" "}
+            <span className="text-ice">rare to effectively unobservable</span>. So
+            the tab is a <span className="text-ice">live configuration view</span>,
+            not a shadow-transit clock, and it says so. The four phenomenon flags
+            are still computed and shown honestly (usually empty), and a coarse
+            forward scan is labeled approximate and expected near-empty.{" "}
+            <span className="text-ice">Computed:</span> each moon&apos;s apparent
+            position is Kepler propagation of real JPL SSD &quot;Planetary Satellite
+            Mean Orbital Elements&quot; (Mars set MAR099, the Uranus equatorial set,
+            and the Neptune set with Nereid&apos;s eccentric ecliptic-frame orbit),
+            oriented by each planet&apos;s IAU WGCCRE pole into the plane of sky (via
+            lib/planets for the planet&apos;s geocentric direction), so the close-in
+            moons string along the tilted equatorial ellipse. The genuinely striking
+            geometry is real, measured and computed: Uranus tipped{" "}
+            <span className="text-ice">~98 degrees</span> with its opening swinging
+            across the ~84-year season (edge-on 2007, next ~2049), Triton orbiting
+            Neptune <span className="text-ice">retrograde</span> (the only large
+            retrograde moon), Nereid&apos;s wild eccentricity (e = 0.75), and Phobos
+            circling Mars in <span className="text-ice">~7.65 hours</span>, below
+            synchronous height, so it rises in the west and is slowly spiraling in.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Accuracy, stated:</span> Kepler from mean
+            elements reproduces the live layout near the element epoch and degrades
+            away from it; this is not observing-grade timing.{" "}
+            <span className="text-ice">Triton and Nereid are the least accurate</span>{" "}
+            (Triton&apos;s Laplace plane is tilted from Neptune&apos;s equator;
+            Nereid is an ecliptic-frame, 2020-epoch, extreme-eccentricity orbit),
+            and the tab points to <span className="text-ice">JPL Horizons</span> for
+            critical cross-checks and claims no second-level precision.{" "}
+            <span className="text-ice">Reused / real:</span> the Uranus and Neptune
+            disks use{" "}
+            <span className="text-ice">Solar System Scope (solarsystemscope.com),
+            CC BY 4.0</span>{" "}
+            textures (an attribution obligation, credited here and in the footer;
+            stylized, drawn as unlit snapshots, since no public-domain map exists for
+            either ice giant); the Mars disk is the NASA/USGS MOLA map (public
+            domain, color = elevation, not a visible photo); and Triton plus the
+            seven new Phobos, Deimos and Uranian-moon maps are public-domain
+            Viking/Voyager mosaics (Phobos and Deimos are irregular bodies, so the
+            sphere is an approximation; the five Uranian maps cover mainly the
+            southern hemispheres with northern gaps; Triton&apos;s northern
+            hemisphere is a synthetic fill).{" "}
+            <span className="text-ice">Illustrative:</span> Proteus and Nereid have
+            no map and are clearly-labeled tinted spheres, and the on-screen moon
+            markers are enlarged for visibility (the positions are to scale) with a
+            true-size toggle.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Dwarf planets — orbital mechanics, not weather
           </h3>
           <p className="mt-2">
