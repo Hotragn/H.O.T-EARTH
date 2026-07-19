@@ -362,6 +362,61 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Saturn&apos;s Moons — ring geometry and seasonal events
+          </h3>
+          <p className="mt-2">
+            The Saturn&apos;s Moons tab is the twin of the Jupiter one, but its
+            headline is <span className="text-ice">seasonality</span>. Saturn&apos;s
+            seven major moons (Mimas, Enceladus, Tethys, Dione, Rhea, Titan,
+            Iapetus) orbit in Saturn&apos;s equatorial plane, which is the ring
+            plane, so they only cross in front of the disk (transit), pass behind it
+            (occultation) or cast a shadow on the cloud tops (shadow transit) during
+            the season around each <span className="text-ice">ring-plane
+            crossing</span>, which recurs only about every 15 years. The last was{" "}
+            <span className="text-ice">2025-05-06</span>; the rings are opening again
+            toward the next, around <span className="text-ice">2038-2039</span>. That
+            is why the events list is usually short right now, and the tab says so
+            rather than faking events. <span className="text-ice">Computed:</span>{" "}
+            each moon&apos;s apparent position is Kepler propagation of real JPL SSD
+            &quot;Planetary Satellite Mean Orbital Elements&quot; (SAT441, J2000),
+            rotated by Saturn&apos;s IAU pole into the plane of sky (via lib/planets
+            for Saturn&apos;s geocentric direction), so the moons string along the
+            same tilted ellipse as the rings. The ring opening geometry (B toward
+            Earth, B&apos; toward the Sun, position angle P and the apparent ring
+            axes) is the published{" "}
+            <span className="text-ice">Meeus, Astronomical Algorithms</span> (2nd
+            ed.), Chapter 45 method, validated against the book&apos;s 1992-12-16
+            worked example. The four phenomena are tested against Saturn&apos;s{" "}
+            <span className="text-ice">oblate</span> disk (Saturn is the most oblate
+            planet, ~10% flattened), and the events panel is our own coarse
+            client-side scan of those positions.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Accuracy, stated:</span> Kepler from mean
+            elements ignores nodal and apsidal precession (Saturn&apos;s J2 and
+            Titan), so positions are good to a fraction of a Saturn radius near
+            J2000 and degrade over years; the event windows come from a coarse
+            10-minute scan, so short events can be missed and timing is approximate.{" "}
+            <span className="text-ice">Iapetus is the least accurate</span> (large,
+            tilted, precessing Laplace-plane orbit). For observing-grade timing the
+            tab points to <span className="text-ice">JPL Horizons</span> and{" "}
+            <span className="text-ice">IMCCE PHESAT</span> and claims no
+            second-level precision. <span className="text-ice">Reused / real:</span>{" "}
+            Saturn and its rings use{" "}
+            <span className="text-ice">Solar System Scope (solarsystemscope.com),
+            CC BY 4.0</span> textures (an attribution obligation, credited here, in
+            the ring panel and in the footer; the cloud map is artist-tuned and
+            drawn as an unlit snapshot), and the seven moon disks are public-domain
+            NASA/JPL/USGS/SSI Cassini global mosaics (Titan&apos;s is a near-IR,
+            938 nm haze-penetrating product, not its visible orange atmosphere;
+            Iapetus carries its real two-tone albedo).{" "}
+            <span className="text-ice">Illustrative:</span> real Saturn moons are
+            tiny against the disk and rings, so the on-screen markers are enlarged
+            for visibility (positions and timings are to scale), with a toggle for
+            their true angular size.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Dwarf planets — orbital mechanics, not weather
           </h3>
           <p className="mt-2">
@@ -673,6 +728,9 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["Moon maps: NASA / JPL / USGS (public domain)", "https://astrogeology.usgs.gov/search"],
               ["Jupiter's Galilean moon events: Meeus, Astronomical Algorithms Ch. 44", "https://en.wikipedia.org/wiki/Jean_Meeus"],
               ["Galilean event cross-check: JPL Horizons", "https://ssd.jpl.nasa.gov/horizons/"],
+              ["Saturn moon positions: JPL SSD mean orbital elements (SAT441)", "https://ssd.jpl.nasa.gov/sats/elem/"],
+              ["Saturn ring geometry (B/B'/P): Meeus, Astronomical Algorithms Ch. 45", "https://en.wikipedia.org/wiki/Jean_Meeus"],
+              ["Saturn satellite event cross-check: IMCCE PHESAT", "https://www.imcce.fr/"],
               ["Enceladus plumes: Porco et al. 2006", "https://doi.org/10.1126/science.1123013"],
               ["Titan surface & methane cycle: Huygens (Fulchignoni et al. 2005)", "https://doi.org/10.1038/nature04314"],
               ["Triton geysers & atmosphere: Voyager 2 (Smith et al. 1989)", "https://doi.org/10.1126/science.246.4936.1422"],

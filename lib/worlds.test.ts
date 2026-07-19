@@ -20,8 +20,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the fifteen world views, all unique", () => {
-    expect(WORLDS).toHaveLength(15);
+  it("has the sixteen world views, all unique", () => {
+    expect(WORLDS).toHaveLength(16);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -40,6 +40,7 @@ describe("worlds registry", () => {
       solar: "/solar-system",
       moons: "/moons",
       "jupiter-moons": "/jupiter-moons",
+      "saturn-moons": "/saturn-moons",
       dwarfs: "/dwarf-planets",
       "small-bodies": "/small-bodies",
       "meteor-showers": "/meteor-showers",
@@ -56,7 +57,7 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 4 Earth, 9 Solar System and 2 Beyond worlds", () => {
+  it("splits 4 Earth, 10 Solar System and 2 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
@@ -69,6 +70,7 @@ describe("worlds registry", () => {
       "solar",
       "moons",
       "jupiter-moons",
+      "saturn-moons",
       "dwarfs",
       "small-bodies",
       "meteor-showers",
@@ -106,7 +108,7 @@ describe("worlds registry", () => {
       "beyond",
     ]);
     expect(grouped[0].worlds).toHaveLength(4);
-    expect(grouped[1].worlds).toHaveLength(9);
+    expect(grouped[1].worlds).toHaveLength(10);
     expect(grouped[2].worlds).toHaveLength(2);
   });
 });
@@ -138,7 +140,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(15);
+    expect(searchWorlds("   ")).toHaveLength(16);
   });
 
   it("finds a world by exact label", () => {
@@ -184,6 +186,19 @@ describe("searchWorlds", () => {
     expect(searchWorlds("shadow transit")[0].id).toBe("jupiter-moons");
     expect(searchWorlds("jovian")[0].id).toBe("jupiter-moons");
     expect(searchWorlds("meeus")[0].id).toBe("jupiter-moons");
+    // Saturn's Moons (ring tilt / seasonal events) — guarded by terms unique to
+    // it. "saturn" is shared with the Planets (`solar`) world and
+    // "titan"/"iapetus"/"enceladus"/"mimas" are shared with the `moons` world,
+    // both of which sort first on the tie, so the honest guard uses phrases unique
+    // to this tab (multi-word "saturn moons", "ring tilt", "ring plane", plus
+    // "phesat", "cassini", "saturnian").
+    expect(searchWorlds("saturn moons")[0].id).toBe("saturn-moons");
+    expect(searchWorlds("ring tilt")[0].id).toBe("saturn-moons");
+    expect(searchWorlds("ring plane")[0].id).toBe("saturn-moons");
+    expect(searchWorlds("ring opening")[0].id).toBe("saturn-moons");
+    expect(searchWorlds("phesat")[0].id).toBe("saturn-moons");
+    expect(searchWorlds("cassini")[0].id).toBe("saturn-moons");
+    expect(searchWorlds("saturnian")[0].id).toBe("saturn-moons");
   });
 
   it("returns nothing for gibberish", () => {
