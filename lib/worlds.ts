@@ -25,6 +25,7 @@ export type WorldTab =
   | "solar"
   | "moons"
   | "jupiter-moons"
+  | "saturn-moons"
   | "dwarfs"
   | "small-bodies"
   | "meteor-showers"
@@ -216,6 +217,37 @@ export const WORLDS: readonly World[] = [
     ],
     thumb: "/textures/planets/jupiter.jpg",
     thumbBody: "Jupiter",
+  },
+  {
+    id: "saturn-moons",
+    label: "Saturn's Moons",
+    href: "/saturn-moons",
+    group: "solar-system",
+    blurb:
+      "Saturn's major moons strung along the tilted rings, with transits and shadow events that cluster near each ring-plane crossing.",
+    accent: "#d8c48f",
+    keywords: [
+      "saturn",
+      "titan",
+      "rhea",
+      "dione",
+      "tethys",
+      "enceladus",
+      "mimas",
+      "iapetus",
+      "rings",
+      "ring plane",
+      "ring tilt",
+      "ring opening",
+      "shadow transit",
+      "occultation",
+      "cassini",
+      "phesat",
+      "saturnian",
+      "meeus",
+    ],
+    thumb: "/textures/planets/saturn.jpg",
+    thumbBody: "Saturn",
   },
   {
     id: "dwarfs",
