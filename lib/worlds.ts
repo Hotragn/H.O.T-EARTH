@@ -18,6 +18,7 @@
 export type WorldTab =
   | "earth"
   | "living"
+  | "iss"
   | "mars"
   | "virtual"
   | "moon"
@@ -122,6 +123,28 @@ export const WORLDS: readonly World[] = [
     blurb: "Earth replayed through deep time, under a slowly precessing night sky.",
     accent: "#b98bff",
     keywords: ["virtual earth", "time machine", "chrono", "history", "precession", "deep time", "paleo", "past", "era"],
+    thumb: "/textures/earth-day-blue-marble.jpg",
+  },
+  {
+    id: "iss",
+    label: "ISS Tracker",
+    href: "/iss",
+    group: "earth",
+    blurb:
+      "The real ISS propagated live by SGP4 from a current orbital element set, with its ground track and your visible passes.",
+    accent: "#c0d0e8",
+    keywords: [
+      "iss",
+      "space station",
+      "satellite",
+      "orbit",
+      "tle",
+      "sgp4",
+      "spot the station",
+      "tiangong",
+      "hubble",
+      "pass",
+    ],
     thumb: "/textures/earth-day-blue-marble.jpg",
   },
   // --- Solar System --------------------------------------------------------

@@ -201,6 +201,55 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            ISS tracker — real orbit, propagated live
+          </h3>
+          <p className="mt-2">
+            The ISS Tracker (the fourth Earth-group world) shows the real
+            International Space Station orbiting Earth live.{" "}
+            <span className="text-ice">Measured:</span> a real{" "}
+            <span className="text-ice">orbital element set (TLE)</span> for
+            catalog #25544 — a US Space Force / 18th Space Defense Squadron
+            product redistributed by <span className="text-ice">CelesTrak</span>,
+            public domain. A committed mirror is refreshed twice daily; the tab
+            also attempts one optional live refresh from CelesTrak
+            (CORS-enabled), falling back to the committed set on any failure.{" "}
+            <span className="text-ice">Computed:</span> everything you see — the
+            sub-satellite point, altitude (~420 km), inertial speed (~7.66 km/s),
+            orbital period (~93 min), the ground track (split at the antimeridian),
+            the footprint circle, whether the station is sunlit or in Earth&apos;s
+            shadow, and the visible passes over your location — is propagated by{" "}
+            <span className="text-ice">SGP4 via satellite.js</span> (MIT), the
+            standard NORAD analytic model, not a reinvented one. The day/night
+            terminator is the same NOAA solar geometry as the Earth tab.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Honesty on scale:</span> the ISS orbits at
+            only ~1.07 Earth radii, so at{" "}
+            <span className="text-ice">true scale</span> (the default) it hugs the
+            globe — a real, striking fact, not a bug. An optional, clearly-labelled
+            toggle exaggerates the altitude for visibility. The{" "}
+            <span className="text-ice">TLE epoch and age</span> are shown
+            prominently because SGP4 accuracy is ~1 km near the element epoch and
+            degrades ~1–3 km/day; a week-old TLE can be tens of km off. A pass is
+            flagged <span className="text-ice">naked-eye visible</span> only when
+            the station is sunlit while the observer&apos;s sky is dark (below
+            civil twilight) — the real &quot;Spot the Station&quot; criterion;
+            daytime and shadow passes are labelled not visible. An optional
+            independent live sub-point from{" "}
+            <span className="text-ice">wheretheiss.at</span> is cross-checked
+            against our own SGP4 position, and any large divergence is surfaced as
+            TLE age, never hidden.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> Orbital data: US
+            Space Force (18 SDS) via CelesTrak (celestrak.org) — US-Government
+            work, public domain (17 U.S.C. 105). Propagation: SGP4 via
+            satellite.js (MIT). Live sub-point cross-check: wheretheiss.at. Earth
+            imagery: NASA Blue Marble / Black Marble (public domain), as on the
+            Earth tab.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Solar System — other planets
           </h3>
           <p className="mt-2">
@@ -616,6 +665,9 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["Deep-sky objects: OpenNGC, Mattia Verga, CC BY-SA 4.0", "https://github.com/mattiaverga/OpenNGC"],
               ["Star names: IAU WGSN (IAU Catalog of Star Names)", "https://www.iau.org/public/themes/naming_stars/"],
               ["Milky Way panorama: ESO/S. Brunier, CC BY 4.0", "https://www.eso.org/public/images/eso0932a/"],
+              ["ISS orbital data: US Space Force (18 SDS) via CelesTrak", "https://celestrak.org/NORAD/elements/gp.php?CATNR=25544"],
+              ["Propagation: SGP4 via satellite.js (MIT)", "https://github.com/shashwatak/satellite-js"],
+              ["ISS live sub-point cross-check: wheretheiss.at", "https://wheretheiss.at/w/developer"],
             ].map(([label, href]) => (
               <li key={href}>
                 <a
