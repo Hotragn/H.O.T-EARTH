@@ -25,6 +25,7 @@ export type WorldTab =
   | "moons"
   | "dwarfs"
   | "small-bodies"
+  | "meteor-showers"
   | "sun"
   | "exoplanets"
   | "night-sky";
@@ -201,11 +202,41 @@ export const WORLDS: readonly World[] = [
       "oumuamua",
       "borisov",
       "interstellar",
-      "meteor",
       "close approach",
     ],
     thumb: "/textures/small-bodies/eros.jpg",
     thumbBody: "Eros",
+  },
+  {
+    id: "meteor-showers",
+    label: "Meteor Showers",
+    href: "/meteor-showers",
+    group: "solar-system",
+    blurb:
+      "Annual meteor showers at their real radiants, activity windows and parent bodies — ZHR is an idealized peak rate; observed rates run lower.",
+    accent: "#4fe3b0",
+    keywords: [
+      "meteor",
+      "meteor shower",
+      "meteor showers",
+      "shooting star",
+      "radiant",
+      "zhr",
+      "fireball",
+      "meteoroid",
+      "debris stream",
+      "perseids",
+      "geminids",
+      "leonids",
+      "quadrantids",
+      "orionids",
+      "eta aquariids",
+      "lyrids",
+      "taurids",
+      "draconids",
+      "ursids",
+      "solar longitude",
+    ],
   },
   {
     id: "sun",
