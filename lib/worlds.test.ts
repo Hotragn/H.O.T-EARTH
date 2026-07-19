@@ -20,8 +20,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the seventeen world views, all unique", () => {
-    expect(WORLDS).toHaveLength(17);
+  it("has the eighteen world views, all unique", () => {
+    expect(WORLDS).toHaveLength(18);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -42,6 +42,7 @@ describe("worlds registry", () => {
       "jupiter-moons": "/jupiter-moons",
       "saturn-moons": "/saturn-moons",
       "other-moons": "/other-moons",
+      "dwarf-moons": "/dwarf-moons",
       dwarfs: "/dwarf-planets",
       "small-bodies": "/small-bodies",
       "meteor-showers": "/meteor-showers",
@@ -58,7 +59,7 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 4 Earth, 11 Solar System and 2 Beyond worlds", () => {
+  it("splits 4 Earth, 12 Solar System and 2 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
@@ -73,6 +74,7 @@ describe("worlds registry", () => {
       "jupiter-moons",
       "saturn-moons",
       "other-moons",
+      "dwarf-moons",
       "dwarfs",
       "small-bodies",
       "meteor-showers",
@@ -110,7 +112,7 @@ describe("worlds registry", () => {
       "beyond",
     ]);
     expect(grouped[0].worlds).toHaveLength(4);
-    expect(grouped[1].worlds).toHaveLength(11);
+    expect(grouped[1].worlds).toHaveLength(12);
     expect(grouped[2].worlds).toHaveLength(2);
   });
 });
@@ -142,7 +144,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(17);
+    expect(searchWorlds("   ")).toHaveLength(18);
   });
 
   it("finds a world by exact label", () => {
@@ -150,7 +152,12 @@ describe("searchWorlds", () => {
   });
 
   it("finds a world by keyword / body name", () => {
-    expect(searchWorlds("pluto")[0].id).toBe("dwarfs");
+    // "ceres" is unique to the Dwarf Planets (`dwarfs`) world: Ceres has no moons,
+    // so it is absent from the Dwarf Moons tab. ("pluto"/"charon"/"eris"/"haumea"/
+    // "makemake" are now shared between `dwarfs` and `dwarf-moons`, which ties on
+    // score and resolves by canonical order, so they are guarded elsewhere by
+    // terms unique to each tab.)
+    expect(searchWorlds("ceres")[0].id).toBe("dwarfs");
     expect(searchWorlds("europa")[0].id).toBe("moons");
     expect(searchWorlds("time machine")[0].id).toBe("virtual");
     expect(searchWorlds("city lights")[0].id).toBe("living");
@@ -213,6 +220,19 @@ describe("searchWorlds", () => {
     expect(searchWorlds("oberon")[0].id).toBe("other-moons");
     expect(searchWorlds("titania")[0].id).toBe("other-moons");
     expect(searchWorlds("nereid")[0].id).toBe("other-moons");
+    // Dwarf Moons (Pluto/Eris/Haumea/Makemake satellites) — guarded by terms
+    // unique to it. "pluto"/"charon"/"eris"/"haumea"/"makemake" are shared with the
+    // Dwarf Planets (`dwarfs`) world (they tie on score and resolve by canonical
+    // order), so the honest guard uses terms only this tab carries: the multi-word
+    // "dwarf moons" plus the small-moon names.
+    expect(searchWorlds("dwarf moons")[0].id).toBe("dwarf-moons");
+    expect(searchWorlds("styx")[0].id).toBe("dwarf-moons");
+    expect(searchWorlds("nix")[0].id).toBe("dwarf-moons");
+    expect(searchWorlds("hydra")[0].id).toBe("dwarf-moons");
+    expect(searchWorlds("kerberos")[0].id).toBe("dwarf-moons");
+    expect(searchWorlds("dysnomia")[0].id).toBe("dwarf-moons");
+    expect(searchWorlds("hiiaka")[0].id).toBe("dwarf-moons");
+    expect(searchWorlds("namaka")[0].id).toBe("dwarf-moons");
   });
 
   it("returns nothing for gibberish", () => {
@@ -240,7 +260,9 @@ describe("worldScore", () => {
 
 describe("groupSearchResults", () => {
   it("groups results and drops empty groups", () => {
-    const grouped = groupSearchResults(searchWorlds("pluto"));
+    // "ceres" is unique to the `dwarfs` world (Ceres has no moons), so it returns a
+    // single solar-system match without the pluto/dwarf-moons tie.
+    const grouped = groupSearchResults(searchWorlds("ceres"));
     expect(grouped).toHaveLength(1);
     expect(grouped[0].group.id).toBe("solar-system");
     expect(grouped[0].worlds[0].id).toBe("dwarfs");

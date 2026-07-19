@@ -478,6 +478,64 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Dwarf Moons — a configuration view, in two honest tiers
+          </h3>
+          <p className="mt-2">
+            The Dwarf Moons tab combines the moon systems of{" "}
+            <span className="text-ice">Pluto</span> (Charon, Styx, Nix, Kerberos,
+            Hydra), <span className="text-ice">Eris</span> (Dysnomia),{" "}
+            <span className="text-ice">Haumea</span> (Hiʻiaka, Namaka, plus its ring)
+            and <span className="text-ice">Makemake</span> (MK2) behind a system
+            selector. Ceres is the fifth dwarf planet but has no moons, so it does
+            not appear. Two honest ideas lead the tab and are made unmissable in the
+            UI. First, this is a{" "}
+            <span className="text-ice">configuration view, not an events tab</span>:
+            these systems are effectively{" "}
+            <span className="text-ice">unresolvable from Earth</span> (Pluto&apos;s
+            disk is only about 0.1 arcsec across, the moons far fainter), so nothing
+            here is an observable transit, shadow or occultation. The one historical
+            exception was the Pluto-Charon mutual events, visible in 1985-1990 when
+            the orbit was edge-on and again around 2103, which fall straight out of
+            the geometry. Second, the data splits into{" "}
+            <span className="text-ice">two tiers that are never blurred</span>:{" "}
+            <span className="text-ice">Pluto carries real along-orbit positions</span>{" "}
+            (full cited mean elements, Brozovic &amp; Jacobson 2024), while Eris,
+            Haumea and Makemake show a{" "}
+            <span className="text-ice">real orbit with an illustrative
+            along-orbit phase</span> (the orbit size, shape, period and inclination
+            are real and cited, but the absolute phase and node are an adopted
+            convention, since no full ephemeris is published for those moons). Every
+            moon is badged accordingly, and Makemake&apos;s MK2 carries an extra{" "}
+            <span className="text-ice">orbit poorly constrained</span> flag (seen
+            near edge-on in few detections, Parker et al. 2016).
+          </p>
+          <p className="mt-2">
+            The headline is the{" "}
+            <span className="text-ice">Pluto-Charon binary</span>. Charon is about
+            12.2% of Pluto&apos;s mass, so the barycenter sits about 2128 km from
+            Pluto&apos;s centre, <span className="text-ice">outside</span>{" "}
+            Pluto&apos;s 1188 km radius: both bodies orbit a point in empty space,
+            drawn here with a marked barycenter at the centre and the real wobble as
+            you play or scrub. <span className="text-ice">Computed:</span> each
+            moon&apos;s apparent position is Kepler propagation of the published mean
+            elements, projected into the plane of sky (Pluto&apos;s moons oriented by
+            Pluto&apos;s IAU pole), with the parent bodies&apos; real sky positions
+            reused from lib/dwarf-planets (JPL SBDB), so the parent RA/Dec, distance
+            and horizon check are real for all four. Sources: Brozovic &amp; Jacobson
+            (2024) for Pluto, Holler et al. (2021) for Dysnomia, Ragozzine &amp;
+            Brown (2009) for Haumea&apos;s moons, Ortiz et al. (2017) for
+            Haumea&apos;s ring and shape, and Parker et al. (2016) for MK2.{" "}
+            <span className="text-ice">Reused / real:</span> only Pluto and Charon
+            carry surface maps, the public-domain New Horizons global mosaics
+            (NASA/JHUAPL/SwRI). <span className="text-ice">Illustrative:</span> every
+            other body is a clearly-labeled tinted sphere (Haumea&apos;s triaxial egg
+            shape and its ring are illustrative geometry from the measured
+            dimensions), and the on-screen markers are enlarged for visibility, with
+            a true-size toggle for their honest, tiny angular size. For anything
+            critical, cross-check <span className="text-ice">JPL Horizons</span>.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Dwarf planets — orbital mechanics, not weather
           </h3>
           <p className="mt-2">
