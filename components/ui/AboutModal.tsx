@@ -939,6 +939,64 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Surfaces (standing on Mars and Titan)
+          </h3>
+          <p className="mt-2">
+            The Surfaces tab is the app&apos;s first ground-level view, and its
+            headline honesty statement comes first:{" "}
+            <span className="text-ice">&quot;live&quot; means live simulation, not a
+            camera</span>. No streaming camera exists on any planetary surface;
+            what is live is the computed state (sun position, local time, sol,
+            season, day / twilight / night phase). Second:{" "}
+            <span className="text-ice">Mars and Titan are different honesty
+            tiers</span>, and the UI says which one you are standing on.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Computed / real:</span> the Mars sun
+            position, local mean solar time, sol count and season (the validated
+            NASA GISS Mars24 machinery, Allison &amp; McEwen 2000, in
+            lib/mars-time); solar irradiance at both worlds (1361 W/m&#178; scaled
+            by the true heliocentric distance); the Saturn-in-Titan&apos;s-sky
+            geometry and Saturn&apos;s ~5.65&#176; apparent size (about 11 times
+            the Moon); the day / twilight / night phases.{" "}
+            <span className="text-ice">Reused / real:</span> the Gale Crater /
+            Mount Sharp terrain is the real NASA MOLA MEGDR elevation model at
+            true meter scaling (463 m/px, so close-up micro-relief is a rendering
+            choice, labeled); the 360&#176; panorama is Curiosity&apos;s real
+            Mastcam photograph (PIA25407, sol 3509, colors white-balanced by
+            NASA); the Titan surface photo is the real Huygens DISR image
+            (PIA07232); the sunset reference is PIA19400 (Curiosity sol 956).{" "}
+            <span className="text-ice">Illustrative / labeled:</span> the rendered
+            sky palettes (artistic renderings of real, cited phenomena such as
+            the blue Mars sunset, not measured spectra), all Titan terrain (no
+            human-scale Titan imagery exists), and ambient effects.
+          </p>
+          <p className="mt-2">
+            Three more stated truths: <span className="text-ice">Saturn is below
+            the horizon at the real Huygens landing site</span> (about
+            &#8722;74&#176;; Titan&apos;s tidal lock keeps Saturn fixed in the
+            sky, Saturn-facing hemisphere only), so Saturn is drawn only from an
+            explicitly labeled chosen Sub-Saturn viewpoint, where the haze would
+            in reality blur it. <span className="text-ice">Titan&apos;s clock
+            phase is adopted:</span> the ~15.95 Earth-day solar-day rate is real,
+            the &quot;what time is it now&quot; epoch is a labeled convention
+            (unlike Mars, whose clock is fully real). And any vertical
+            exaggeration of the Mars terrain is a labeled display toggle; 1x is
+            the true proportion.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> Mars terrain:
+            NASA/JPL/GSFC (MOLA Science Team); PDS Geosciences Node (public
+            domain). Mars panorama: NASA/JPL-Caltech/MSSS, PIA25407, sol 3509
+            (public domain). Titan surface photo: PIA07232, credit{" "}
+            <span className="text-ice">NASA/JPL/ESA/University of Arizona</span>{" "}
+            (verbatim joint credit, shown beside the image in the tab). Mars
+            sunset reference: PIA19400, NASA/JPL-Caltech/MSSS/Texas A&amp;M Univ.
+            Clock and sun: NASA GISS Mars24 (Allison &amp; McEwen 2000). Titan
+            facts: NASA/ESA Cassini-Huygens.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Attribution
           </h3>
           <ul className="mt-2 space-y-1.5">
@@ -1009,6 +1067,10 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["3I/ATLAS discovery: NASA / Minor Planet Center", "https://www.minorplanetcenter.net/"],
               ["Swarm algorithms: Reynolds boids (1987)", "https://www.red3d.com/cwr/boids/"],
               ["Interstellar audio: NASA/JPL Voyager Plasma Wave Science (Univ. of Iowa)", "https://voyager.jpl.nasa.gov/"],
+              ["Surfaces terrain: NASA MOLA MEGDR (PDS Geosciences Node)", "https://pds-geosciences.wustl.edu/missions/mgs/megdr.html"],
+              ["Surfaces panorama: NASA/JPL-Caltech/MSSS (PIA25407)", "https://photojournal.jpl.nasa.gov/catalog/PIA25407"],
+              ["Titan surface photo: NASA/JPL/ESA/University of Arizona (PIA07232)", "https://photojournal.jpl.nasa.gov/catalog/PIA07232"],
+              ["Mars sunset: NASA/JPL-Caltech/MSSS/Texas A&M Univ. (PIA19400)", "https://photojournal.jpl.nasa.gov/catalog/PIA19400"],
             ].map(([label, href]) => (
               <li key={href}>
                 <a

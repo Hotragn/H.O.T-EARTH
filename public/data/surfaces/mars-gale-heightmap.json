@@ -1,0 +1,21 @@
+{
+  "regionName": "Gale Crater and Mount Sharp (Aeolis Mons), Mars",
+  "centerLatDeg": -5.37,
+  "centerLonEastDeg": 137.85,
+  "widthKm": 236.1,
+  "heightKm": 237.1,
+  "elevMinM": -4648,
+  "elevMaxM": 1412,
+  "elevationReference": "planetary radius minus areoid (MOLA topography), meters",
+  "pixels": [
+    512,
+    512
+  ],
+  "bitDepth": 16,
+  "pixelValueMapping": "value/65535 * (elevMaxM - elevMinM) + elevMinM",
+  "resolutionMPerPx": 463,
+  "sourceUrl": "https://pds-geosciences.wustl.edu/mgs/mgs-m-mola-5-megdr-l3-v1/mgsl_300x/meg128/megt00n090hb.img",
+  "instrument": "Mars Global Surveyor MOLA, MEGDR gridded topography, 128 px/deg",
+  "credit": "NASA/JPL/GSFC (MOLA Science Team); PDS Geosciences Node",
+  "processing": "512x512 native-resolution crop centered on Gale Crater; linear normalization to 16-bit PNG, no resampling"
+}

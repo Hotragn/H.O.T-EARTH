@@ -20,6 +20,7 @@ export type WorldTab =
   | "living"
   | "iss"
   | "mars"
+  | "surfaces"
   | "virtual"
   | "moon"
   | "solar"
@@ -163,6 +164,32 @@ export const WORLDS: readonly World[] = [
     accent: "#e06246",
     keywords: ["mars", "red planet", "mars24", "sol", "ls", "climatology", "dust", "viking"],
     thumb: "/textures/mars-mola-colorized.jpg",
+  },
+  {
+    id: "surfaces",
+    label: "Surfaces",
+    href: "/surfaces",
+    group: "solar-system",
+    blurb:
+      "Stand on Mars, on real NASA terrain under a live computed sun, and on Titan's honest cinematic twilight where Saturn fills the sky.",
+    accent: "#e8a87c",
+    keywords: [
+      "surfaces",
+      "surface",
+      "stand on mars",
+      "gale crater",
+      "mount sharp",
+      "jezero",
+      "panorama",
+      "curiosity",
+      "perseverance",
+      "huygens",
+      "titan surface",
+      "sunset",
+      "blue sunset",
+      "first person",
+    ],
+    thumb: "/textures/surfaces/mars-panorama.jpg",
   },
   {
     id: "moon",
