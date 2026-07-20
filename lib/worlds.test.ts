@@ -20,8 +20,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the twenty world views, all unique", () => {
-    expect(WORLDS).toHaveLength(20);
+  it("has the twenty-one world views, all unique", () => {
+    expect(WORLDS).toHaveLength(21);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -35,6 +35,7 @@ describe("worlds registry", () => {
       living: "/living-earth",
       iss: "/iss",
       mars: "/mars",
+      surfaces: "/surfaces",
       virtual: "/virtual-earth",
       moon: "/moon",
       solar: "/solar-system",
@@ -61,7 +62,7 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 4 Earth, 13 Solar System and 3 Beyond worlds", () => {
+  it("splits 4 Earth, 14 Solar System and 3 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
@@ -70,6 +71,7 @@ describe("worlds registry", () => {
     ]);
     expect(getWorldsInGroup("solar-system").map((w) => w.id)).toEqual([
       "mars",
+      "surfaces",
       "moon",
       "solar",
       "moons",
@@ -116,7 +118,7 @@ describe("worlds registry", () => {
       "beyond",
     ]);
     expect(grouped[0].worlds).toHaveLength(4);
-    expect(grouped[1].worlds).toHaveLength(13);
+    expect(grouped[1].worlds).toHaveLength(14);
     expect(grouped[2].worlds).toHaveLength(3);
   });
 });
@@ -148,7 +150,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(20);
+    expect(searchWorlds("   ")).toHaveLength(21);
   });
 
   it("finds a world by exact label", () => {
@@ -260,6 +262,20 @@ describe("searchWorlds", () => {
     expect(searchWorlds("3i atlas")[0].id).toBe("interstellar");
     expect(searchWorlds("hyperbolic")[0].id).toBe("interstellar");
     expect(searchWorlds("planetary defense")[0].id).toBe("interstellar");
+    // Surfaces (ground-level Mars + Titan) — guarded by terms UNIQUE to it. Bare
+    // "mars" is the Mars world's own label, "titan" is shared with the `moons` and
+    // `saturn-moons` worlds and "curiosity"/"cassini" are shared with earlier tabs,
+    // so the honest guard uses terms only this tab carries: the multi-word
+    // "stand on mars", the site names "gale crater" and "jezero", "panorama",
+    // "blue sunset", "mount sharp" and "huygens" (verified unclaimed elsewhere).
+    expect(searchWorlds("stand on mars")[0].id).toBe("surfaces");
+    expect(searchWorlds("gale crater")[0].id).toBe("surfaces");
+    expect(searchWorlds("mount sharp")[0].id).toBe("surfaces");
+    expect(searchWorlds("jezero")[0].id).toBe("surfaces");
+    expect(searchWorlds("panorama")[0].id).toBe("surfaces");
+    expect(searchWorlds("blue sunset")[0].id).toBe("surfaces");
+    expect(searchWorlds("huygens")[0].id).toBe("surfaces");
+    expect(searchWorlds("titan surface")[0].id).toBe("surfaces");
   });
 
   it("returns nothing for gibberish", () => {
