@@ -876,6 +876,69 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Interstellar (real visitors, a live model, a movie-inspired homage)
+          </h3>
+          <p className="mt-2">
+            The Interstellar tab (the third &quot;Beyond&quot; world) is the app&apos;s
+            most cinematic page, so its honesty split is stated loudly.{" "}
+            <span className="text-ice">Movie-inspired only:</span> it is an original
+            homage with <span className="text-ice">zero copyrighted film assets</span>{" "}
+            (no score or sound from the 2014 film, no scenes, stills, logos or
+            dialogue, and no film robot). The guide robot is an{" "}
+            <span className="text-ice">original monolith-style design</span> built from
+            simple 3D primitives, labeled as such; the terrain and cinematic visuals
+            are original and procedural.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Computed / real (The Visitors):</span> the three
+            confirmed interstellar objects (1I/&apos;Oumuamua, 2I/Borisov, 3I/ATLAS)
+            ride their <span className="text-ice">real hyperbolic trajectories</span>,
+            solved from cited osculating orbital elements with the same two-body Kepler
+            machinery as the Comets &amp; Asteroids tab (lib/interstellar reusing
+            lib/small-bodies). For the selected object the tab draws its path, a live
+            marker at the scrubbed date, and its{" "}
+            <span className="text-ice">incoming asymptote</span> (the real direction it
+            came from, e.g. 3I/ATLAS from the direction of Sagittarius), plus a HUD of
+            speed (km/s), Sun and Earth distance, and inbound/outbound phase.{" "}
+            <span className="text-ice">Accuracy, stated:</span> these are osculating
+            two-body hyperbolae with no planetary perturbations and no
+            non-gravitational (outgassing) forces modeled; 1I/&apos;Oumuamua&apos;s
+            measured non-gravitational acceleration is real but explicitly not modeled.
+            For a precise ephemeris, cross-check{" "}
+            <span className="text-ice">JPL Horizons</span>. Elements: NASA/JPL
+            Small-Body Database (SBDB) and the Minor Planet Center.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Swarm Defense is a live model, not a real
+            system:</span> the swarm view runs{" "}
+            <span className="text-ice">real, published swarm-robotics algorithms</span>{" "}
+            every frame (Reynolds boids flocking, 1987; decentralized greedy/threshold
+            multi-robot task allocation; leaderless local consensus with no central
+            controller). It is a genuine simulation, never a recording, but it is an{" "}
+            <span className="text-ice">educational game</span> applied to an
+            illustrative space-defense scenario, <span className="text-ice">not</span> a
+            real defense system, not real robots, and not mission telemetry; the 2-D
+            physics is simplified point-mass steering. The tab shows this note and the
+            algorithm citations in full.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Audio:</span> an optional looping soundtrack of{" "}
+            <span className="text-ice">real NASA Voyager plasma-wave sounds</span> (public
+            domain). It is <span className="text-ice">off by default and never
+            autoplays</span>, with a visible credit: NASA / JPL-Caltech, Voyager Plasma
+            Wave Science instrument (University of Iowa).
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> Interstellar-object
+            elements: NASA/JPL Small-Body Database (SBDB) and the Minor Planet Center
+            (US-Government data, freely usable). Swarm algorithms: Reynolds (1987, 1999),
+            Gerkey &amp; Matari&#263; (2004), Bonabeau, Theraulaz &amp; Deneubourg (1996),
+            Olfati-Saber &amp; Murray (2004). Audio: NASA / JPL-Caltech, Voyager Plasma
+            Wave Science instrument (University of Iowa), public domain. Movie-inspired
+            homage with no copyrighted film assets.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Attribution
           </h3>
           <ul className="mt-2 space-y-1.5">
@@ -942,6 +1005,10 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["ISS orbital data: US Space Force (18 SDS) via CelesTrak", "https://celestrak.org/NORAD/elements/gp.php?CATNR=25544"],
               ["Propagation: SGP4 via satellite.js (MIT)", "https://github.com/shashwatak/satellite-js"],
               ["ISS live sub-point cross-check: wheretheiss.at", "https://wheretheiss.at/w/developer"],
+              ["Interstellar objects: NASA/JPL Small-Body Database (SBDB)", "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html"],
+              ["3I/ATLAS discovery: NASA / Minor Planet Center", "https://www.minorplanetcenter.net/"],
+              ["Swarm algorithms: Reynolds boids (1987)", "https://www.red3d.com/cwr/boids/"],
+              ["Interstellar audio: NASA/JPL Voyager Plasma Wave Science (Univ. of Iowa)", "https://voyager.jpl.nasa.gov/"],
             ].map(([label, href]) => (
               <li key={href}>
                 <a

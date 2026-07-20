@@ -20,8 +20,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the nineteen world views, all unique", () => {
-    expect(WORLDS).toHaveLength(19);
+  it("has the twenty world views, all unique", () => {
+    expect(WORLDS).toHaveLength(20);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -50,6 +50,7 @@ describe("worlds registry", () => {
       sun: "/sun",
       exoplanets: "/exoplanets",
       "night-sky": "/night-sky",
+      interstellar: "/interstellar",
     });
   });
 
@@ -60,7 +61,7 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 4 Earth, 13 Solar System and 2 Beyond worlds", () => {
+  it("splits 4 Earth, 13 Solar System and 3 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
@@ -85,6 +86,7 @@ describe("worlds registry", () => {
     expect(getWorldsInGroup("beyond").map((w) => w.id)).toEqual([
       "exoplanets",
       "night-sky",
+      "interstellar",
     ]);
   });
 
@@ -115,7 +117,7 @@ describe("worlds registry", () => {
     ]);
     expect(grouped[0].worlds).toHaveLength(4);
     expect(grouped[1].worlds).toHaveLength(13);
-    expect(grouped[2].worlds).toHaveLength(2);
+    expect(grouped[2].worlds).toHaveLength(3);
   });
 });
 
@@ -146,7 +148,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(19);
+    expect(searchWorlds("   ")).toHaveLength(20);
   });
 
   it("finds a world by exact label", () => {
@@ -247,6 +249,17 @@ describe("searchWorlds", () => {
     expect(searchWorlds("dactyl")[0].id).toBe("asteroid-moons");
     expect(searchWorlds("kleopatra")[0].id).toBe("asteroid-moons");
     expect(searchWorlds("patroclus")[0].id).toBe("asteroid-moons");
+    // Interstellar (the third Beyond world) — guarded by terms UNIQUE to it. Bare
+    // "oumuamua", "borisov" and "interstellar" are SHARED with the Comets & Asteroids
+    // (`small-bodies`) world, which sorts first on the tie (canonical order), so the
+    // honest guard uses terms only this tab carries: the swarm-defense sim vocabulary,
+    // the "3i atlas" multi-word designation, "hyperbolic" and "planetary defense".
+    expect(searchWorlds("swarm")[0].id).toBe("interstellar");
+    expect(searchWorlds("swarm robotics")[0].id).toBe("interstellar");
+    expect(searchWorlds("boids")[0].id).toBe("interstellar");
+    expect(searchWorlds("3i atlas")[0].id).toBe("interstellar");
+    expect(searchWorlds("hyperbolic")[0].id).toBe("interstellar");
+    expect(searchWorlds("planetary defense")[0].id).toBe("interstellar");
   });
 
   it("returns nothing for gibberish", () => {
