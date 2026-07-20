@@ -631,6 +631,58 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Asteroid Moons: real binary systems, and the comet truth
+          </h3>
+          <p className="mt-2">
+            The Asteroid Moons tab shows the real binary and multiple{" "}
+            <span className="text-ice">asteroid</span> systems behind a selector:{" "}
+            <span className="text-ice">Didymos</span> and Dimorphos,{" "}
+            <span className="text-ice">Ida</span> and Dactyl, the first triple{" "}
+            <span className="text-ice">Sylvia</span> (Romulus, Remus), the dog-bone{" "}
+            <span className="text-ice">Kleopatra</span> (Alexhelios, Cleoselene), the
+            near-equal doubles <span className="text-ice">Antiope</span> and the
+            Jupiter Trojan <span className="text-ice">Patroclus</span> and Menoetius,{" "}
+            <span className="text-ice">Kalliope</span> and Linus, and{" "}
+            <span className="text-ice">Eugenia</span>. The headline honest point leads:{" "}
+            <span className="text-ice">comets have no moons</span>. There are zero
+            confirmed comet satellites (a nucleus is too small to hold one), so the tab
+            invents none. The closest phenomenon, a{" "}
+            <span className="text-ice">contact binary</span> (comet 67P, the KBO
+            Arrokoth), is one body of two touching lobes, not a moon, and a fragmenting
+            comet (73P, Shoemaker-Levy 9) sheds fragments, not moons. The tab says all
+            of this plainly.
+          </p>
+          <p className="mt-2">
+            Unlike the Dwarf Moons tab, this is a{" "}
+            <span className="text-ice">schematic, face-on mutual-orbit view</span>, not
+            a plane-of-sky projection: these systems are unresolvable from Earth and
+            were measured only by radar, adaptive optics or spacecraft, and their
+            mutual-orbit poles are unknown, so there is no compass and no visibility
+            claim. <span className="text-ice">Computed and real, to scale:</span> the
+            body diameters, the mutual-orbit separations, the periods and the size
+            ratios, from the cited primary papers (Thomas et al. 2023 and Daly et al.
+            2023 for Didymos; Belton et al. 1996 for Ida; Marchis, Descamps, Merline,
+            Margot and Brown for the others; NASA Lucy for Patroclus, a 2033 flyby
+            target), cross-listed against Johnston&apos;s Archive. The highlight is the{" "}
+            <span className="text-ice">DART period step change</span>: Dimorphos&apos;s
+            orbit around Didymos shortened from 11.921 h to 11.372 h (about 32 minutes)
+            after the 2022-09-26 impact, the first time humanity deliberately changed a
+            celestial body&apos;s orbit, and scrubbing across that landmark flips the
+            live period. ESA&apos;s Hera surveys the aftermath from 2026.{" "}
+            <span className="text-ice">Illustrative:</span> the orbit&apos;s orientation
+            in space and the along-orbit phase are an adopted convention for every
+            system (never a real position on a date), Dactyl&apos;s orbit is
+            additionally poorly constrained (single 1993 flyby), the tiniest moon
+            markers are enlarged for visibility with a true-scale toggle, and every moon
+            and un-mapped primary (Kleopatra&apos;s dog-bone included) is a labeled
+            illustrative shape. <span className="text-ice">Reused / real:</span> only
+            Didymos (NASA / JHU-APL, DART) and Ida (NASA / JPL, Galileo) carry a photo,
+            both public-domain single-view images shown flat; comet 67P&apos;s photo,
+            used only in the comet note, is{" "}
+            <span className="text-ice">ESA/Rosetta/NAVCAM, CC BY-SA 3.0 IGO</span>.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Meteor showers — real catalog data, idealised rates
           </h3>
           <p className="mt-2">

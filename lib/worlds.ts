@@ -30,6 +30,7 @@ export type WorldTab =
   | "dwarf-moons"
   | "dwarfs"
   | "small-bodies"
+  | "asteroid-moons"
   | "meteor-showers"
   | "sun"
   | "exoplanets"
@@ -348,6 +349,35 @@ export const WORLDS: readonly World[] = [
     ],
     thumb: "/textures/small-bodies/eros.jpg",
     thumbBody: "Eros",
+  },
+  {
+    id: "asteroid-moons",
+    label: "Asteroid Moons",
+    href: "/asteroid-moons",
+    group: "solar-system",
+    blurb:
+      "Real binary and multiple asteroid systems, from the DART-altered Didymos to Ida's Dactyl; comets, honestly, have no moons.",
+    accent: "#9ba1a6",
+    keywords: [
+      "asteroid moons",
+      "binary asteroid",
+      "didymos",
+      "dimorphos",
+      "dart",
+      "ida",
+      "dactyl",
+      "sylvia",
+      "kleopatra",
+      "antiope",
+      "kalliope",
+      "eugenia",
+      "patroclus",
+      "triple asteroid",
+      "contact binary",
+      "comet moons",
+    ],
+    thumb: "/textures/small-bodies/didymos.jpg",
+    thumbBody: "Didymos",
   },
   {
     id: "meteor-showers",
