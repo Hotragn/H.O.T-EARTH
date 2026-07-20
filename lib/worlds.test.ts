@@ -20,8 +20,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the eighteen world views, all unique", () => {
-    expect(WORLDS).toHaveLength(18);
+  it("has the nineteen world views, all unique", () => {
+    expect(WORLDS).toHaveLength(19);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -45,6 +45,7 @@ describe("worlds registry", () => {
       "dwarf-moons": "/dwarf-moons",
       dwarfs: "/dwarf-planets",
       "small-bodies": "/small-bodies",
+      "asteroid-moons": "/asteroid-moons",
       "meteor-showers": "/meteor-showers",
       sun: "/sun",
       exoplanets: "/exoplanets",
@@ -59,7 +60,7 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 4 Earth, 12 Solar System and 2 Beyond worlds", () => {
+  it("splits 4 Earth, 13 Solar System and 2 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
@@ -77,6 +78,7 @@ describe("worlds registry", () => {
       "dwarf-moons",
       "dwarfs",
       "small-bodies",
+      "asteroid-moons",
       "meteor-showers",
       "sun",
     ]);
@@ -112,7 +114,7 @@ describe("worlds registry", () => {
       "beyond",
     ]);
     expect(grouped[0].worlds).toHaveLength(4);
-    expect(grouped[1].worlds).toHaveLength(12);
+    expect(grouped[1].worlds).toHaveLength(13);
     expect(grouped[2].worlds).toHaveLength(2);
   });
 });
@@ -144,7 +146,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(18);
+    expect(searchWorlds("   ")).toHaveLength(19);
   });
 
   it("finds a world by exact label", () => {
@@ -233,6 +235,18 @@ describe("searchWorlds", () => {
     expect(searchWorlds("dysnomia")[0].id).toBe("dwarf-moons");
     expect(searchWorlds("hiiaka")[0].id).toBe("dwarf-moons");
     expect(searchWorlds("namaka")[0].id).toBe("dwarf-moons");
+    // Asteroid Moons (real binary/multiple asteroid systems + the comet honesty) —
+    // guarded by terms UNIQUE to it. Bare "asteroid" and "comet" are shared with the
+    // Comets & Asteroids (`small-bodies`) world, which wins those on its exact
+    // keyword, so the honest guard uses terms only this tab carries: the multi-word
+    // "asteroid moons" plus the system / moon / mission names below.
+    expect(searchWorlds("asteroid moons")[0].id).toBe("asteroid-moons");
+    expect(searchWorlds("didymos")[0].id).toBe("asteroid-moons");
+    expect(searchWorlds("dimorphos")[0].id).toBe("asteroid-moons");
+    expect(searchWorlds("dart")[0].id).toBe("asteroid-moons");
+    expect(searchWorlds("dactyl")[0].id).toBe("asteroid-moons");
+    expect(searchWorlds("kleopatra")[0].id).toBe("asteroid-moons");
+    expect(searchWorlds("patroclus")[0].id).toBe("asteroid-moons");
   });
 
   it("returns nothing for gibberish", () => {
