@@ -34,7 +34,8 @@ export type WorldTab =
   | "meteor-showers"
   | "sun"
   | "exoplanets"
-  | "night-sky";
+  | "night-sky"
+  | "interstellar";
 
 /**
  * World groups. Designed so a third group can be added by extending this union +
@@ -495,6 +496,30 @@ export const WORLDS: readonly World[] = [
       "galaxy",
       "cluster",
       "beyond",
+    ],
+  },
+  {
+    id: "interstellar",
+    label: "Interstellar",
+    href: "/interstellar",
+    group: "beyond",
+    blurb:
+      "The three interstellar visitors on their real hyperbolic paths, plus a live swarm-robotics defense simulation; a movie-inspired homage with original assets.",
+    accent: "#7ad7ff",
+    keywords: [
+      "interstellar",
+      "oumuamua",
+      "borisov",
+      "atlas",
+      "3i atlas",
+      "interstellar object",
+      "hyperbolic",
+      "swarm",
+      "swarm robotics",
+      "boids",
+      "planetary defense",
+      "visitor",
+      "robot",
     ],
   },
 ] as const;
