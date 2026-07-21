@@ -39,7 +39,8 @@ export type WorldTab =
   | "interstellar"
   | "exo-surfaces"
   | "black-holes"
-  | "neutron-stars";
+  | "neutron-stars"
+  | "galaxies";
 
 /**
  * World groups. Designed so a third group can be added by extending this union +
@@ -625,6 +626,35 @@ export const WORLDS: readonly World[] = [
       "nuclear density",
       "bell burnell",
       "atnf",
+      "beyond",
+    ],
+  },
+  {
+    id: "galaxies",
+    label: "Galaxies",
+    href: "/galaxies",
+    group: "beyond",
+    blurb:
+      "From Andromeda to the real cosmic web: 18,000 SDSS galaxies mapped in 3D, the Hubble classification, and a zoom from Earth to the observable universe.",
+    accent: "#ffd27a",
+    thumb: "/textures/galaxies/andromeda.jpg",
+    keywords: [
+      "galaxy",
+      "galaxies",
+      "cosmic web",
+      "andromeda",
+      "m31",
+      "whirlpool",
+      "sombrero",
+      "local group",
+      "supercluster",
+      "laniakea",
+      "hubble",
+      "redshift",
+      "sdss",
+      "deep field",
+      "large-scale structure",
+      "hubble tension",
       "beyond",
     ],
   },
