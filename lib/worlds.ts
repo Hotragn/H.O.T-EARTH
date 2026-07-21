@@ -36,7 +36,8 @@ export type WorldTab =
   | "sun"
   | "exoplanets"
   | "night-sky"
-  | "interstellar";
+  | "interstellar"
+  | "exo-surfaces";
 
 /**
  * World groups. Designed so a third group can be added by extending this union +
@@ -547,6 +548,27 @@ export const WORLDS: readonly World[] = [
       "planetary defense",
       "visitor",
       "robot",
+    ],
+  },
+  {
+    id: "exo-surfaces",
+    label: "Exoplanet Surfaces",
+    href: "/exo-surfaces",
+    group: "beyond",
+    blurb:
+      "Stand under alien skies computed from real data: TRAPPIST-1's giant red sun and moon-sized sibling worlds; the ground is imagined, the sky is real.",
+    accent: "#e0a25e",
+    keywords: [
+      "exoplanet surface",
+      "exoplanet surfaces",
+      "alien sky",
+      "alien world",
+      "trappist-1e",
+      "proxima b",
+      "toi-700",
+      "red dwarf sky",
+      "another planet",
+      "stand on exoplanet",
     ],
   },
 ] as const;

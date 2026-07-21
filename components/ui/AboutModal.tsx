@@ -997,6 +997,57 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Exoplanet Surfaces — real sky, imagined ground
+          </h3>
+          <p className="mt-2">
+            The Exoplanet Surfaces tab (the fourth &quot;Beyond&quot; world) is the{" "}
+            <span className="text-ice">mirror image</span> of the Mars and Titan
+            Surfaces tab. There the ground was the real part and the sky palette
+            was illustrative; here it is reversed. The lead honesty point:{" "}
+            <span className="text-ice">no exoplanet surface has ever been imaged,
+            not one pixel</span>, so on this tab all ground and terrain is
+            illustrative and labeled, and the SKY is the real, computed part.{" "}
+            <span className="text-ice">Computed and real</span> (from measured NASA
+            Exoplanet Archive parameters, via lib/exoplanets and lib/exo-surfaces):
+            the host star&apos;s apparent angular size (2&middot;atan(R&#8902;/a) from the
+            stellar radius and orbital distance) and illustrative Teff-to-RGB
+            colour; the sibling planets seen as discs at their real maximum
+            apparent size at closest approach; surface gravity (rocky worlds only);
+            irradiance and equilibrium temperature; and the year length (orbital
+            period). TRAPPIST-1 e is the showcase: a salmon-red sun about 2.17
+            degrees across, roughly 4 times the width of our Sun, with sibling
+            worlds that at closest approach loom larger than our full Moon.{" "}
+            <span className="text-ice">Reused</span>: the Phase 8 exoplanet
+            catalogue and physics helpers, no new fetch, no API key.{" "}
+            <span className="text-ice">Illustrative and labeled</span>: all terrain
+            and ground, the star and planet colours, and the sky&apos;s fine
+            texture.
+          </p>
+          <p className="mt-2">
+            Two things are inferences, not measurements, and are labeled as such.{" "}
+            <span className="text-ice">Tidal locking</span> is inferred for close-in
+            worlds around low-mass stars (a permanent day side and night side
+            follow from that inference); an optional day-side / terminator /
+            night-side toggle is labeled inferred. And{" "}
+            <span className="text-ice">rotation and day length are not measured</span>,
+            so unlike Mars there is no local clock here; only the year (the orbital
+            period) is a real time quantity, shown as a year-progress readout. The
+            honest counterpart is <span className="text-ice">51 Pegasi b</span>, a
+            hot Jupiter: it has <span className="text-ice">no solid surface to stand
+            on</span>, so that vantage renders a cloud-top viewpoint, draws no
+            ground, and shows no standing-on gravity, said plainly.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> This research has
+            made use of the NASA Exoplanet Archive, which is operated by the
+            California Institute of Technology, under contract with the National
+            Aeronautics and Space Administration under the Exoplanet Exploration
+            Program. Primary citation: Christiansen et al. (2025), Planetary
+            Science Journal. All terrain is original, illustrative work; no
+            exoplanet surface imagery exists, so none is used.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Attribution
           </h3>
           <ul className="mt-2 space-y-1.5">
