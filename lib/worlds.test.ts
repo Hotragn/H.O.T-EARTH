@@ -20,8 +20,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the twenty-one world views, all unique", () => {
-    expect(WORLDS).toHaveLength(21);
+  it("has the twenty-two world views, all unique", () => {
+    expect(WORLDS).toHaveLength(22);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -52,6 +52,7 @@ describe("worlds registry", () => {
       exoplanets: "/exoplanets",
       "night-sky": "/night-sky",
       interstellar: "/interstellar",
+      "exo-surfaces": "/exo-surfaces",
     });
   });
 
@@ -62,7 +63,7 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 4 Earth, 14 Solar System and 3 Beyond worlds", () => {
+  it("splits 4 Earth, 14 Solar System and 4 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
@@ -89,6 +90,7 @@ describe("worlds registry", () => {
       "exoplanets",
       "night-sky",
       "interstellar",
+      "exo-surfaces",
     ]);
   });
 
@@ -119,7 +121,7 @@ describe("worlds registry", () => {
     ]);
     expect(grouped[0].worlds).toHaveLength(4);
     expect(grouped[1].worlds).toHaveLength(14);
-    expect(grouped[2].worlds).toHaveLength(3);
+    expect(grouped[2].worlds).toHaveLength(4);
   });
 });
 
@@ -150,7 +152,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(21);
+    expect(searchWorlds("   ")).toHaveLength(22);
   });
 
   it("finds a world by exact label", () => {
@@ -276,6 +278,18 @@ describe("searchWorlds", () => {
     expect(searchWorlds("blue sunset")[0].id).toBe("surfaces");
     expect(searchWorlds("huygens")[0].id).toBe("surfaces");
     expect(searchWorlds("titan surface")[0].id).toBe("surfaces");
+    // Exoplanet Surfaces (the fourth Beyond world) — guarded by terms UNIQUE to
+    // it. Bare "trappist", "proxima" and "exoplanet" are SHARED with the
+    // Exoplanets (`exoplanets`) world, which sorts first on the tie (canonical
+    // order), so the honest guard uses phrases only this tab carries: the
+    // multi-word "exoplanet surface", "alien sky", "stand on exoplanet",
+    // "red dwarf sky" and "alien world".
+    expect(searchWorlds("exoplanet surface")[0].id).toBe("exo-surfaces");
+    expect(searchWorlds("exoplanet surfaces")[0].id).toBe("exo-surfaces");
+    expect(searchWorlds("alien sky")[0].id).toBe("exo-surfaces");
+    expect(searchWorlds("alien world")[0].id).toBe("exo-surfaces");
+    expect(searchWorlds("stand on exoplanet")[0].id).toBe("exo-surfaces");
+    expect(searchWorlds("red dwarf sky")[0].id).toBe("exo-surfaces");
   });
 
   it("returns nothing for gibberish", () => {
