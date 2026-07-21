@@ -20,8 +20,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the twenty-two world views, all unique", () => {
-    expect(WORLDS).toHaveLength(22);
+  it("has the twenty-three world views, all unique", () => {
+    expect(WORLDS).toHaveLength(23);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -53,6 +53,7 @@ describe("worlds registry", () => {
       "night-sky": "/night-sky",
       interstellar: "/interstellar",
       "exo-surfaces": "/exo-surfaces",
+      "black-holes": "/black-holes",
     });
   });
 
@@ -63,7 +64,7 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 4 Earth, 14 Solar System and 4 Beyond worlds", () => {
+  it("splits 4 Earth, 14 Solar System and 5 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
@@ -91,6 +92,7 @@ describe("worlds registry", () => {
       "night-sky",
       "interstellar",
       "exo-surfaces",
+      "black-holes",
     ]);
   });
 
@@ -121,7 +123,7 @@ describe("worlds registry", () => {
     ]);
     expect(grouped[0].worlds).toHaveLength(4);
     expect(grouped[1].worlds).toHaveLength(14);
-    expect(grouped[2].worlds).toHaveLength(4);
+    expect(grouped[2].worlds).toHaveLength(5);
   });
 });
 
@@ -152,7 +154,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(22);
+    expect(searchWorlds("   ")).toHaveLength(23);
   });
 
   it("finds a world by exact label", () => {
@@ -290,6 +292,18 @@ describe("searchWorlds", () => {
     expect(searchWorlds("alien world")[0].id).toBe("exo-surfaces");
     expect(searchWorlds("stand on exoplanet")[0].id).toBe("exo-surfaces");
     expect(searchWorlds("red dwarf sky")[0].id).toBe("exo-surfaces");
+    // Black Holes (the fifth Beyond world) — guarded by terms UNIQUE to it.
+    // "sagittarius a" and "m87" are avoided here because they sit near the
+    // Night Sky / Exoplanets vocabulary; the honest guard uses the black-hole
+    // physics terms that no other world claims.
+    expect(searchWorlds("black hole")[0].id).toBe("black-holes");
+    expect(searchWorlds("black holes")[0].id).toBe("black-holes");
+    expect(searchWorlds("gravitational lensing")[0].id).toBe("black-holes");
+    expect(searchWorlds("event horizon")[0].id).toBe("black-holes");
+    expect(searchWorlds("schwarzschild")[0].id).toBe("black-holes");
+    expect(searchWorlds("time dilation")[0].id).toBe("black-holes");
+    expect(searchWorlds("spaghettification")[0].id).toBe("black-holes");
+    expect(searchWorlds("photon ring")[0].id).toBe("black-holes");
   });
 
   it("returns nothing for gibberish", () => {
