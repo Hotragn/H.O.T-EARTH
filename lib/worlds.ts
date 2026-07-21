@@ -37,7 +37,8 @@ export type WorldTab =
   | "exoplanets"
   | "night-sky"
   | "interstellar"
-  | "exo-surfaces";
+  | "exo-surfaces"
+  | "black-holes";
 
 /**
  * World groups. Designed so a third group can be added by extending this union +
@@ -569,6 +570,34 @@ export const WORLDS: readonly World[] = [
       "red dwarf sky",
       "another planet",
       "stand on exoplanet",
+    ],
+  },
+  {
+    id: "black-holes",
+    label: "Black Holes",
+    href: "/black-holes",
+    group: "beyond",
+    blurb:
+      "Real black holes to scale with a physically-based gravitational-lensing view: the EHT's Sgr A* and M87*, warped starlight, time dilation you can dial, and the honest physics of the horizon.",
+    accent: "#b060ff",
+    thumb: "/textures/black-holes/m87-eht.jpg",
+    keywords: [
+      "black hole",
+      "black holes",
+      "gravitational lensing",
+      "event horizon",
+      "schwarzschild",
+      "sagittarius a",
+      "m87",
+      "eht",
+      "event horizon telescope",
+      "time dilation",
+      "spaghettification",
+      "accretion disk",
+      "photon ring",
+      "gargantua",
+      "hawking",
+      "beyond",
     ],
   },
 ] as const;

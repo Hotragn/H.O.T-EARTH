@@ -1048,6 +1048,63 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Black Holes — real physics, a render not a photo
+          </h3>
+          <p className="mt-2">
+            The Black Holes tab (the fifth &quot;Beyond&quot; world) leads with its
+            load-bearing honesty point: the centrepiece is a{" "}
+            <span className="text-ice">physically-based gravitational-lensing
+            render, not a photograph</span>. It bends the real ESO Milky Way
+            panorama with the <span className="text-ice">point-mass thin-lens
+            equation</span> (Schwarzschild weak-field deflection, the same
+            4GM/(c&sup2;b) light-bending our lib reproduces at the 1.75 arcsec
+            solar-limb test), so the Einstein-ring magnification and the smeared
+            starlight are real physics, but every pixel is drawn by our own code.
+            The <span className="text-ice">shadow, photon ring and disk inner
+            edge</span> sit at the real Schwarzschild ratios (shadow radius
+            &radic;27/2 r_s, photon sphere 1.5 r_s, ISCO 3 r_s) of the selected
+            object.{" "}
+            <span className="text-ice">Illustrative and labeled:</span> the
+            accretion disk&apos;s brightness, colour and texture; the overall
+            apparent size (a true shadow is microarcseconds); and the geometry is
+            the non-spinning Schwarzschild case, not a full Kerr ray-trace.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Computed and real</span> (by
+            lib/black-holes from the cited masses and distances): the Schwarzschild
+            radius, photon sphere, ISCO, shadow angular size (shown{" "}
+            <span className="text-ice">computed vs the observed EHT value</span>{" "}
+            for Sgr A* and M87*, the headline validation: about 53 vs 51.8 uas and
+            about 41 vs 42 uas), gravitational time dilation (the interactive dial,
+            exact sqrt(1 - r_s/r)), the spaghettification verdict (horizon tides
+            gentle for supermassive holes, lethal for stellar-mass ones), Hawking
+            temperature and evaporation time, and the Einstein radius and light
+            deflection. <span className="text-ice">Reused / real:</span> the cited
+            catalog (Sgr A*, M87*, Cygnus X-1, Gaia BH1, GW150914, TON 618) and the
+            ESO Milky Way panorama. The two{" "}
+            <span className="text-ice">EHT images</span> (Sgr A* 2022, M87* 2019)
+            are shown labeled as{" "}
+            <span className="text-ice">radio-interferometric reconstructions from
+            2017 data, not optical photographs</span>, credited &quot;EHT
+            Collaboration&quot; under CC BY 4.0. Two simplifications are stated
+            plainly:{" "}
+            <span className="text-ice">Schwarzschild, not Kerr</span> (real black
+            holes spin; M87* spins hard at a* about 0.9, cited as a fact but not
+            modelled by the render), and{" "}
+            <span className="text-ice">Hawking radiation is real theory,
+            unobserved</span> (every real black hole here is far colder than the
+            2.7 K CMB, so it grows rather than evaporates). Nothing is invented.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> Catalog: GRAVITY
+            Collaboration (2023), EHT Collaboration (2019, 2022), Miller-Jones et
+            al. (2021), El-Badry et al. (2023), LIGO/Virgo Abbott et al. (2016),
+            Shemmer et al. (2004). EHT images: EHT Collaboration, CC BY 4.0 (ESO
+            eso1907a, eso2208-eht-mwa). Background: ESO/S. Brunier Milky Way
+            panorama, CC BY 4.0. GR quantities computed by lib/black-holes.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Attribution
           </h3>
           <ul className="mt-2 space-y-1.5">
@@ -1111,6 +1168,11 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["Deep-sky objects: OpenNGC, Mattia Verga, CC BY-SA 4.0", "https://github.com/mattiaverga/OpenNGC"],
               ["Star names: IAU WGSN (IAU Catalog of Star Names)", "https://www.iau.org/public/themes/naming_stars/"],
               ["Milky Way panorama: ESO/S. Brunier, CC BY 4.0", "https://www.eso.org/public/images/eso0932a/"],
+              ["Black hole M87* image: EHT Collaboration, CC BY 4.0", "https://www.eso.org/public/images/eso1907a/"],
+              ["Black hole Sgr A* image: EHT Collaboration, CC BY 4.0", "https://www.eso.org/public/images/eso2208-eht-mwa/"],
+              ["Sgr A* mass/distance: GRAVITY Collaboration 2023", "https://doi.org/10.1051/0004-6361/202142465"],
+              ["GW150914: LIGO/Virgo Abbott et al. 2016", "https://doi.org/10.1103/PhysRevLett.116.061102"],
+              ["Gaia BH1: El-Badry et al. 2023", "https://doi.org/10.1093/mnras/stac3140"],
               ["ISS orbital data: US Space Force (18 SDS) via CelesTrak", "https://celestrak.org/NORAD/elements/gp.php?CATNR=25544"],
               ["Propagation: SGP4 via satellite.js (MIT)", "https://github.com/shashwatak/satellite-js"],
               ["ISS live sub-point cross-check: wheretheiss.at", "https://wheretheiss.at/w/developer"],
