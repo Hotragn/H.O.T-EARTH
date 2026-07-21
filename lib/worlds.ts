@@ -38,7 +38,8 @@ export type WorldTab =
   | "night-sky"
   | "interstellar"
   | "exo-surfaces"
-  | "black-holes";
+  | "black-holes"
+  | "neutron-stars";
 
 /**
  * World groups. Designed so a third group can be added by extending this union +
@@ -597,6 +598,33 @@ export const WORLDS: readonly World[] = [
       "photon ring",
       "gargantua",
       "hawking",
+      "beyond",
+    ],
+  },
+  {
+    id: "neutron-stars",
+    label: "Neutron Stars",
+    href: "/neutron-stars",
+    group: "beyond",
+    blurb:
+      "City-sized stars spinning up to 716 times a second: real pulsars you can see sweep and hear tick at their true rate, from the Crab to a magnetar, with the physics of nuclear-density matter.",
+    accent: "#5ad2e6",
+    thumb: "/textures/neutron-stars/crab-nebula.jpg",
+    keywords: [
+      "neutron star",
+      "neutron stars",
+      "pulsar",
+      "pulsars",
+      "magnetar",
+      "millisecond pulsar",
+      "crab pulsar",
+      "vela",
+      "lighthouse",
+      "spin",
+      "joy division",
+      "nuclear density",
+      "bell burnell",
+      "atnf",
       "beyond",
     ],
   },
