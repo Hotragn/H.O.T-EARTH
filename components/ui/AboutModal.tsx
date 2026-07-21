@@ -1105,6 +1105,70 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Neutron Stars — real timing, an illustrative lighthouse
+          </h3>
+          <p className="mt-2">
+            The Neutron Stars tab (the sixth &quot;Beyond&quot; world) leads with
+            its load-bearing honesty point: the rotating neutron star with its
+            sweeping beam is an{" "}
+            <span className="text-ice">illustrative depiction of the real
+            lighthouse model, not a photograph or a resolved surface</span>. No
+            telescope has ever resolved a neutron star&apos;s surface (they are
+            only about 20 to 24 km across at kiloparsec distances), so the beam
+            shape, surface texture and colours are our own choice. What is{" "}
+            <span className="text-ice">real</span> in that visual is the{" "}
+            <span className="text-ice">pulse timing</span>: the flash and the
+            scrolling pulse train tick at the pulsar&apos;s real measured spin
+            period. Because a real millisecond pulsar (up to 716 Hz) would be an
+            invisible blur, the <span className="text-ice">3D mesh spin is
+            visually slowed</span> for clarity while the true frequency is shown
+            beside it; the timing stays real, only the on-screen rotation is
+            scaled, and the tab says so.
+          </p>
+          <p className="mt-2">
+            The optional <span className="text-ice">pulse audio</span> is{" "}
+            <span className="text-ice">synthesized in-browser at the real spin
+            frequency</span> (a soft click or tone at the true rate), not a
+            telescope recording. It is off by default, never autoplays, and starts
+            only from an explicit user toggle that resumes the audio context.{" "}
+            <span className="text-ice">Computed and real</span> (by
+            lib/neutron-stars from the cited measurements): density with the
+            sugar-cube comparison, surface gravity, escape velocity as a fraction
+            of c, compactness, gravitational redshift, the light-bending visible
+            surface fraction, spin frequency and equatorial velocity, the
+            characteristic age P/(2P-dot) and spin-down luminosity, and the
+            magnetic-field ladder. <span className="text-ice">Reused / real:</span>{" "}
+            the cited catalog (PSR B1919+21 the first pulsar, the Crab and Vela
+            pulsars, the most massive J0740+6620, the first-exoplanet host
+            B1257+12, the J0737-3039 double pulsar, the fastest J1748-2446ad, the
+            magnetar SGR 1806-20, the first millisecond pulsar B1937+21) from the
+            ATNF Pulsar Catalogue and discovery papers, plus two real telescope
+            images: the ESA/Hubble Crab Nebula (CC BY 4.0, the nebula around the
+            pulsar, the neutron star itself is not resolved) and the NASA/CXC
+            Chandra X-ray of the Vela pulsar and its jet.{" "}
+            <span className="text-ice">Illustrative and labeled:</span> the
+            Joy Division style stacked pulse-profile plot (real pulsars have such
+            profiles and B1919+21&apos;s is the &quot;Unknown Pleasures&quot; cover
+            art, but the exact shape drawn is illustrative). Where an object&apos;s
+            mass and radius are not both measured, a{" "}
+            <span className="text-ice">canonical 1.4 Msun / 12 km model is assumed
+            and flagged</span>. The Crab&apos;s characteristic age (about 1250 yr)
+            honestly overshoots its true historical age (about 970 yr, SN 1054),
+            shown not hidden. Nothing is invented.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> Catalog: ATNF Pulsar
+            Catalogue (Manchester et al. 2005) and discovery papers (Hewish et al.
+            1968, Staelin &amp; Reifenstein 1968, Large et al. 1968, Wolszczan &amp;
+            Frail 1992, Backer et al. 1982, Burgay et al. 2003, Lyne et al. 2004,
+            Hessels et al. 2006, Fonseca et al. 2021, Palmer et al. 2005). Crab
+            image: NASA, ESA and Allison Loll / Jeff Hester (Arizona State
+            University), CC BY 4.0. Vela image: NASA/CXC/Univ of Toronto/M. Durant
+            et al. (public domain). Stellar-structure quantities computed by
+            lib/neutron-stars; pulse audio synthesized in-browser.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Attribution
           </h3>
           <ul className="mt-2 space-y-1.5">
@@ -1173,6 +1237,12 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["Sgr A* mass/distance: GRAVITY Collaboration 2023", "https://doi.org/10.1051/0004-6361/202142465"],
               ["GW150914: LIGO/Virgo Abbott et al. 2016", "https://doi.org/10.1103/PhysRevLett.116.061102"],
               ["Gaia BH1: El-Badry et al. 2023", "https://doi.org/10.1093/mnras/stac3140"],
+              ["Pulsar catalog: ATNF Pulsar Catalogue (Manchester et al. 2005)", "https://www.atnf.csiro.au/research/pulsar/psrcat/"],
+              ["First pulsar: Hewish, Bell et al. 1968", "https://doi.org/10.1038/217709a0"],
+              ["Fastest pulsar (716 Hz): Hessels et al. 2006", "https://doi.org/10.1126/science.1123430"],
+              ["Most massive NS: Fonseca et al. 2021 (NICER)", "https://doi.org/10.3847/2041-8213/ac03b8"],
+              ["Crab Nebula image: NASA/ESA/Hubble, CC BY 4.0", "https://esahubble.org/images/heic0515a/"],
+              ["Vela pulsar image: NASA/CXC (Chandra), public domain", "https://chandra.harvard.edu/photo/2013/vela/"],
               ["ISS orbital data: US Space Force (18 SDS) via CelesTrak", "https://celestrak.org/NORAD/elements/gp.php?CATNR=25544"],
               ["Propagation: SGP4 via satellite.js (MIT)", "https://github.com/shashwatak/satellite-js"],
               ["ISS live sub-point cross-check: wheretheiss.at", "https://wheretheiss.at/w/developer"],

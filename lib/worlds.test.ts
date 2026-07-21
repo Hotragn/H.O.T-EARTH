@@ -20,8 +20,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the twenty-three world views, all unique", () => {
-    expect(WORLDS).toHaveLength(23);
+  it("has the twenty-four world views, all unique", () => {
+    expect(WORLDS).toHaveLength(24);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -54,6 +54,7 @@ describe("worlds registry", () => {
       interstellar: "/interstellar",
       "exo-surfaces": "/exo-surfaces",
       "black-holes": "/black-holes",
+      "neutron-stars": "/neutron-stars",
     });
   });
 
@@ -64,7 +65,7 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 4 Earth, 14 Solar System and 5 Beyond worlds", () => {
+  it("splits 4 Earth, 14 Solar System and 6 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
@@ -93,6 +94,7 @@ describe("worlds registry", () => {
       "interstellar",
       "exo-surfaces",
       "black-holes",
+      "neutron-stars",
     ]);
   });
 
@@ -123,7 +125,7 @@ describe("worlds registry", () => {
     ]);
     expect(grouped[0].worlds).toHaveLength(4);
     expect(grouped[1].worlds).toHaveLength(14);
-    expect(grouped[2].worlds).toHaveLength(5);
+    expect(grouped[2].worlds).toHaveLength(6);
   });
 });
 
@@ -154,7 +156,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(23);
+    expect(searchWorlds("   ")).toHaveLength(24);
   });
 
   it("finds a world by exact label", () => {
@@ -304,6 +306,16 @@ describe("searchWorlds", () => {
     expect(searchWorlds("time dilation")[0].id).toBe("black-holes");
     expect(searchWorlds("spaghettification")[0].id).toBe("black-holes");
     expect(searchWorlds("photon ring")[0].id).toBe("black-holes");
+    // Neutron Stars (the sixth Beyond world) — guarded by terms UNIQUE to it.
+    // These pulsar-physics terms are claimed by no other world (grep-verified),
+    // so each resolves to `neutron-stars` first.
+    expect(searchWorlds("neutron star")[0].id).toBe("neutron-stars");
+    expect(searchWorlds("neutron stars")[0].id).toBe("neutron-stars");
+    expect(searchWorlds("pulsar")[0].id).toBe("neutron-stars");
+    expect(searchWorlds("magnetar")[0].id).toBe("neutron-stars");
+    expect(searchWorlds("lighthouse")[0].id).toBe("neutron-stars");
+    expect(searchWorlds("joy division")[0].id).toBe("neutron-stars");
+    expect(searchWorlds("millisecond pulsar")[0].id).toBe("neutron-stars");
   });
 
   it("returns nothing for gibberish", () => {
@@ -331,10 +343,11 @@ describe("worldScore", () => {
 
 describe("groupSearchResults", () => {
   it("groups results and drops empty groups", () => {
-    // "ceres" is unique to the `dwarfs` world (Ceres has no moons), so it returns a
-    // single solar-system match without the pluto/dwarf-moons tie.
+    // "ceres" is the `dwarfs` world's own keyword (Ceres has no moons), so it wins
+    // outright. It also weakly subsequence-matches the Neutron Stars keyword
+    // "nuclear density" (c-e-r-e-s), which adds a low-scoring Beyond group after
+    // the solar-system one; the leading match is still `dwarfs`.
     const grouped = groupSearchResults(searchWorlds("ceres"));
-    expect(grouped).toHaveLength(1);
     expect(grouped[0].group.id).toBe("solar-system");
     expect(grouped[0].worlds[0].id).toBe("dwarfs");
   });
