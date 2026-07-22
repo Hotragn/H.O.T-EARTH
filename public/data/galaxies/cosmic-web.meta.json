@@ -1,0 +1,18 @@
+{
+  "source": "SDSS DR17 SpecObj (Sloan Digital Sky Survey, spectroscopic galaxy redshifts)",
+  "url": "https://skyserver.sdss.org/dr17/SkyServerWS/SearchTools/SqlSearch",
+  "query": "SELECT s.ra, s.dec, s.z FROM SpecObj AS s WHERE s.class='GALAXY' AND s.zWarning=0 AND s.z BETWEEN 0.005 AND 0.15 AND s.dec BETWEEN -2 AND 2 AND (s.ra BETWEEN 110 AND 270)",
+  "description": "An equatorial thin-declination slice (-2 to +2 deg dec, RA 110-270 deg) of clean SDSS spectroscopic galaxy redshifts. Plotted via RA and Hubble distance (cz/H0) this reproduces the real SDSS pie-slice cosmic web: filaments, walls (including the Sloan Great Wall) and voids. This is redshift-space, so line-of-sight galaxy cluster elongations (fingers-of-God) are present and real.",
+  "count": 18000,
+  "count_before_subsample": 32154,
+  "subsample": "Uniform random sample (seed 42) from the 32154 rows returned, to keep the file small; density is spatially preserved.",
+  "z_range": [0.00503, 0.14999],
+  "fields": ["ra (deg, J2000)", "dec (deg, J2000)", "z (heliocentric redshift, dimensionless)"],
+  "rounding": "ra/dec to 4 decimals, z to 5 decimals",
+  "file_bytes": 740057,
+  "license": "SDSS data are publicly available. Use requires the standard SDSS acknowledgment.",
+  "citation": "SDSS DR17: Abdurro'uf et al. (2022), ApJS 259, 35. Data access via the SDSS SkyServer (skyserver.sdss.org).",
+  "acknowledgment": "Funding for the Sloan Digital Sky Survey has been provided by the Alfred P. Sloan Foundation, the U.S. Department of Energy Office of Science, and the participating institutions. SDSS acknowledges support and resources from the Center for High-Performance Computing at the University of Utah. The SDSS website is www.sdss.org.",
+  "fetched": "2026-07-21",
+  "honesty_note": "Positions are REAL SDSS measurements, not procedurally generated. Radial coordinate must be computed from redshift as a Hubble distance (cz/H0) and is therefore redshift-space, not true real-space distance; peculiar velocities produce real fingers-of-God elongation in clusters. Distances scale with the assumed H0."
+}

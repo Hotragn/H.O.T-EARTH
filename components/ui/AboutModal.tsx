@@ -1169,6 +1169,59 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Galaxies & Cosmic Web — a real map, in redshift-space
+          </h3>
+          <p className="mt-2">
+            The Galaxies tab (the seventh &quot;Beyond&quot; world) leads with its
+            load-bearing honesty point: the 3D cosmic web is a{" "}
+            <span className="text-ice">real galaxy map, not a procedural
+            fake</span>. Its ~18,000 points are real galaxies from the{" "}
+            <span className="text-ice">Sloan Digital Sky Survey (SDSS DR17)</span>,
+            each with a measured right ascension, declination and redshift; plotted
+            in 3D they reproduce the actual filaments, walls (including the Sloan
+            Great Wall) and voids of the universe. <span className="text-ice">
+            Computed and real:</span> the RA/Dec + redshift to 3D-Mpc mapping,
+            recession velocity and Hubble distance, all by lib/galaxies at the
+            adopted H0 = 70 km/s/Mpc, drawn as a single GPU point cloud.
+          </p>
+          <p className="mt-2">
+            Two honest caveats are labelled everywhere. First, the{" "}
+            <span className="text-ice">radial axis is redshift-space</span>
+            (distance = cz/H0), not a directly measured distance: peculiar
+            velocities inside clusters stretch them along the line of sight into
+            the classic <span className="text-ice">fingers of God</span>, a real
+            distortion present in every redshift survey, and the survey is a thin
+            equatorial wedge, so it fans out like a pie slice. Second, the whole
+            depth scale moves with the unresolved{" "}
+            <span className="text-ice">Hubble tension</span> (Planck 67.4 vs SH0ES
+            73 km/s/Mpc; we adopt 70 as a documented mid value, not a claim).{" "}
+            <span className="text-ice">Reused / real:</span> ten cited catalog
+            galaxies (Andromeda, Triangulum, the Magellanic Clouds, M87, Sombrero,
+            Whirlpool, NGC 1300, Centaurus A) with published NED/SIMBAD distances
+            and Hubble types (method-dependent, uncertain at 5 to 15 percent; M31
+            and M33 are blueshifted and approaching, the Milky Way has no
+            heliocentric distance because we are inside it), the large-scale
+            structure facts (Virgo/Laniakea, Great Attractor, Sloan Great Wall,
+            Bootes Void), four real ESA/Hubble galaxy images and the ESA/Webb JWST
+            SMACS 0723 first deep field, all CC BY 4.0.{" "}
+            <span className="text-ice">Illustrative and labeled:</span> the
+            per-point colour-by-redshift and glow, and the schematic Hubble
+            tuning-fork diagram. Nothing is invented.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> Cosmic-web catalog:
+            SDSS DR17 (Abdurro&apos;uf et al. 2022, ApJS 259, 35) via the SDSS
+            SkyServer. Funding for the Sloan Digital Sky Survey has been provided by
+            the Alfred P. Sloan Foundation, the U.S. Department of Energy Office of
+            Science, and the participating institutions. Galaxy images: ESA/Hubble
+            (Andromeda heic1502a, Whirlpool heic0506a, Sombrero opo0328a, M87
+            heic0815f) and ESA/Webb (SMACS 0723 weic2209a), CC BY 4.0. Catalog
+            distances and types: NED / SIMBAD and the cited literature. Cosmology
+            (Hubble law, RA/Dec+z to 3D) computed by lib/galaxies; Hubble tension
+            per Planck 2020 and Riess et al. 2022.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Attribution
           </h3>
           <ul className="mt-2 space-y-1.5">
@@ -1254,6 +1307,14 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
               ["Surfaces panorama: NASA/JPL-Caltech/MSSS (PIA25407)", "https://photojournal.jpl.nasa.gov/catalog/PIA25407"],
               ["Titan surface photo: NASA/JPL/ESA/University of Arizona (PIA07232)", "https://photojournal.jpl.nasa.gov/catalog/PIA07232"],
               ["Mars sunset: NASA/JPL-Caltech/MSSS/Texas A&M Univ. (PIA19400)", "https://photojournal.jpl.nasa.gov/catalog/PIA19400"],
+              ["Cosmic web: SDSS DR17 SkyServer (Abdurro'uf et al. 2022)", "https://skyserver.sdss.org/dr17/"],
+              ["Galaxy distances & types: NED / SIMBAD", "https://ned.ipac.caltech.edu/"],
+              ["Andromeda image: ESA/Hubble heic1502a, CC BY 4.0", "https://esahubble.org/images/heic1502a/"],
+              ["Whirlpool image: ESA/Hubble heic0506a, CC BY 4.0", "https://esahubble.org/images/heic0506a/"],
+              ["Sombrero image: ESA/Hubble opo0328a, CC BY 4.0", "https://esahubble.org/images/opo0328a/"],
+              ["M87 image: ESA/Hubble heic0815f, CC BY 4.0", "https://esahubble.org/images/heic0815f/"],
+              ["JWST deep field (SMACS 0723): ESA/Webb weic2209a, CC BY 4.0", "https://esawebb.org/images/weic2209a/"],
+              ["Laniakea supercluster: Tully et al. 2014", "https://doi.org/10.1038/nature13674"],
             ].map(([label, href]) => (
               <li key={href}>
                 <a

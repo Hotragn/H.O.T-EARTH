@@ -20,8 +20,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the twenty-four world views, all unique", () => {
-    expect(WORLDS).toHaveLength(24);
+  it("has the twenty-five world views, all unique", () => {
+    expect(WORLDS).toHaveLength(25);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -55,6 +55,7 @@ describe("worlds registry", () => {
       "exo-surfaces": "/exo-surfaces",
       "black-holes": "/black-holes",
       "neutron-stars": "/neutron-stars",
+      galaxies: "/galaxies",
     });
   });
 
@@ -65,7 +66,7 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 4 Earth, 14 Solar System and 6 Beyond worlds", () => {
+  it("splits 4 Earth, 14 Solar System and 7 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
@@ -95,6 +96,7 @@ describe("worlds registry", () => {
       "exo-surfaces",
       "black-holes",
       "neutron-stars",
+      "galaxies",
     ]);
   });
 
@@ -125,7 +127,7 @@ describe("worlds registry", () => {
     ]);
     expect(grouped[0].worlds).toHaveLength(4);
     expect(grouped[1].worlds).toHaveLength(14);
-    expect(grouped[2].worlds).toHaveLength(6);
+    expect(grouped[2].worlds).toHaveLength(7);
   });
 });
 
@@ -156,7 +158,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(24);
+    expect(searchWorlds("   ")).toHaveLength(25);
   });
 
   it("finds a world by exact label", () => {
@@ -316,6 +318,21 @@ describe("searchWorlds", () => {
     expect(searchWorlds("lighthouse")[0].id).toBe("neutron-stars");
     expect(searchWorlds("joy division")[0].id).toBe("neutron-stars");
     expect(searchWorlds("millisecond pulsar")[0].id).toBe("neutron-stars");
+    // Galaxies (the seventh Beyond world) — guarded by terms UNIQUE to it. Bare
+    // "galaxy"/"milky way" are SHARED with the Night Sky (`night-sky`) world,
+    // which sorts first on the tie (canonical order), and "hubble" is shared with
+    // the ISS world, so the honest guard uses galaxy-specific terms that no other
+    // world claims (grep-verified): "cosmic web", "andromeda", "local group",
+    // "laniakea", "sdss", "deep field", "large-scale structure", plus the plural
+    // "galaxies" (night-sky carries only the singular "galaxy").
+    expect(searchWorlds("cosmic web")[0].id).toBe("galaxies");
+    expect(searchWorlds("galaxies")[0].id).toBe("galaxies");
+    expect(searchWorlds("andromeda")[0].id).toBe("galaxies");
+    expect(searchWorlds("local group")[0].id).toBe("galaxies");
+    expect(searchWorlds("laniakea")[0].id).toBe("galaxies");
+    expect(searchWorlds("sdss")[0].id).toBe("galaxies");
+    expect(searchWorlds("deep field")[0].id).toBe("galaxies");
+    expect(searchWorlds("large-scale structure")[0].id).toBe("galaxies");
   });
 
   it("returns nothing for gibberish", () => {
