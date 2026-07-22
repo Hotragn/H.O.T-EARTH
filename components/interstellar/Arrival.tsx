@@ -2,22 +2,25 @@
 
 import { useEffect, useState } from "react";
 import { ArrowRight, SkipForward } from "@phosphor-icons/react";
-import { RobotGuideCanvas } from "./RobotGuide";
 import {
   HOMAGE_NOTE,
   INTERSTELLAR_ACCENT,
   OBJECT_COLOR,
-  ROBOT_NOTE,
+  REAL_IMAGERY,
 } from "./interstellarUi";
 
 /**
- * Section A: a cinematic, SKIPPABLE onboarding intro. Entirely ORIGINAL: an
- * animated starfield/arc (SVG + CSS), staged text reveals, and the original guide
- * robot delivering short INTRO CAPTIONS (original text, never film dialogue). A
- * Skip control and an Enter control both leave the intro (the parent remembers the
- * choice in localStorage so it does not gate every visit).
+ * Section A: a cinematic, SKIPPABLE onboarding intro, now built on REAL footage.
+ * A slow cross-fading montage of the three public-domain NASA/ESA stills (galactic
+ * center, the Voyager Pale Blue Dot, the Hubble eXtreme Deep Field) drifts behind
+ * staged, original intro captions (never film dialogue), and the three real
+ * visitors are introduced. A Skip control and an Enter control both leave the intro
+ * (the parent remembers the choice in localStorage so it does not gate every visit).
  *
- * No copyrighted film assets: no score, no scenes, no logos, no dialogue.
+ * No copyrighted film assets: the imagery is genuine public-domain NASA/ESA
+ * photography (credited), there is no film score, no scenes, no logos, no dialogue.
+ * The guide robot is intentionally NOT foregrounded here; it lives as a small
+ * corner companion on the other sections.
  */
 
 /** Staged intro lines (original copy, no film dialogue, no em-dashes). */
@@ -42,6 +45,18 @@ export default function Arrival({
 }) {
   // Advance the reveal every ~1.7s up to the final stage.
   const [stage, setStage] = useState(0);
+  // Which real still is foregrounded in the cross-fading montage.
+  const [imageIdx, setImageIdx] = useState(0);
+  // Respect reduced motion: hold on the first still, no slow zoom.
+  const [reduced, setReduced] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia) {
+      const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+      setReduced(mq.matches);
+    }
+  }, []);
+
   useEffect(() => {
     const id = setInterval(() => {
       setStage((s) => (s >= LINES.length + 1 ? s : s + 1));
@@ -49,16 +64,57 @@ export default function Arrival({
     return () => clearInterval(id);
   }, []);
 
+  useEffect(() => {
+    if (reduced) return;
+    const id = setInterval(() => {
+      setImageIdx((i) => (i + 1) % REAL_IMAGERY.length);
+    }, 4200);
+    return () => clearInterval(id);
+  }, [reduced]);
+
+  const activeImage = REAL_IMAGERY[imageIdx];
+
   return (
-    <div className="fixed inset-0 z-40 flex flex-col items-center justify-center overflow-hidden bg-abyss/95 px-5 text-center">
-      {/* the streaking object on an original hyperbolic arc */}
-      <StreakArc />
+    <div className="fixed inset-0 z-40 flex flex-col items-center justify-center overflow-hidden px-5 text-center">
+      {/* real-footage montage: the three PD NASA/ESA stills, cross-fading */}
+      <div aria-hidden className="absolute inset-0 overflow-hidden bg-abyss">
+        {REAL_IMAGERY.map((img, i) => (
+          <div
+            key={img.src}
+            className={`absolute inset-0 h-full w-full bg-cover bg-center ${
+              i === imageIdx ? "opacity-100" : "opacity-0"
+            }`}
+            style={{
+              backgroundImage: `url(${img.src})`,
+              transform: reduced ? "none" : i === imageIdx ? "scale(1.08)" : "scale(1)",
+              transition:
+                "opacity 1600ms ease, transform 6000ms ease-out",
+            }}
+          />
+        ))}
+        {/* legibility wash */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(120% 90% at 50% 40%, rgba(4,6,12,0.45) 0%, rgba(4,6,12,0.72) 55%, rgba(3,4,8,0.92) 100%)",
+          }}
+        />
+      </div>
+
+      {/* per-image real credit + fact, bottom-left */}
+      <div className="pointer-events-none absolute bottom-3 left-3 z-10 max-w-[320px] text-left sm:bottom-4 sm:left-5">
+        <p className="font-mono text-[10px] leading-snug text-dim">{activeImage.fact}</p>
+        <p className="mt-0.5 font-mono text-[9px] leading-snug text-faint/75">
+          Real imagery · {activeImage.credit}
+        </p>
+      </div>
 
       {/* skip, always available */}
       <button
         type="button"
         onClick={onSkip}
-        className="hud-panel absolute right-4 top-4 flex cursor-pointer items-center gap-1.5 rounded-full px-3.5 py-2 font-mono text-[11px] tracking-wide text-dim transition-colors duration-200 hover:text-ice sm:right-6 sm:top-6"
+        className="hud-panel absolute right-4 top-4 z-10 flex cursor-pointer items-center gap-1.5 rounded-full px-3.5 py-2 font-mono text-[11px] tracking-wide text-dim transition-colors duration-200 hover:text-ice sm:right-6 sm:top-6"
       >
         <SkipForward size={13} weight="fill" aria-hidden />
         Skip intro
@@ -72,22 +128,15 @@ export default function Arrival({
           H.O.T Earth // Interstellar
         </p>
 
-        {/* the original guide robot delivers the intro */}
-        <div className="h-40 w-28">
-          <RobotGuideCanvas gesture={0.35} />
-        </div>
-        <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-faint">
-          {ROBOT_NOTE}
-        </p>
-
         {/* staged lines */}
-        <div className="flex min-h-[5.5rem] flex-col gap-2">
+        <div className="flex min-h-[6.5rem] flex-col justify-center gap-2">
           {LINES.map((line, i) => (
             <p
               key={i}
-              className={`font-display text-lg leading-snug text-ice transition-all duration-700 sm:text-xl ${
+              className={`font-display text-lg leading-snug text-ice transition-all duration-700 sm:text-2xl ${
                 stage > i ? "opacity-100 blur-0" : "translate-y-2 opacity-0 blur-sm"
               }`}
+              style={{ textShadow: "0 2px 12px rgba(0,0,0,0.8)" }}
             >
               {line}
             </p>
@@ -139,35 +188,5 @@ export default function Arrival({
         </p>
       </div>
     </div>
-  );
-}
-
-/**
- * An original, procedural SVG "visitor" streaking along a hyperbolic arc past a
- * central star, with a fading trail. Pure SVG/SMIL animation, no external assets.
- */
-function StreakArc() {
-  // A hyperbola-like open arc that swings past the centre (the "Sun").
-  const path = "M -120 340 C 220 260, 360 160, 640 -40";
-  return (
-    <svg
-      aria-hidden
-      className="pointer-events-none absolute inset-0 h-full w-full opacity-70"
-      viewBox="0 0 640 360"
-      preserveAspectRatio="xMidYMid slice"
-    >
-      {/* the star (illustrative, original) */}
-      <circle cx="300" cy="210" r="6" fill="#ffcf6b" />
-      <circle cx="300" cy="210" r="18" fill="#f2a63b" opacity="0.18" />
-      {/* the arc it rides */}
-      <path d={path} fill="none" stroke={INTERSTELLAR_ACCENT} strokeOpacity="0.18" strokeWidth="1" />
-      {/* the moving object + trail */}
-      <circle r="3.2" fill={INTERSTELLAR_ACCENT}>
-        <animateMotion dur="7s" repeatCount="indefinite" path={path} />
-      </circle>
-      <circle r="8" fill={INTERSTELLAR_ACCENT} opacity="0.22">
-        <animateMotion dur="7s" repeatCount="indefinite" path={path} />
-      </circle>
-    </svg>
   );
 }

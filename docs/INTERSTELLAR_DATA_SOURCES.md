@@ -44,10 +44,17 @@ the reason the page is built the way it is.
 > - **COMPUTED and REAL:** the three interstellar objects' **hyperbolic trajectories**
 >   (two-body mechanics from cited elements) and the **swarm-robotics algorithms**
 >   (Reynolds boids, decentralized task allocation, local consensus), which run live.
-> - **REUSED and REAL:** the **public-domain NASA audio** (the only reused external
->   asset this phase).
-> - **ILLUSTRATIVE:** the **robot**, the **terrain**, the **cinematic visuals**, and
->   the **swarm scenario framing** (the "defense" story around the real algorithms).
+> - **REUSED and REAL:** the **public-domain NASA audio**, and (added in the Phase 25
+>   rework) the **real NASA / ESA video and imagery** that now form the page's visual
+>   backbone: a silent NASA/STScI galactic-center visualization and public-domain
+>   NASA/JPL and NASA/ESA-Hubble stills (galactic center, the Voyager "Pale Blue Dot,"
+>   the Hubble eXtreme Deep Field). These are genuine, licensed cosmos footage and
+>   photographs, not a synthetic "comp." See §3c.
+> - **ILLUSTRATIVE:** the **robot** and the **swarm scenario framing** (the "defense"
+>   story around the real algorithms). The procedural / generated cinematic backdrop is
+>   now **reduced and largely replaced** by the real NASA/ESA footage above; any
+>   remaining generated terrain or overlay is a thin, clearly-labeled illustrative layer
+>   on top of the real footage, never presented as real.
 >
 > Second honesty item: **the swarm-defense simulation is a live model of REAL
 > algorithms applied to an ILLUSTRATIVE game. It is NOT a real defense system, NOT
@@ -64,15 +71,23 @@ the reason the page is built the way it is.
 | **Consensus-based / decentralized task allocation** (e.g., Gerkey & Mataric 2004 taxonomy; Choi, Brunet & How 2009, CBBA) | Decentralized, market/auction-style task assignment across many agents with no central controller | Published algorithms (methods); our own implementation | Cite "Gerkey & Mataric 2004; Choi, Brunet & How 2009" | Implemented in our own code | The task-allocation layer of the swarm sim |
 | **Distributed consensus in multi-agent systems** (Olfati-Saber & Murray 2004, IEEE TAC) | Local-averaging consensus: agents converge on a shared value using only neighbor information | Published algorithm (method); our own implementation | Cite "Olfati-Saber & Murray 2004" | Implemented in our own code | The local-consensus layer of the swarm sim |
 | **Reused audio: NASA Voyager "Sounds of Interstellar Space"** `public/audio/interstellar-plasma-voyager.mp3` | Ambient, loopable plasma-wave sonification from Voyager 1 in interstellar space (Plasma Wave Science instrument, 2012-2013) | **Public domain** (NASA / US-Gov work; NASA Media Usage Guidelines) | "NASA / JPL-Caltech, Voyager Plasma Wave Science instrument (University of Iowa)" | **Newly added** this phase; 306,473 bytes; 12.49 s; MP3 192 kbps, 44.1 kHz, mono | Downloaded and verified as valid audio; exact size/duration logged in §3a |
-| **Illustrative: robot, terrain, cinematic visuals** | The monolith-style robot, the procedural terrain, and the cinematic SVG / animation | Original work (ours), MIT with the rest of the repo | n/a (original) | Drawn by our own code; no external asset | Original design; **not** TARS/CASE; **no** film assets used |
+| **Reused real footage: NASA/STScI "Milky Way Center in Multiple Wavelengths"** `public/videos/interstellar/galactic-center-multiwavelength.mp4` | Silent 1280x720 visualization of the galactic center (the direction 3I/ATLAS arrived from) cross-fading near-IR / mid-IR / X-ray views | **Public domain** (NASA SVS / US-Gov work) | "Video: NASA, ESA, and G. Bacon (STScI); Image Credits: NASA, ESA, CXC, SSC, and STScI" | **Newly added** (Phase 25); NASA SVS 30961; 8,758,378 bytes; 48.01 s; **no audio track** | Downloaded from svs.gsfc.nasa.gov; confirmed valid MP4, 1280x720, silent (no `soun` track), exact size/duration parsed offline (§3c) |
+| **Reused real imagery: NASA/ESA public-domain stills** `public/textures/interstellar/*.jpg` | Three genuine PD photographs used with tasteful frontend motion: Milky Way galactic center (Spitzer), Voyager "Pale Blue Dot Revisited," Hubble eXtreme Deep Field | **Public domain** (NASA/JPL-Caltech; NASA-released Hubble = US-Gov PD) | Per-file (§3c): "NASA/JPL-Caltech"; "NASA/JPL-Caltech"; "NASA, ESA, and the HUDF/XDF Team" | **Newly added** (Phase 25); downscaled to 1920 px wide, JPEG q82; 383,626 + 128,431 + 599,740 bytes | Retrieved from images.nasa.gov originals; credits confirmed from the images-api metadata; recompressed offline (§3c) |
+| **Illustrative: robot + reduced generated overlay** | The monolith-style robot and any thin generated terrain / overlay drawn on top of the real footage | Original work (ours), MIT with the rest of the repo | n/a (original) | Drawn by our own code; no external asset | Original design; **not** TARS/CASE; **no** film assets used; the procedural backdrop is now reduced / replaced by the real footage in §3c |
 | **Illustrative: swarm scenario framing** | The "planetary-defense" story that wraps the real algorithms (interceptors, incoming threat, arena) | Original framing (ours) | n/a | Our own code and copy | A game framing, **not** a real defense system or mission |
 
-**No copyrighted film asset is used anywhere on this page**, and the **only new
-committed binary this phase is the public-domain NASA audio file** (§3a). The two
-already-in-repo interstellar objects reuse the Phase 9 `objects.json`; 3I/ATLAS is
-transcribed offline into constants; the swarm algorithms are implemented in our own
-code; the robot, terrain, visuals and scenario are original. Nothing is fetched at
-runtime.
+**No copyrighted film asset is used anywhere on this page.** The newly committed
+binaries are the public-domain NASA audio file (§3a) and, from the Phase 25 rework, the
+**real, cleanly-licensed NASA/ESA video and stills** that now carry the page's look
+(§3c) - one silent NASA SVS galactic-center visualization and three public-domain
+NASA/JPL and NASA/ESA-Hubble photographs, about **9.4 MB added in total**. None of them
+contains music or any audio track (the video is silent; stills obviously carry no
+sound), so the page's "no external music" story is intact and its own PD Voyager audio
+(§3a) remains the only sound. The two already-in-repo interstellar objects reuse the
+Phase 9 `objects.json`; 3I/ATLAS is transcribed offline into constants; the swarm
+algorithms are implemented in our own code; the robot and swarm scenario are original
+and the procedural backdrop is reduced in favor of the real footage. Nothing is fetched
+at runtime.
 
 ---
 
@@ -147,8 +162,11 @@ and public-domain material**:
 - **The robot** is an **original monolith-style design** (a tall rectangular slab
   figure), drawn by our own code. It is **not** TARS or CASE and reproduces none of
   their proportions, articulation, markings or branding.
-- **The terrain and visuals** are **original and procedural** (our own generated
-  geometry / SVG / canvas), not frames, stills or textures from the film.
+- **The environment is now REAL, not a comp.** In the Phase 25 rework the visual
+  backbone is **genuine public-domain NASA/ESA footage and imagery** (§3c): a silent
+  NASA/STScI galactic-center visualization plus NASA/JPL and NASA/ESA-Hubble stills.
+  Any remaining generated terrain / overlay is a thin illustrative layer drawn on top,
+  clearly labeled, and no frames, stills or textures are taken from the film.
 - **The audio** is the **public-domain NASA Voyager plasma-wave track** (§3a), not the
   copyrighted film score.
 
@@ -208,18 +226,67 @@ sampled or approximated from a copyrighted source anywhere on this page.
   but is fine for a looping ambient background; the UI loops it. It is comfortably
   under the size budget (about 0.3 MB).
 
-### 3b. Original work (robot, terrain, visuals, scenario)
+### 3b. Original work (robot, scenario, remaining overlay)
 
-Everything else on the page is **original work by us**, MIT-licensed with the rest of
-the repo, and uses **no external or film asset**:
+The remaining non-real elements on the page are **original work by us**, MIT-licensed
+with the rest of the repo, and use **no external or film asset**:
 
 - **The monolith-style robot** (original design; not TARS/CASE).
-- **The terrain** (original / procedural geometry).
-- **The cinematic SVG / animation and all visual effects** (our own code).
 - **The swarm scenario framing** (our own game copy and layout).
+- **Any thin generated overlay** (labels, UI chrome, a reduced terrain/vignette layer)
+  drawn **on top of** the real footage in §3c. In the Phase 25 rework the procedural /
+  generated cinematic backdrop is **reduced and largely replaced** by real NASA/ESA
+  footage and imagery, so the page reads as real cosmos rather than a synthetic comp.
 
-There are **no reused textures** on this page. The only reused external asset is the
-public-domain NASA audio in §3a.
+### 3c. Reused real footage and imagery (Phase 25 rework - the visual backbone)
+
+The page's visuals are now anchored by **genuine, cleanly-licensed NASA/ESA video and
+photographs of the real cosmos**, not procedural stand-ins. There is **no real imagery
+of the interstellar objects themselves** (they are unresolved points), and the film is
+copyrighted, so instead the **environment** is made real. Every file below was verified
+against its primary source, is public domain, and **contains no audio track and no
+music**. Total added: **9,870,175 bytes (about 9.41 MB)**, well within the size budget.
+
+| Asset (in repo) | Type / dims | Size (bytes) | Duration | Source (verified) | License | Required credit |
+|---|---|---|---|---|---|---|
+| `public/videos/interstellar/galactic-center-multiwavelength.mp4` | MP4 video, 1280x720, **silent** | 8,758,378 | 48.01 s | NASA SVS 30961, "Milky Way Center in Multiple Wavelengths" (`https://svs.gsfc.nasa.gov/30961`; file `https://svs.gsfc.nasa.gov/vis/a030000/a030900/a030961/STScI-H-MWC_1x-1280x720.mp4`) | **Public domain** (NASA SVS / US-Gov) | "Video: NASA, ESA, and G. Bacon (STScI); Image Credits: NASA, ESA, CXC, SSC, and STScI" |
+| `public/textures/interstellar/milky-way-galactic-center-spitzer.jpg` | JPEG still, 1920x1080 | 383,626 | n/a | NASA PIA13932, "Stars Gather in Downtown Milky Way" (Spitzer) (`https://images.nasa.gov/details/PIA13932`; orig `https://images-assets.nasa.gov/image/PIA13932/PIA13932~orig.jpg`) | **Public domain** (NASA/JPL-Caltech) | "NASA/JPL-Caltech (Spitzer Space Telescope)" |
+| `public/textures/interstellar/pale-blue-dot-voyager.jpg` | JPEG still, 1920x1900 | 128,431 | n/a | NASA PIA23645, "Pale Blue Dot Revisited" (Voyager 1) (`https://images.nasa.gov/details/PIA23645`; orig `https://images-assets.nasa.gov/image/PIA23645/PIA23645~orig.jpg`) | **Public domain** (NASA/JPL-Caltech) | "NASA/JPL-Caltech (Voyager 1)" |
+| `public/textures/interstellar/hubble-extreme-deep-field.jpg` | JPEG still, 1920x1675 | 599,740 | n/a | NASA/ESA Hubble eXtreme Deep Field, NASA image release (`https://images.nasa.gov/details/GSFC_20171208_Archive_e001651`; orig `https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001651/GSFC_20171208_Archive_e001651~orig.jpg`) | **Public domain** (NASA-released Hubble; US-Gov) | "NASA, ESA, and the HUDF/XDF Team (Hubble Space Telescope)" |
+
+- **On theme.** The galactic-center video and the Spitzer galactic-center still show the
+  **direction 3I/ATLAS arrived from (Sagittarius)**; the Voyager "Pale Blue Dot" is a
+  real "leaving the Solar System" view; the Hubble eXtreme Deep Field is a genuine
+  deep-space field. The stills are used with tasteful frontend motion (slow pan / zoom),
+  which keeps them "real, not a comp."
+- **Licensing.** NASA works (SVS video, JPL/Spitzer and Voyager stills, NASA-released
+  Hubble imagery) are **not subject to US copyright** and are treated as public domain
+  with a courtesy credit; the ESA/Hubble contribution is credited as above. **Courtesy
+  credit only**, no attribution obligation, same posture as the NASA audio in §3a.
+- **No music, no audio.** The video was confirmed to carry **no `soun` (audio) track**
+  when parsed offline, so no external or copyrighted music is embedded; the stills carry
+  no sound. The only audio on the page is the public-domain NASA Voyager track (§3a).
+- **Verification and processing.** The video was downloaded from NASA SVS and parsed
+  offline (valid MP4, 1280x720, 48.01 s, silent). The stills were downloaded from the
+  images.nasa.gov originals and **downscaled to 1920 px wide and re-saved as JPEG q82
+  with Pillow** to fit the size budget; **no project dependency was added** (Pillow is a
+  local tool only). `ffmpeg` was not available, so the video could not be re-encoded or
+  trimmed; the smallest clean silent variant that still looked good (720p) was chosen.
+
+#### Video / imagery targets considered but skipped (and why)
+
+- **Cosmic-web / "zoom out from the Milky Way" zoom** (NASA GSFC_20080520_HST_m10223_COS):
+  the only small variants are 320x180 (11.3 MB) and 480x270 (21.4 MB); both are too
+  low-resolution for a full-bleed background and/or over budget, and with no `ffmpeg`
+  they could not be re-encoded. Skipped on quality/size.
+- **Hubble Ultra/eXtreme Deep Field flythroughs** (NASA SVS 30687; ESA/Hubble heic1214a):
+  smallest clean versions are 21 MB+; over budget without re-encoding. Skipped; the
+  Hubble XDF **still** is shipped instead as the real deep-space substitute.
+- **ESA/Hubble "Zoom in to the galactic centre"** (heic1606a) and NASA SVS "Milky Way's
+  Fate" (14847): both carry a **music track** (Johan B. Monell; BBC/Universal production
+  music) that cannot be stripped without `ffmpeg`. Rejected to keep the page's
+  "no external music" story clean, even though heic1606a is otherwise CC BY 4.0.
+- **Narrated NASA news/SOFIA/NuSTAR clips**: contain voiceover and music; rejected.
 
 ---
 
@@ -232,10 +299,12 @@ Stated plainly, because it is the defining property of this phase:
   copyrighted source), no TARS or CASE robot, no movie scenes, stills, logos, character
   likenesses or dialogue. The homage is built from original and public-domain material
   only.
-- **The only licensing surface is the reused NASA audio**, which is **public domain**
-  (courtesy credit only). The orbital elements are copyright-free measured facts; the
-  swarm algorithms are published methods implemented in our own code; the robot,
-  terrain, visuals and scenario are original.
+- **The only licensing surface is public-domain NASA/ESA content**: the reused NASA
+  audio (§3a) and the reused real NASA/ESA video and stills (§3c), all **public domain**
+  with courtesy credit only and none carrying music. The orbital elements are
+  copyright-free measured facts; the swarm algorithms are published methods implemented
+  in our own code; the robot and scenario are original and the procedural backdrop is
+  reduced in favor of the real footage.
 - **No external feed, no API, no GitHub Action, no runtime download.** The trajectories
   are propagated from transcribed / reused elements; the swarm runs in the browser;
   JPL Horizons is named for offline cross-checks only.
@@ -251,9 +320,12 @@ Stated plainly, because it is the defining property of this phase:
 - **The robot is original, not TARS or CASE.** It is a monolith-style slab of our own
   design and reproduces none of the film robots' proportions, markings or branding.
   Flagged so it is never mislabeled as a film character.
-- **The terrain and cinematic visuals are original / procedural, not film frames.**
-  No stills, renders or textures from the film or any copyrighted source are used.
-  Flagged.
+- **The visual backbone is REAL NASA/ESA footage / imagery, not film frames and not a
+  synthetic comp.** In the Phase 25 rework the procedural backdrop is reduced and
+  replaced by genuine public-domain NASA/ESA video and stills (§3c); no stills, renders
+  or textures from the film or any copyrighted source are used, and no music is embedded
+  (the video is silent). Any remaining generated overlay is a thin illustrative layer,
+  labeled as such. Flagged.
 - **The swarm-defense simulation is a real algorithm demo, not a real system.** It runs
   genuine swarm-robotics algorithms (boids, decentralized task allocation, local
   consensus) but the planetary-defense scenario is an **illustrative game**. It is
@@ -296,7 +368,11 @@ per Gerkey & Mataric 2004 and Choi, Brunet & How 2009; distributed consensus per
 Olfati-Saber & Murray 2004) in our own code, over an illustrative planetary-defense
 game (not a real system, not real robots, not mission data). The cinematic layer is a
 movie-inspired homage using **zero copyrighted film assets**: the robot is an original
-monolith-style design (not TARS/CASE), the terrain and visuals are original / procedural,
+monolith-style design (not TARS/CASE); the visual backbone is now **real public-domain
+NASA/ESA footage and imagery** (Phase 25 rework, §3c: NASA SVS 30961 galactic-center
+video, silent; NASA/JPL Spitzer and Voyager stills; the Hubble eXtreme Deep Field),
+with the procedural backdrop reduced and any remaining generated overlay a thin labeled
+layer; no film frames or music are used;
 and the audio is the **public-domain** NASA Voyager "Sounds of Interstellar Space"
 plasma-wave track at `public/audio/interstellar-plasma-voyager.mp3` (306,473 bytes,
 12.49 s, MP3 192 kbps / 44.1 kHz / mono), retrieved from the Internet Archive Wayback
@@ -322,5 +398,6 @@ scope for this doc; another agent owns it.
 | Swarm consensus | Olfati-Saber & Murray 2004 | Implemented in our own code | Real distributed averaging consensus. |
 | Swarm scenario framing | project brief (original) | app-side copy and layout | **ILLUSTRATIVE game.** Not a real defense system, not real robots, not mission data. Label it. |
 | Robot | original monolith-style design (ours) | app-side render | **Not TARS/CASE.** Original slab figure; no film branding. |
-| Terrain + cinematic visuals | original / procedural (ours) | app-side render | **No film frames / stills / textures.** Original geometry. |
+| Cinematic visuals (backbone) | **Reused real NASA/ESA footage + stills** (§3c): NASA SVS 30961 galactic-center video (PD, silent); NASA PIA13932 (Spitzer), PIA23645 (Voyager Pale Blue Dot), Hubble XDF stills (PD) | Newly added: `public/videos/interstellar/`, `public/textures/interstellar/` (about 9.4 MB total) | **Real cosmos, not a comp; no music/audio.** Credits per §3c. Use stills with subtle pan/zoom. |
+| Remaining terrain / overlay | reduced generated overlay (ours) | app-side render | **No film frames / stills / textures.** Thin illustrative layer on top of the real footage; label it. |
 | Ambient audio | Reused `public/audio/interstellar-plasma-voyager.mp3` (NASA Voyager, **PD**) | Newly added (306,473 B, 12.49 s) | Courtesy credit "NASA / JPL-Caltech, Voyager Plasma Wave Science instrument (University of Iowa)". Loop it; audio toggle. **Never the film score.** |

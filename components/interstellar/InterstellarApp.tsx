@@ -62,7 +62,7 @@ export default function InterstellarApp() {
 
   return (
     <main className="fixed inset-0 overflow-hidden bg-abyss">
-      {/* procedural cinematic backdrop, behind everything */}
+      {/* real NASA/ESA galactic-center video backdrop, behind everything */}
       <InterstellarBackdrop />
 
       {/* the active heavy section */}

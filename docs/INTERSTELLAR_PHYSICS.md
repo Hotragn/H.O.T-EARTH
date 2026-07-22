@@ -29,9 +29,11 @@ copyrighted film assets.**
 - **No film robot.** The robot is an **original monolith-style design** (a tall
   rectangular slab figure of our own making). It is **not** TARS or CASE and reproduces
   none of their proportions, articulation, markings or branding.
-- **No film scenes.** The terrain and cinematic visuals are **original and procedural**
-  (our own generated geometry / SVG / canvas), not frames, stills, renders or textures
-  from the film or any copyrighted source. No movie logo, character likeness or
+- **No film scenes.** The visual backbone is **real public-domain NASA/ESA footage and
+  imagery** (Phase 25 rework; see `INTERSTELLAR_DATA_SOURCES.md` §3c), with the
+  procedural backdrop reduced and any remaining generated overlay a thin labeled layer
+  on top. Nothing is a frame, still, render or texture from the film or any copyrighted
+  source, and the video carries no audio/music. No movie logo, character likeness or
   dialogue appears.
 
 Around that headline sit two more honest lines:
@@ -170,9 +172,15 @@ misleading:
   own design, an homage to the *idea* of a blocky film robot, **not** TARS or CASE, and
   it carries none of their proportions, markings or branding. It is a stylized figure,
   not a model of any real robot.
-- **The terrain and cinematic visuals are illustrative and original / procedural.** Our
-  own generated geometry, SVG and animation, not a real planetary surface and not film
-  frames, stills, renders or textures. No copyrighted film asset is used.
+- **The cinematic visual backbone is REAL, reused and public-domain (not illustrative).**
+  In the Phase 25 rework the environment is genuine NASA/ESA footage and imagery (a
+  silent NASA SVS galactic-center visualization plus NASA/JPL Spitzer, Voyager
+  "Pale Blue Dot" and Hubble eXtreme Deep Field stills; see
+  `INTERSTELLAR_DATA_SOURCES.md` §3c), which is reused/real, not a synthetic comp.
+- **Only a thin remaining overlay / terrain is illustrative and original.** Any
+  generated geometry, SVG, vignette or label drawn **on top of** the real footage is our
+  own, is not a real planetary surface, and uses **no film frames, stills, renders or
+  textures**. No copyrighted film asset is used, and the video carries no audio/music.
 - **The swarm scenario framing is illustrative.** The "planetary-defense" story
   (interceptors, an incoming threat, an arena) is a game wrapper around the real
   algorithms. It is **not** a real defense system, **not** real robots or hardware, and
@@ -202,8 +210,9 @@ element, no faked swarm result, no copyrighted film asset, and no live feed.
 | Swarm consensus | **Computed / real algorithm** | "Real distributed consensus (Olfati-Saber & Murray 2004)" |
 | Ambient audio | **Reused / real (PD, static)** | "NASA Voyager plasma-wave sound (public domain); real interstellar plasma data" |
 | Orbital elements | **Reused / real (measured)** | "Measured - JPL SBDB ('Oumuamua, Borisov) / JPL SBDB + MPC (3I/ATLAS)" |
+| Cinematic footage + imagery | **Reused / real (PD, static)** | "Real NASA/ESA footage and imagery (public domain): NASA SVS galactic-center video (silent), Spitzer / Voyager / Hubble XDF stills; not the film, no music" |
 | Robot | **Illustrative (original)** | "Original monolith-style design; not TARS/CASE; not a real robot" |
-| Terrain + cinematic visuals | **Illustrative (original / procedural)** | "Original / procedural; not film frames; not a real surface" |
+| Remaining terrain / overlay | **Illustrative (original / procedural)** | "Original overlay on top of real footage; not film frames; not a real surface" |
 | Swarm scenario framing | **Illustrative (game)** | "Illustrative game; not a real defense system, not real robots, not mission data" |
 | On-screen marker size | **Illustrative** | "Marker enlarged for visibility (objects/agents are tiny/abstract)" |
 | Predicted positions to the second | **Not claimed** | "Bounded accuracy - two-body osculating, no perturbations / non-grav; cross-check Horizons" |
@@ -218,9 +227,11 @@ moons, unchanged:
 - No invented values; computed trajectories are never presented as observing-grade
   positions, the swarm is never presented as a real system, and the cinematic layer is
   never presented as film content.
-- The only "reused" external asset is the public-domain NASA audio; the "illustrative"
-  liberties are the original robot, the original / procedural terrain and visuals, the
-  game scenario framing, and the enlarged markers, and every one is labeled.
+- The "reused" external assets are all public domain: the NASA Voyager audio and (Phase
+  25 rework) the real NASA/ESA video and stills that form the visual backbone (none
+  carrying music); the "illustrative" liberties are the original robot, the reduced
+  generated overlay on top of the real footage, the game scenario framing, and the
+  enlarged markers, and every one is labeled.
 
 ## What is honestly showable this phase (crisp statement)
 
@@ -229,9 +240,12 @@ moons, unchanged:
   with computed excess speeds of about 26, 32 and 58 km/s), and the **swarm-robotics
   algorithms** (Reynolds boids flocking, decentralized / consensus-based task
   allocation, distributed consensus), all running live in our own code, no runtime API.
-- **REUSED / REAL:** the **public-domain NASA Voyager plasma-wave audio** (the only
-  reused external asset), and the **real, measured orbital elements** of the three
-  objects.
+- **REUSED / REAL:** the **public-domain NASA Voyager plasma-wave audio**; the **real,
+  measured orbital elements** of the three objects; and (Phase 25 rework) the **real,
+  public-domain NASA/ESA video and imagery** that form the visual backbone - a silent
+  NASA SVS galactic-center visualization and NASA/JPL Spitzer, Voyager "Pale Blue Dot"
+  and Hubble eXtreme Deep Field stills (see `INTERSTELLAR_DATA_SOURCES.md` §3c), none
+  carrying music.
 - **ILLUSTRATIVE / APPROXIMATE:** the **original monolith-style robot** (not TARS/CASE),
   the **original / procedural terrain and cinematic visuals** (no film assets), the
   **swarm scenario framing** (an illustrative game, not a real defense system or real
