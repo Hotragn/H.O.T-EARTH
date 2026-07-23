@@ -201,6 +201,30 @@ body {
   }
 }
 
+/* Companion mascot: a gentle idle float, a pulsing antenna and slow blinks. */
+.companion-robot {
+  animation: companion-float 4.5s ease-in-out infinite;
+}
+.companion-antenna {
+  animation: companion-antenna 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.companion-eye {
+  transform-origin: center;
+  animation: companion-blink 5.2s ease-in-out infinite;
+}
+@keyframes companion-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1.5px); }
+}
+@keyframes companion-antenna {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+@keyframes companion-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.15); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
