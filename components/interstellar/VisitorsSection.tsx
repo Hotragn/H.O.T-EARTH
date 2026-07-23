@@ -9,7 +9,7 @@ import {
 import VisitorsCanvas from "./VisitorsCanvas";
 import VisitorPanel from "./VisitorPanel";
 import VisitorsTimeControl, { VISITOR_SPEEDS } from "./VisitorsTimeControl";
-import { OBJECT_COLOR } from "./interstellarUi";
+import { OBJECT_COLOR, REAL_IMAGERY } from "./interstellarUi";
 
 const DAY_MS = 86_400_000;
 
@@ -151,6 +151,31 @@ export default function VisitorsSection() {
               );
             })}
           </div>
+        </div>
+
+        {/* real-imagery strip: the three PD NASA/ESA stills, each credited with a
+            one-line real fact. Grounds the real trajectories in real cosmos. */}
+        <div className="hud-scroll pointer-events-auto absolute right-3 top-44 z-10 hidden max-h-[calc(100dvh-18rem)] w-[210px] flex-col gap-2 overflow-y-auto animate-hud-in sm:right-5 xl:flex">
+          <p className="px-1 font-mono text-[9px] uppercase tracking-[0.2em] text-faint">
+            Real imagery
+          </p>
+          {REAL_IMAGERY.map((img) => (
+            <figure key={img.src} className="hud-panel overflow-hidden rounded-xl">
+              <img
+                src={img.src}
+                alt={img.title}
+                loading="lazy"
+                className="h-20 w-full object-cover"
+              />
+              <figcaption className="flex flex-col gap-1 p-2.5">
+                <span className="text-[11px] font-medium text-ice">{img.title}</span>
+                <span className="text-[10px] leading-snug text-dim">{img.fact}</span>
+                <span className="font-mono text-[8.5px] leading-snug text-faint/75">
+                  {img.credit}
+                </span>
+              </figcaption>
+            </figure>
+          ))}
         </div>
 
         {/* fact + live-state panel, left column */}
