@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   WORLDS,
   WORLD_GROUPS,
+  adjacentWorlds,
   fuzzyScore,
   getGroup,
   getGroupForWorld,
@@ -128,6 +129,25 @@ describe("worlds registry", () => {
     expect(grouped[0].worlds).toHaveLength(4);
     expect(grouped[1].worlds).toHaveLength(14);
     expect(grouped[2].worlds).toHaveLength(7);
+  });
+
+  it("adjacentWorlds steps through canonical order and wraps", () => {
+    const first = WORLDS[0];
+    const last = WORLDS[WORLDS.length - 1];
+    const second = WORLDS[1];
+
+    // wrap-around at both ends
+    expect(adjacentWorlds(first.id)?.prev.id).toBe(last.id);
+    expect(adjacentWorlds(first.id)?.next.id).toBe(second.id);
+    expect(adjacentWorlds(last.id)?.next.id).toBe(first.id);
+
+    // interior step is exactly +/- 1
+    expect(adjacentWorlds(second.id)?.prev.id).toBe(first.id);
+    expect(adjacentWorlds(second.id)?.next.id).toBe(WORLDS[2].id);
+  });
+
+  it("adjacentWorlds returns null for an unknown id", () => {
+    expect(adjacentWorlds("not-a-world" as WorldTab)).toBeNull();
   });
 });
 

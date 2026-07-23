@@ -144,7 +144,7 @@ export default function NavGroupMenu({
           id={menuId}
           role="menu"
           aria-label={group.label}
-          className="hud-panel absolute left-1/2 top-full mt-2 -ml-36 w-72 rounded-2xl p-1.5 animate-menu-in"
+          className="hud-scroll hud-panel absolute left-1/2 top-full mt-2 -ml-36 max-h-[min(70dvh,32rem)] w-72 overflow-y-auto rounded-2xl p-1.5 animate-menu-in"
         >
           {worlds.map((world, i) => {
             const isCurrent = world.id === active;
