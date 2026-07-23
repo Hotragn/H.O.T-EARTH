@@ -1,5 +1,11 @@
 <div align="center">
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="brand/logo-mark.png" />
+  <source media="(prefers-color-scheme: light)" srcset="brand/logo-mark-light.png" />
+  <img alt="H.O.T EARTH" src="brand/logo-mark.png" width="120" height="120" />
+</picture>
+
 # H.O.T Earth
 
 [![CI](https://github.com/Hotragn/H.O.T-EARTH/actions/workflows/ci.yml/badge.svg)](https://github.com/Hotragn/H.O.T-EARTH/actions/workflows/ci.yml)
