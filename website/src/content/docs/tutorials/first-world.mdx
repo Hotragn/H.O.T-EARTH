@@ -1,0 +1,97 @@
+---
+title: Build your first world
+description: Add a new world to H.O.T EARTH end to end, from the registry to a rendered scene.
+---
+
+import { Steps, Aside, FileTree } from "@astrojs/starlight/components";
+
+By the end of this tutorial you will have a new world that appears in the
+navigation, the search, and its own route, rendering a simple scene. We will add
+a minimal "Sky" world to keep the focus on the wiring rather than the physics.
+
+<Aside type="note">
+This teaches the real pattern the project uses for all 25 worlds. Once you have
+done it once, every other world is the same shape.
+</Aside>
+
+## 1. Register the world
+
+Everything starts in `lib/worlds.ts`, the single source of truth. Add a row to
+the `WORLDS` array.
+
+<Steps>
+
+1. Add the id to the `WorldTab` union so it is type-checked everywhere.
+
+   ```ts title="lib/worlds.ts"
+   export type WorldTab =
+     | "earth"
+     // ...existing ids...
+     | "sky";
+   ```
+
+2. Add the world's row. Keep the `blurb` honest: describe exactly what the view
+   renders.
+
+   ```ts title="lib/worlds.ts"
+   {
+     id: "sky",
+     label: "Sky",
+     href: "/sky",
+     group: "earth",
+     blurb: "A plain gradient sky, as a minimal starter scene.",
+     accent: "#7fb2ff",
+     keywords: ["sky", "starter", "example"],
+   },
+   ```
+
+</Steps>
+
+## 2. Update the registry test
+
+The registry has invariants (unique ids, unique hrefs, counts). Update
+`lib/worlds.test.ts` so the counts match, then run the tests.
+
+```sh
+npm run test -- worlds
+```
+
+## 3. Create the route
+
+Add the App Router page. Worlds follow a `{World}Shell` to `{World}App` to
+`{World}Scene` pattern, but a starter can be a single client component.
+
+<FileTree>
+- app/
+  - sky/
+    - page.tsx
+</FileTree>
+
+```tsx title="app/sky/page.tsx"
+import NavShell from "@/components/ui/NavShell";
+
+export default function SkyPage() {
+  return (
+    <main className="h-dvh w-dvh bg-gradient-to-b from-[#0b1a3a] to-[#7fb2ff]">
+      <NavShell active="sky" onAbout={() => {}} />
+    </main>
+  );
+}
+```
+
+## 4. See it appear
+
+Run the dev server and open the app. Your world is already in the navigation and
+the command palette (press Cmd/Ctrl+K and type "sky"), because both read from the
+registry. Visit [http://localhost:3000/sky](http://localhost:3000/sky).
+
+<Aside type="tip" title="That is the whole pattern">
+You never wired the nav by hand. Adding the registry row was enough, because the
+nav, search, and mobile menu all derive from `lib/worlds.ts`.
+</Aside>
+
+## Where to go next
+
+- Replace the gradient with a real, data-backed scene:
+  [Read real data in the browser](/tutorials/reading-real-data/).
+- See the full contract in the [Worlds registry reference](/reference/worlds-registry/).

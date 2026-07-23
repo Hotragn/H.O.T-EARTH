@@ -1,0 +1,68 @@
+---
+title: Add the companion to a page
+description: How Sprocket, the keyless in-browser AI companion, is mounted and grounded, and how to reuse it.
+---
+
+import { Aside, Steps } from "@astrojs/starlight/components";
+
+Sprocket is the site-wide companion: a small open-source language model that runs
+in the browser and answers only from the app's own data. This guide explains how
+it is wired and how to reuse the pattern.
+
+## How it stays honest
+
+<Aside type="note">
+Sprocket answers from a knowledge base built from the worlds registry plus curated
+app facts. It is grounded: replies cite real worlds and offer navigation, rather
+than inventing physics. The UI always labels it a small local model that can be wrong.
+</Aside>
+
+- **Grounding** lives in `lib/companion/`: a knowledge base (one card per world,
+  generated from `lib/worlds.ts`), a deterministic retriever, a persona/system
+  prompt that forbids invented numbers, and a scripted fallback.
+- **Intelligence is opt-in.** On "wake", WebLLM is pulled from a CDN at runtime
+  (never bundled) and runs a small model over WebGPU. No API keys, nothing leaves
+  the device.
+- **Graceful fallback.** No WebGPU, a load error, or a question asked before
+  waking all fall back to the deterministic scripted answers.
+
+## Mount it
+
+<Steps>
+
+1. The companion is mounted once in the root layout, so it appears on every page.
+
+   ```tsx title="app/layout.tsx"
+   import Companion from "@/components/companion/Companion";
+
+   export default function RootLayout({ children }) {
+     return (
+       <html lang="en">
+         <body>
+           {children}
+           <Companion />
+         </body>
+       </html>
+     );
+   }
+   ```
+
+2. That is all. It reads the registry-derived knowledge base itself, so it stays
+   in sync with the worlds automatically.
+
+</Steps>
+
+## Reusing the grounding
+
+The retrieval and knowledge base are pure and testable. To answer a question in
+your own UI without the full chat panel:
+
+```ts
+import { retrieve, scriptedAnswer } from "@/lib/companion";
+
+const cards = retrieve("what is the cosmic web?");
+const reply = scriptedAnswer("what is the cosmic web?");
+```
+
+`retrieve` returns the top grounding cards; `scriptedAnswer` returns a
+deterministic, grounded reply with navigation targets.

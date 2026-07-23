@@ -1,0 +1,80 @@
+---
+// "Was this page helpful?" A No opens a prefilled GitHub issue for the page.
+const repo = "https://github.com/Hotragn/H.O.T-EARTH";
+---
+
+<aside class="feedback" aria-labelledby="feedback-q">
+  <span id="feedback-q" class="feedback__q">Was this page helpful?</span>
+  <div class="feedback__actions">
+    <button type="button" class="feedback__btn" data-choice="yes">Yes</button>
+    <button type="button" class="feedback__btn" data-choice="no">No</button>
+  </div>
+  <span class="feedback__thanks" role="status" hidden>Thanks for the signal.</span>
+</aside>
+
+<script is:inline define:vars={{ repo }}>
+  const box = document.currentScript.previousElementSibling;
+  const thanks = box.querySelector(".feedback__thanks");
+  const actions = box.querySelector(".feedback__actions");
+  box.addEventListener("click", (e) => {
+    const btn = e.target.closest(".feedback__btn");
+    if (!btn) return;
+    const choice = btn.dataset.choice;
+    if (choice === "no") {
+      const title = encodeURIComponent(`Docs feedback: ${document.title}`);
+      const body = encodeURIComponent(
+        `Page: ${location.href}\n\nWhat was missing or unclear?\n`,
+      );
+      window.open(
+        `${repo}/issues/new?title=${title}&body=${body}&labels=docs`,
+        "_blank",
+        "noopener",
+      );
+    }
+    actions.hidden = true;
+    thanks.hidden = false;
+  });
+</script>
+
+<style>
+  .feedback {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.75rem;
+    background: var(--sl-color-bg-sidebar);
+    font-size: var(--sl-text-sm);
+  }
+  .feedback__q {
+    color: var(--sl-color-white);
+    font-weight: 600;
+  }
+  .feedback__actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .feedback__btn {
+    cursor: pointer;
+    padding: 0.3rem 0.9rem;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--sl-color-gray-2);
+    transition:
+      color 0.18s ease,
+      border-color 0.18s ease,
+      background-color 0.18s ease;
+  }
+  .feedback__btn:hover {
+    color: var(--sl-color-white);
+    border-color: var(--sl-color-text-accent);
+    background: color-mix(in srgb, var(--sl-color-text-accent) 12%, transparent);
+  }
+  .feedback__thanks {
+    color: var(--sl-color-text-accent);
+  }
+</style>

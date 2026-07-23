@@ -1,0 +1,76 @@
+/* Self-hosted fonts (no third-party request). */
+@import "@fontsource/space-grotesk/500.css";
+@import "@fontsource/space-grotesk/600.css";
+@import "@fontsource/space-grotesk/700.css";
+@import "@fontsource/ibm-plex-sans/400.css";
+@import "@fontsource/ibm-plex-sans/500.css";
+@import "@fontsource/ibm-plex-sans/600.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
+
+/*
+ * Mission-control theme: abyss background, ink panels, ice text, solar accent.
+ * Space Grotesk on display type, IBM Plex Sans for reading, IBM Plex Mono code.
+ */
+:root {
+  --sl-font: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --sl-font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --hot-abyss: #05060a;
+  --hot-ink: #0b0e16;
+  --hot-ice: #edf0f5;
+  --hot-solar: #f2a63b;
+  --hot-line: rgb(255 255 255 / 0.08);
+}
+
+/* Dark (default) */
+:root[data-theme="dark"] {
+  --sl-color-bg: #05060a;
+  --sl-color-bg-nav: rgb(5 6 10 / 0.72);
+  --sl-color-bg-sidebar: #07090f;
+  --sl-color-white: #edf0f5;
+  --sl-color-hairline: rgb(255 255 255 / 0.08);
+  --sl-color-hairline-light: rgb(255 255 255 / 0.06);
+  --sl-color-hairline-shade: rgb(255 255 255 / 0.04);
+  --sl-color-text-accent: #f2a63b;
+  --sl-color-bg-inline-code: rgb(255 255 255 / 0.06);
+}
+
+/* Light */
+:root[data-theme="light"] {
+  --sl-color-bg: #ffffff;
+  --sl-color-bg-nav: rgb(255 255 255 / 0.8);
+  --sl-color-bg-sidebar: #f7f8fa;
+  --sl-color-text-accent: #b5641a;
+  --sl-color-hairline: rgb(9 12 20 / 0.1);
+}
+
+/* Display type uses Space Grotesk for the mission-control feel. */
+.site-title,
+h1,
+h2,
+h3,
+.hero h1,
+.card .title {
+  font-family: "Space Grotesk", var(--sl-font);
+  letter-spacing: -0.01em;
+}
+
+/* Slightly tighter, more readable long-form. */
+.sl-markdown-content {
+  line-height: 1.7;
+}
+
+/* Sidebar link micro-interaction: a solar marker that slides in on hover. */
+.sidebar-content a {
+  transition:
+    color 0.18s ease,
+    background-color 0.18s ease;
+}
+
+/* Reduce motion respectfully. */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

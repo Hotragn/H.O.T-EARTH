@@ -1,0 +1,114 @@
+---
+// Feature cards. Icons are inline SVG (no emoji, consistent 24x24 stroke set).
+const features = [
+  {
+    title: "Real physics, real data",
+    body: "Every number is computed or measured. Illustrative elements are labelled. No fabrication, ever.",
+    icon: "orbit",
+  },
+  {
+    title: "Keyless by design",
+    body: "No API keys, no secrets, no heavy server. One thin proxy route, everything else runs in the browser.",
+    icon: "key",
+  },
+  {
+    title: "25 worlds, one registry",
+    body: "Earth, the Solar System, and Beyond. A single typed registry drives the nav, search, and routes.",
+    icon: "layers",
+  },
+  {
+    title: "In-browser AI companion",
+    body: "Sprocket answers from the app's own data with an opt-in open-source model over WebGPU. No keys.",
+    icon: "spark",
+  },
+  {
+    title: "Documented accuracy",
+    body: "Each world ships a physics note and a data-sources note stating exactly how accurate each claim is.",
+    icon: "check",
+  },
+  {
+    title: "MIT, 30-second run",
+    body: "Clone, install, dev. No config. Fork it, learn from it, ship your own worlds.",
+    icon: "bolt",
+  },
+];
+
+const paths = {
+  orbit:
+    '<circle cx="12" cy="12" r="4"/><ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(-24 12 12)"/><circle cx="21" cy="9" r="1.4" fill="currentColor" stroke="none"/>',
+  key: '<circle cx="8" cy="12" r="3.5"/><path d="M11.5 12H21M18 12v3M15 12v2.5"/>',
+  layers: '<path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M3 13l9 5 9-5"/>',
+  spark:
+    '<path d="M12 3v4M12 17v4M5 12H3M21 12h-2M6 6l1.5 1.5M16.5 16.5 18 18"/><circle cx="12" cy="12" r="3"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>',
+  bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"/>',
+};
+---
+
+<div class="grid">
+  {
+    features.map((f) => (
+      <div class="card">
+        <span class="card__icon" aria-hidden="true">
+          <svg
+            viewBox="0 0 24 24"
+            width="22"
+            height="22"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            set:html={paths[f.icon]}
+          />
+        </span>
+        <h3 class="card__title">{f.title}</h3>
+        <p class="card__body">{f.body}</p>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin: 2.5rem 0;
+  }
+  .card {
+    padding: 1.35rem;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.85rem;
+    background: var(--sl-color-bg-sidebar);
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+  .card:hover {
+    border-color: color-mix(in srgb, var(--sl-color-text-accent) 45%, transparent);
+    transform: translateY(-2px);
+  }
+  .card__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 0.6rem;
+    background: color-mix(in srgb, var(--sl-color-text-accent) 12%, transparent);
+    color: var(--sl-color-text-accent);
+    margin-bottom: 0.9rem;
+  }
+  .card__title {
+    font-size: 1rem;
+    margin: 0 0 0.35rem;
+    color: var(--sl-color-white);
+  }
+  .card__body {
+    font-size: var(--sl-text-sm);
+    line-height: 1.6;
+    color: var(--sl-color-gray-3);
+    margin: 0;
+  }
+</style>

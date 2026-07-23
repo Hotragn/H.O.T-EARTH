@@ -1,0 +1,99 @@
+---
+title: Read real data in the browser
+description: Fetch a real public dataset, keep the physics in a pure module, and render it, the way every world in H.O.T EARTH works.
+---
+
+import { Steps, Aside } from "@astrojs/starlight/components";
+
+This tutorial shows the project's core data pattern: fetch a real public dataset,
+put the math in a pure and tested module, and let the scene stay thin. We will
+read a live weather value for a coordinate from Open-Meteo, a keyless public API.
+
+## The rule
+
+<Aside type="caution" title="Keep math out of components">
+Physics and data transforms live in `lib/`, as pure functions with tests. Scenes
+call them. This keeps numbers verifiable and honest, and it is non-negotiable in
+this project.
+</Aside>
+
+## 1. Write the pure module
+
+<Steps>
+
+1. Create a small, dependency-free module. It returns `null` on bad input rather
+   than throwing (the project's null-safety contract).
+
+   ```ts title="lib/example-weather.ts"
+   export interface PointWeather {
+     temperatureC: number;
+     windKph: number;
+   }
+
+   /** Parse Open-Meteo's current-weather payload. Returns null if malformed. */
+   export function parseCurrent(json: unknown): PointWeather | null {
+     const cur = (json as any)?.current;
+     if (!cur || typeof cur.temperature_2m !== "number") return null;
+     return {
+       temperatureC: cur.temperature_2m,
+       windKph: (cur.wind_speed_10m ?? 0) * 3.6,
+     };
+   }
+   ```
+
+2. Test it. Bad input must not throw.
+
+   ```ts title="lib/example-weather.test.ts"
+   import { expect, it } from "vitest";
+   import { parseCurrent } from "./example-weather";
+
+   it("returns null on malformed input", () => {
+     expect(parseCurrent({})).toBeNull();
+     expect(parseCurrent(null)).toBeNull();
+   });
+
+   it("converts wind m/s to kph", () => {
+     const w = parseCurrent({ current: { temperature_2m: 20, wind_speed_10m: 10 } });
+     expect(w?.windKph).toBeCloseTo(36);
+   });
+   ```
+
+</Steps>
+
+## 2. Fetch and render
+
+Keep the component thin: fetch, parse with the pure function, render.
+
+```tsx title="components/example/PointReadout.tsx"
+"use client";
+import { useEffect, useState } from "react";
+import { parseCurrent, type PointWeather } from "@/lib/example-weather";
+
+export function PointReadout({ lat, lon }: { lat: number; lon: number }) {
+  const [w, setW] = useState<PointWeather | null>(null);
+  useEffect(() => {
+    const url =
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}` +
+      `&longitude=${lon}&current=temperature_2m,wind_speed_10m`;
+    fetch(url)
+      .then((r) => r.json())
+      .then((j) => setW(parseCurrent(j)))
+      .catch(() => setW(null));
+  }, [lat, lon]);
+
+  if (!w) return <span>No reading.</span>;
+  return <span>{w.temperatureC.toFixed(1)} °C, {w.windKph.toFixed(0)} kph wind</span>;
+}
+```
+
+## Why this shape
+
+- The data is **real and public**, and the source is named, so it can be credited.
+- The transform is **pure and tested**, so the number is verifiable.
+- The component is **thin**, so the honesty lives in code you can read in one file.
+
+## Where to go next
+
+- See every dataset the project uses in the [Data sources reference](/reference/data-sources/).
+- See how licensing and attribution work in
+  [Add a data layer honestly](/guides/add-a-data-layer/).

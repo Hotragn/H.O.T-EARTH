@@ -1,0 +1,46 @@
+---
+import Default from "@astrojs/starlight/components/Head.astro";
+
+const route = Astro.locals.starlightRoute;
+const entry = route?.entry;
+const site = Astro.site?.toString().replace(/\/$/, "") ?? "";
+const isSplash =
+  entry?.data?.template === "splash" || Astro.url.pathname === "/";
+const title = entry?.data?.title ?? "H.O.T EARTH";
+const description =
+  entry?.data?.description ??
+  "A living digital twin of Earth and the cosmos. Real physics, real data.";
+
+// SoftwareApplication on the landing page, TechArticle on doc pages.
+const jsonLd = isSplash
+  ? {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      name: "H.O.T EARTH",
+      applicationCategory: "EducationalApplication",
+      operatingSystem: "Web",
+      description,
+      url: site,
+      license: "https://opensource.org/licenses/MIT",
+      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      author: { "@type": "Person", name: "Hotragn Pettugani" },
+    }
+  : {
+      "@context": "https://schema.org",
+      "@type": "TechArticle",
+      headline: title,
+      description,
+      url: site + Astro.url.pathname,
+      author: { "@type": "Person", name: "Hotragn Pettugani" },
+      publisher: { "@type": "Organization", name: "H.O.T EARTH" },
+    };
+---
+
+<Default {...Astro.props}><slot /></Default>
+<link rel="manifest" href="/site.webmanifest" />
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+<meta name="theme-color" content="#05060a" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="og:image" content={`${site}/og-default.png`} />
+<meta name="twitter:image" content={`${site}/og-default.png`} />
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

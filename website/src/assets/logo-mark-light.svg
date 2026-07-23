@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="H.O.T EARTH">
+  <title>H.O.T EARTH</title>
+  <desc>Light-background variant: darker disc edge for contrast on white.</desc>
+  <defs>
+    <clipPath id="discL"><circle cx="32" cy="32" r="19"/></clipPath>
+  </defs>
+  <g clip-path="url(#discL)">
+    <rect x="13" y="13" width="38" height="38" fill="#f2a63b"/>
+    <ellipse cx="43" cy="32" rx="13" ry="22" fill="#0b0e16"/>
+  </g>
+  <circle cx="32" cy="32" r="19" fill="none" stroke="#0b0e16" stroke-opacity="0.16" stroke-width="1"/>
+  <g transform="rotate(-24 32 32)">
+    <ellipse cx="32" cy="32" rx="28" ry="10" fill="none" stroke="#c8791f" stroke-opacity="0.6" stroke-width="1.4"/>
+    <circle cx="60" cy="32" r="5" fill="#f2a63b" opacity="0.2"/>
+    <circle cx="60" cy="32" r="2.6" fill="#c8791f"/>
+  </g>
+</svg>

@@ -1,0 +1,56 @@
+---
+// Honest "built with real data and tech" strip. No fabricated customer logos:
+// these are the actual sources and tools the project uses and credits.
+const data = [
+  "NASA GIBS",
+  "Open-Meteo",
+  "NOAA GFS",
+  "JPL Horizons",
+  "SDSS DR17",
+  "USGS",
+];
+const tech = ["Next.js 15", "three.js", "TypeScript", "Vitest", "Vercel"];
+---
+
+<div class="strip">
+  <p class="strip__label">Built on real data</p>
+  <ul class="strip__row">
+    {data.map((d) => <li>{d}</li>)}
+  </ul>
+  <p class="strip__label">and open tools</p>
+  <ul class="strip__row">
+    {tech.map((t) => <li>{t}</li>)}
+  </ul>
+</div>
+
+<style>
+  .strip {
+    margin: 2.5rem 0;
+    text-align: center;
+  }
+  .strip__label {
+    font-size: var(--sl-text-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sl-color-gray-4);
+    margin: 1rem 0 0.6rem;
+  }
+  .strip__row {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+  }
+  .strip__row li {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 999px;
+    background: var(--sl-color-bg-sidebar);
+  }
+</style>
