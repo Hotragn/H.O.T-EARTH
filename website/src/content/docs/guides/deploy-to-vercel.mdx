@@ -1,0 +1,74 @@
+---
+title: Deploy to Vercel
+description: Deploy H.O.T EARTH to Vercel, including the caching image proxy and the automated data pipeline.
+---
+
+import { Steps, Aside } from "@astrojs/starlight/components";
+
+H.O.T EARTH is built to deploy to Vercel with no secrets. This guide covers the
+app itself, the one server route, and the data refresh pipeline.
+
+## Deploy the app
+
+<Steps>
+
+1. Push your fork to GitHub.
+
+2. In Vercel, **Add New Project** and import the repository. Vercel detects
+   Next.js automatically.
+
+3. Leave environment variables empty. The app is keyless.
+
+4. Deploy. The build runs `next build` and the app is live.
+
+</Steps>
+
+<Aside type="note" title="One server route">
+The only server-side code is `app/api/gibs/[layer]`, a caching proxy for NASA
+GIBS satellite tiles. It holds no secrets; it exists to add cache headers and
+avoid hammering the upstream. See the [GIBS proxy reference](/reference/gibs-proxy/).
+</Aside>
+
+## Cache headers
+
+Static assets (textures, data, video) are content-hashed and safe to cache hard.
+The image proxy sets its own revalidation window. If you add a `vercel.json`,
+a sound starting point is:
+
+```json title="vercel.json"
+{
+  "headers": [
+    {
+      "source": "/textures/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    }
+  ]
+}
+```
+
+## The data pipeline
+
+Time-varying data (wind fields, the ISS orbital element set) is refreshed by
+scheduled **GitHub Actions**, not at request time, and committed as static files.
+This keeps the runtime keyless and cheap. You do not need to configure anything
+for a fork; the workflows run on your repository once Actions are enabled.
+
+## Documentation site (this site)
+
+These docs are a separate Astro project in `website/`. Deploy them as their own
+Vercel project:
+
+- **Root directory:** `website`
+- **Framework preset:** Astro
+- **Build command:** `astro build`, **Output:** `dist`
+
+Once you attach a custom domain, serve the docs at `/docs` with a rewrite in the
+main app, the pattern Stripe, Vercel, and Tailwind use to keep one domain.
+
+## Verify the deploy
+
+Open the deployment URL, confirm the globe renders, and check that a world route
+like `/galaxies` loads. If imagery is missing, check the proxy route's logs in
+the Vercel dashboard.

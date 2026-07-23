@@ -1,0 +1,82 @@
+---
+// Breadcrumb trail derived from the current route's slug. Group segments are
+// plain text (they have no index page); Home and the leaf are the anchors.
+const route = Astro.locals.starlightRoute;
+const slug: string = route?.id ?? route?.entry?.slug ?? "";
+const title: string = route?.entry?.data?.title ?? "";
+
+const GROUP_LABELS: Record<string, string> = {
+  "start-here": "Start Here",
+  tutorials: "Tutorials",
+  guides: "How-To Guides",
+  reference: "Reference",
+  explanation: "Explanation",
+  community: "Community",
+  blog: "Blog",
+};
+
+const segments = slug.split("/").filter(Boolean);
+// Drop the leaf; we render the page title for it instead.
+const groupSegs = segments.slice(0, -1);
+const crumbs = groupSegs.map((s) => GROUP_LABELS[s] ?? s.replace(/-/g, " "));
+---
+
+{
+  slug && (
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <ol>
+        <li>
+          <a href="/">Home</a>
+        </li>
+        {crumbs.map((label) => (
+          <li aria-hidden="true">
+            <span class="sep">/</span>
+            <span>{label}</span>
+          </li>
+        ))}
+        <li>
+          <span class="sep">/</span>
+          <span class="current" aria-current="page">
+            {title}
+          </span>
+        </li>
+      </ol>
+    </nav>
+  )
+}
+
+<style>
+  .breadcrumbs {
+    margin-bottom: 0.5rem;
+  }
+  .breadcrumbs ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0;
+    margin: 0;
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
+  }
+  .breadcrumbs li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .breadcrumbs a {
+    color: var(--sl-color-gray-3);
+    text-decoration: none;
+    transition: color 0.18s ease;
+  }
+  .breadcrumbs a:hover {
+    color: var(--sl-color-text-accent);
+  }
+  .breadcrumbs .sep {
+    color: var(--sl-color-gray-5);
+  }
+  .breadcrumbs .current {
+    color: var(--sl-color-gray-2);
+  }
+</style>

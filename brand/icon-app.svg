@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="H.O.T EARTH app icon">
+  <title>H.O.T EARTH</title>
+  <desc>Rounded-square monogram: an H whose crossbar is a day/night terminator.</desc>
+  <rect x="4" y="4" width="56" height="56" rx="15" fill="#0b0e16" stroke="#ffffff" stroke-opacity="0.10" stroke-width="1"/>
+  <!-- H uprights -->
+  <rect x="20.5" y="18" width="6.5" height="28" rx="2" fill="#edf0f5"/>
+  <rect x="37" y="18" width="6.5" height="28" rx="2" fill="#edf0f5"/>
+  <!-- crossbar = terminator: amber day half, graphite night half -->
+  <rect x="20.5" y="28.5" width="11.5" height="7" fill="#f2a63b"/>
+  <rect x="32" y="28.5" width="11.5" height="7" fill="#39415a"/>
+</svg>

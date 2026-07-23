@@ -1,0 +1,76 @@
+---
+title: "HTTP: GIBS proxy route"
+description: The single server route in H.O.T EARTH. A caching proxy for NASA GIBS satellite imagery, with its parameters, responses, and status codes.
+---
+
+import { Aside } from "@astrojs/starlight/components";
+
+This is the only server-side route in the app. It fetches one full-globe
+equirectangular WMS snapshot from NASA GIBS and returns it with long CDN cache
+headers, keyed by layer and date. It holds no secrets; it exists to protect the
+upstream and speed up users.
+
+## Endpoint
+
+```
+GET /api/gibs/{layer}?date=YYYY-MM-DD
+```
+
+### Path parameters
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `layer` | string | A known layer slug (for example `blue-marble`). Unknown slugs return 404. |
+
+### Query parameters
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| `date` | `YYYY-MM-DD` | most recent available day | The imagery day. Must match the date format. |
+
+<Aside type="note" title="Automatic day fallback">
+GIBS daily layers lag real time by about a day (some products more). If the
+requested day is missing or blank, the route walks backwards up to 3 days before
+giving up. The day actually served is returned in the `X-Gibs-Date` header.
+</Aside>
+
+## Responses
+
+### 200 OK
+
+An image (`image/jpeg` or `image/png`) with these headers:
+
+| Header | Example | Meaning |
+| --- | --- | --- |
+| `Content-Type` | `image/jpeg` | The image format from GIBS. |
+| `Cache-Control` | `public, s-maxage=86400, stale-while-revalidate=172800` | One imagery day is immutable once published, so it caches hard. |
+| `X-Gibs-Layer` | `MODIS_Terra_CorrectedReflectance_TrueColor` | The upstream GIBS layer id served. |
+| `X-Gibs-Date` | `2026-07-22` | The day actually served (may differ from the request after fallback). |
+
+### Error responses
+
+| Status | Body | When |
+| --- | --- | --- |
+| `400 Bad Request` | `{ "error": "date must be YYYY-MM-DD" }` | The `date` parameter is malformed. |
+| `404 Not Found` | `{ "error": "Unknown layer \"...\"" }` | The layer slug is not recognised. |
+| `5xx` | `{ "error": "..." }` | Every fallback day failed upstream. The message names the last upstream error. |
+
+## Examples
+
+```sh
+# Most recent available imagery for a layer
+curl -i "https://your-deploy.vercel.app/api/gibs/blue-marble"
+
+# A specific day
+curl -i "https://your-deploy.vercel.app/api/gibs/blue-marble?date=2026-07-01"
+
+# Inspect which day was actually served
+curl -sI "https://your-deploy.vercel.app/api/gibs/blue-marble" | grep -i x-gibs-date
+```
+
+## Why it exists
+
+Fetching full-globe tiles directly from GIBS on every page load would be slow and
+would hammer a shared public service. This route adds a CDN cache keyed by layer
+and date, so each day is fetched once and served from the edge thereafter. See
+[The compute decision](/explanation/compute-decision/) for where this fits.

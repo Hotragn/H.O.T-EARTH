@@ -1,0 +1,18 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# generated raster assets (regenerate with `npm run icons`)
+public/icons/
+public/og-default.png
+
+# env + logs
+.env
+.env.*
+*.log
+
+# os
+.DS_Store

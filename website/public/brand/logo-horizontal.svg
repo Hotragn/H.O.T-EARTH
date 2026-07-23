@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 292 64" width="292" height="64" role="img" aria-label="H.O.T EARTH">
+  <title>H.O.T EARTH</title>
+  <defs>
+    <clipPath id="discH"><circle cx="32" cy="32" r="19"/></clipPath>
+  </defs>
+  <g clip-path="url(#discH)">
+    <rect x="13" y="13" width="38" height="38" fill="#f2a63b"/>
+    <ellipse cx="43" cy="32" rx="13" ry="22" fill="#0b0e16"/>
+  </g>
+  <circle cx="32" cy="32" r="19" fill="none" stroke="#ffffff" stroke-opacity="0.14" stroke-width="1"/>
+  <g transform="rotate(-24 32 32)">
+    <ellipse cx="32" cy="32" rx="28" ry="10" fill="none" stroke="#f2a63b" stroke-opacity="0.5" stroke-width="1.4"/>
+    <circle cx="60" cy="32" r="5" fill="#f2a63b" opacity="0.18"/>
+    <circle cx="60" cy="32" r="2.6" fill="#f2a63b"/>
+  </g>
+  <!-- wordmark: amber periods echo the orbit body; kerning tuned for optical balance -->
+  <text x="80" y="41" font-family="'Space Grotesk','Segoe UI',system-ui,sans-serif" font-size="25" font-weight="700" letter-spacing="1.2" fill="#edf0f5">H<tspan fill="#f2a63b">.</tspan>O<tspan fill="#f2a63b">.</tspan>T<tspan fill="#edf0f5"> EARTH</tspan></text>
+  <!-- trailing satellite: a faint orbit arc with a body, the wordmark's orbit dot -->
+  <g transform="translate(278 24)">
+    <path d="M -7 4 A 7 4 0 1 1 7 4" fill="none" stroke="#f2a63b" stroke-opacity="0.4" stroke-width="1.2"/>
+    <circle cx="7" cy="4" r="2.4" fill="#f2a63b"/>
+  </g>
+</svg>

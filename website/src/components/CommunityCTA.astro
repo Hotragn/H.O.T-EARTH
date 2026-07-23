@@ -1,0 +1,77 @@
+---
+const repo = "https://github.com/Hotragn/H.O.T-EARTH";
+---
+
+<aside class="cta">
+  <div class="cta__text">
+    <strong>Building with H.O.T EARTH?</strong>
+    <span>Ask a question, share a world, or report a data issue.</span>
+  </div>
+  <div class="cta__links">
+    <a class="cta__btn" href={`${repo}/discussions`} target="_blank" rel="noopener">
+      Discussions
+    </a>
+    <a class="cta__btn cta__btn--accent" href={repo} target="_blank" rel="noopener">
+      Star on GitHub
+    </a>
+  </div>
+</aside>
+
+<style>
+  .cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    padding: 1rem 1.15rem;
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.75rem;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--sl-color-text-accent) 6%, transparent),
+      transparent
+    );
+  }
+  .cta__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    font-size: var(--sl-text-sm);
+  }
+  .cta__text strong {
+    color: var(--sl-color-white);
+  }
+  .cta__text span {
+    color: var(--sl-color-gray-3);
+  }
+  .cta__links {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .cta__btn {
+    cursor: pointer;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--sl-color-hairline);
+    color: var(--sl-color-white);
+    font-size: var(--sl-text-sm);
+    text-decoration: none;
+    transition:
+      border-color 0.18s ease,
+      background-color 0.18s ease;
+  }
+  .cta__btn:hover {
+    border-color: var(--sl-color-text-accent);
+  }
+  .cta__btn--accent {
+    background: var(--sl-color-text-accent);
+    color: #05060a;
+    border-color: transparent;
+    font-weight: 600;
+  }
+  .cta__btn--accent:hover {
+    background: color-mix(in srgb, var(--sl-color-text-accent) 88%, white);
+  }
+</style>

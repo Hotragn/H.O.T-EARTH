@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="H.O.T EARTH">
+  <title>H.O.T EARTH</title>
+  <desc>A disc split by a day/night terminator with a body on a tilted orbit.</desc>
+  <defs>
+    <clipPath id="disc"><circle cx="32" cy="32" r="19"/></clipPath>
+  </defs>
+  <!-- lit day side + a natural terminator carving the night side (~55% lit) -->
+  <g clip-path="url(#disc)">
+    <rect x="13" y="13" width="38" height="38" fill="#f2a63b"/>
+    <ellipse cx="43" cy="32" rx="13" ry="22" fill="#0b0e16"/>
+  </g>
+  <circle cx="32" cy="32" r="19" fill="none" stroke="#ffffff" stroke-opacity="0.14" stroke-width="1"/>
+  <!-- tilted orbit + orbiting body with a soft halo so it reads as a satellite -->
+  <g transform="rotate(-24 32 32)">
+    <ellipse cx="32" cy="32" rx="28" ry="10" fill="none" stroke="#f2a63b" stroke-opacity="0.5" stroke-width="1.4"/>
+    <circle cx="60" cy="32" r="5" fill="#f2a63b" opacity="0.18"/>
+    <circle cx="60" cy="32" r="2.6" fill="#f2a63b"/>
+  </g>
+</svg>

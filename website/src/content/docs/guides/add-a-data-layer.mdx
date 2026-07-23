@@ -1,0 +1,65 @@
+---
+title: Add a data layer honestly
+description: The workflow for adding a new dataset to H.O.T EARTH, including licensing, attribution, and the accuracy note that ships with it.
+---
+
+import { Steps, Aside } from "@astrojs/starlight/components";
+
+Adding data is not just fetching a URL. In this project a new layer ships with a
+license check, a credit, and an accuracy statement. This guide is the checklist.
+
+## 1. Vet the license before you write code
+
+<Aside type="danger" title="Licensing is a gate, not a footnote">
+If the license is unclear, non-commercial only, or no-derivatives, do not use the
+dataset. The project only ships assets that are clearly usable and creditable.
+</Aside>
+
+Accepted sources tend to be:
+
+- **Public domain:** NASA, USGS, NOAA (US federal works).
+- **CC BY 4.0:** ESA/Hubble, ESA/Webb (attribution required, keep the exact
+  credit line).
+
+Rejected: anything CC BY-NC, CC BY-ND, or with unclear terms.
+
+## 2. Add the source with attribution
+
+<Steps>
+
+1. Record the dataset in `docs/DATA_SOURCES.md` (or a world-specific
+   `*_DATA_SOURCES.md`): the URL, the license, the exact credit line, and the
+   date you verified it.
+
+2. If you ship a file (a texture, a JSON snapshot), place it under `public/` and
+   keep the credit next to it.
+
+</Steps>
+
+## 3. Keep the transform pure and tested
+
+Put the parsing and any physics in a `lib/` module with tests and the
+null-safety contract, exactly as in
+[Read real data in the browser](/tutorials/reading-real-data/).
+
+## 4. Write the accuracy note
+
+Every world has a `*_PHYSICS.md` that states what is computed, from which inputs,
+and how accurate it is. Add or update it. Be specific about the bounds, for
+example: "valid for low redshift, not for high-redshift cosmology."
+
+## 5. Label anything illustrative
+
+If part of the layer is an artist's rendering or a stylised value, label it as
+illustrative in the UI and say so in the note. The honesty rule is that a reader
+should never mistake an illustration for a measurement.
+
+## Checklist
+
+- [ ] License verified and clearly usable
+- [ ] Exact credit line recorded with the source
+- [ ] Transform is a pure, tested `lib/` module
+- [ ] Accuracy note written with explicit bounds
+- [ ] Illustrative elements labelled
+
+See the [Data sources reference](/reference/data-sources/) for the current set.

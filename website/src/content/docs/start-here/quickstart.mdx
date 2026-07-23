@@ -1,0 +1,88 @@
+---
+title: Quickstart
+description: Clone, install, and run H.O.T EARTH locally in about 30 seconds. No API keys, no config.
+---
+
+import { Tabs, TabItem, Steps, Aside } from "@astrojs/starlight/components";
+
+Run the full app on your machine in about 30 seconds. There are no API keys and
+no configuration.
+
+## Prerequisites
+
+- **Node.js 20 or newer** and a package manager (npm, pnpm, or yarn).
+- Git.
+
+## Run it
+
+<Steps>
+
+1. Clone the repository.
+
+   ```sh
+   git clone https://github.com/Hotragn/H.O.T-EARTH.git
+   cd H.O.T-EARTH
+   ```
+
+2. Install dependencies.
+
+   <Tabs syncKey="pkg">
+     <TabItem label="npm">
+     ```sh
+     npm install
+     ```
+     </TabItem>
+     <TabItem label="pnpm">
+     ```sh
+     pnpm install
+     ```
+     </TabItem>
+     <TabItem label="yarn">
+     ```sh
+     yarn
+     ```
+     </TabItem>
+   </Tabs>
+
+3. Start the dev server.
+
+   <Tabs syncKey="pkg">
+     <TabItem label="npm">
+     ```sh
+     npm run dev
+     ```
+     </TabItem>
+     <TabItem label="pnpm">
+     ```sh
+     pnpm dev
+     ```
+     </TabItem>
+     <TabItem label="yarn">
+     ```sh
+     yarn dev
+     ```
+     </TabItem>
+   </Tabs>
+
+4. Open [http://localhost:3000](http://localhost:3000). You should see the live
+   globe with the current day/night terminator.
+
+</Steps>
+
+<Aside type="tip" title="No keys needed">
+The app is keyless. The only network calls are to public data endpoints and one
+thin caching proxy route. Nothing you run locally requires a secret.
+</Aside>
+
+## Verify your setup
+
+Run the test suite and a production build to confirm everything is wired up:
+
+```sh
+npm run test
+npm run build
+```
+
+A green test run and a clean build mean you are ready to explore the
+[worlds registry](/reference/worlds-registry/) or
+[build your first world](/tutorials/first-world/).

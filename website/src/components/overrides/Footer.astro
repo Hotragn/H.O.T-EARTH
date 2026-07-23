@@ -1,0 +1,18 @@
+---
+import Default from "@astrojs/starlight/components/Footer.astro";
+import Feedback from "../Feedback.astro";
+import CommunityCTA from "../CommunityCTA.astro";
+
+// Splash (home) pages set template: splash; skip the doc-footer widgets there.
+const isSplash = Astro.props.entry?.data?.template === "splash";
+---
+
+{
+  !isSplash && (
+    <div class="hot-footer-widgets">
+      <Feedback />
+      <CommunityCTA />
+    </div>
+  )
+}
+<Default {...Astro.props}><slot /></Default>

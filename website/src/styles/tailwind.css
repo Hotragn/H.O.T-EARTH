@@ -1,0 +1,38 @@
+@layer base, starlight, theme, components, utilities;
+
+@import "@astrojs/starlight-tailwind";
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@theme {
+  /* Fonts: Space Grotesk display is applied per-element in brand.css; the
+     sans/mono defaults below feed both Tailwind and Starlight. */
+  --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Accent = solar amber (the app's single accent, #f2a63b at 400). */
+  --color-accent-50: #fdf6ec;
+  --color-accent-100: #fbe9cf;
+  --color-accent-200: #f7d29a;
+  --color-accent-300: #f4c072;
+  --color-accent-400: #f2a63b;
+  --color-accent-500: #e8912a;
+  --color-accent-600: #d97e1e;
+  --color-accent-700: #b5641a;
+  --color-accent-800: #8f4e18;
+  --color-accent-900: #6f3d16;
+  --color-accent-950: #3d2109;
+
+  /* Gray = the app's cool "mission-control" neutrals. */
+  --color-gray-50: #f5f7fa;
+  --color-gray-100: #edf0f5;
+  --color-gray-200: #d5dae3;
+  --color-gray-300: #9aa2b1;
+  --color-gray-400: #626a7a;
+  --color-gray-500: #434b5a;
+  --color-gray-600: #2a313e;
+  --color-gray-700: #1b2230;
+  --color-gray-800: #121622;
+  --color-gray-900: #0b0e16;
+  --color-gray-950: #05060a;
+}
