@@ -238,6 +238,7 @@ export default function CommandPalette({
             <span>↑↓ move</span>
             <span>↵ open</span>
             <span>esc close</span>
+            <span className="hidden sm:inline">[ ] prev/next world</span>
           </span>
           <span className="hidden sm:inline">
             {results.length} world{results.length === 1 ? "" : "s"}

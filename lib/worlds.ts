@@ -686,6 +686,23 @@ export function groupedWorlds(): Array<{ group: WorldGroup; worlds: World[] }> {
   }));
 }
 
+/**
+ * Adjacent worlds in canonical (flattened) order, for prev/next step-through
+ * navigation. Wraps around both ends so it is never null for a valid world.
+ * Returns null for an unknown id (null-safety contract).
+ */
+export function adjacentWorlds(
+  id: WorldTab,
+): { prev: World; next: World } | null {
+  const i = WORLDS.findIndex((w) => w.id === id);
+  if (i < 0) return null;
+  const n = WORLDS.length;
+  return {
+    prev: WORLDS[(i - 1 + n) % n],
+    next: WORLDS[(i + 1) % n],
+  };
+}
+
 // --- fuzzy search (command palette) ----------------------------------------
 
 /**

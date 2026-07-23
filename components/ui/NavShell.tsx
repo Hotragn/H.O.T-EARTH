@@ -2,10 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { CaretDown, Info, MagnifyingGlass, SquaresFour } from "@phosphor-icons/react";
 import {
   WORLD_GROUPS,
+  adjacentWorlds,
   getWorld,
   getWorldsInGroup,
   groupedWorlds,
@@ -43,6 +44,7 @@ export default function NavShell({
   active?: WorldTab;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
   const [openGroup, setOpenGroup] = useState<WorldGroupId | null>(null);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [overviewOpen, setOverviewOpen] = useState(false);
@@ -65,6 +67,26 @@ export default function NavShell({
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
+
+  // Step to the previous / next world with [ and ] (site-wide, wraps around).
+  // Ignored while typing in a field, when an overlay is open, or with modifiers.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "[" && e.key !== "]") return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      if (paletteOpen || overviewOpen) return;
+      const el = e.target as HTMLElement | null;
+      if (el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) {
+        return;
+      }
+      const adj = adjacentWorlds(active);
+      if (!adj) return;
+      e.preventDefault();
+      router.push(e.key === "[" ? adj.prev.href : adj.next.href);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [active, paletteOpen, overviewOpen, router]);
 
   // Close the group dropdowns on navigation (palette + overview self-close).
   useEffect(() => {
@@ -245,7 +267,7 @@ function MobileWorldMenu({ active }: { active: WorldTab }) {
       {open && (
         <nav
           aria-label="Worlds"
-          className="hud-panel absolute right-0 top-full mt-2 flex w-56 flex-col rounded-2xl p-1.5 animate-menu-in"
+          className="hud-scroll hud-panel absolute right-0 top-full mt-2 flex max-h-[min(75dvh,34rem)] w-56 flex-col overflow-y-auto rounded-2xl p-1.5 animate-menu-in"
         >
           {groupedWorlds().map((section) => (
             <div key={section.group.id} className="py-0.5">
