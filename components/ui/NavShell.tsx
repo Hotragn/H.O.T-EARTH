@@ -16,6 +16,7 @@ import {
 import NavGroupMenu from "./NavGroupMenu";
 import CommandPalette from "./CommandPalette";
 import WorldsOverview from "./WorldsOverview";
+import BrandMark from "./BrandMark";
 
 /**
  * WorldTab is defined in lib/worlds.ts (the single source of truth) and
@@ -109,12 +110,12 @@ export default function NavShell({
       {/* brand */}
       <div className="pointer-events-auto animate-hud-in">
         <div className="flex items-center gap-2.5">
-          <span aria-hidden className="h-2 w-2 rounded-full bg-solar" />
+          <BrandMark size={22} />
           <span className="font-display text-sm font-semibold tracking-[0.24em] text-ice">
             H.O.T EARTH
           </span>
         </div>
-        <p className="mt-1.5 hidden max-w-[300px] pl-[18px] text-[11px] leading-snug text-faint sm:block">
+        <p className="mt-1.5 hidden max-w-[300px] pl-[32px] text-[11px] leading-snug text-faint sm:block">
           A living digital twin of Earth — real physics, real data
         </p>
       </div>
