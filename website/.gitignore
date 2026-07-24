@@ -14,5 +14,8 @@ public/og-default.png
 .env.*
 *.log
 
+# vercel
+.vercel
+
 # os
 .DS_Store
