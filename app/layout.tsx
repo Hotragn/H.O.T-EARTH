@@ -17,9 +17,18 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://h-o-t-earth.vercel.app"),
   title: "H.O.T Earth",
   description:
     "A living digital twin of Earth — real physics, real data. Live NASA satellite imagery, a physically accurate day/night terminator, and point forecasts anywhere on the planet.",
+  openGraph: {
+    title: "H.O.T Earth",
+    description:
+      "A living digital twin of Earth and the cosmos. Real physics, real data, no fake numbers.",
+    type: "website",
+    siteName: "H.O.T EARTH",
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {
