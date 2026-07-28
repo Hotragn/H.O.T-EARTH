@@ -78,8 +78,8 @@ USER_AGENT = (
 # once or twice a day; a small pause between them is courteous.
 INTER_REQUEST_PAUSE = 2.0  # seconds
 HTTP_TIMEOUT = 60          # seconds
-HTTP_RETRIES = 3
-HTTP_BACKOFF = 4.0         # seconds, exponential
+HTTP_RETRIES = 5           # survive a transient CelesTrak outage (was 3)
+HTTP_BACKOFF = 4.0         # seconds, exponential (4, 8, 16, 32)
 
 ATTRIBUTION = "Orbital data: US Space Force (18 SDS) via CelesTrak (celestrak.org)"
 
