@@ -23,11 +23,9 @@ An interactive 3D globe with daily NASA satellite imagery, a physically-computed
 
 > **Run it locally in 30 seconds:** `git clone` → `npm install` → `npm run dev`. No keys, no config. See [Quickstart](#quickstart).
 
-![H.O.T Earth — interactive digital twin](docs/media/hero.png)
+![H.O.T Earth — the live globe showing today's NASA imagery across the day/night terminator, with city lights on the night side](docs/media/hero.png)
 
-<sub>Earth · Mars · Moon · Virtual Earth time machine — MIT licensed, no API keys required</sub>
-
-<sub>⚠️ The image above is a placeholder title card — grab the real globe screenshot in 2 minutes via [docs/media/README.md](docs/media/README.md).</sub>
+<sub>The live app: real NASA GIBS imagery, a physically-computed terminator, and the data-layer panel. MIT licensed, no API keys required.</sub>
 
 </div>
 
