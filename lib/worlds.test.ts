@@ -21,8 +21,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the twenty-five world views, all unique", () => {
-    expect(WORLDS).toHaveLength(25);
+  it("has the twenty-six world views, all unique", () => {
+    expect(WORLDS).toHaveLength(26);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -57,6 +57,7 @@ describe("worlds registry", () => {
       "black-holes": "/black-holes",
       "neutron-stars": "/neutron-stars",
       galaxies: "/galaxies",
+      "gravitational-waves": "/gravitational-waves",
     });
   });
 
@@ -67,7 +68,7 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 4 Earth, 14 Solar System and 7 Beyond worlds", () => {
+  it("splits 4 Earth, 14 Solar System and 8 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
@@ -98,6 +99,7 @@ describe("worlds registry", () => {
       "black-holes",
       "neutron-stars",
       "galaxies",
+      "gravitational-waves",
     ]);
   });
 
@@ -128,7 +130,7 @@ describe("worlds registry", () => {
     ]);
     expect(grouped[0].worlds).toHaveLength(4);
     expect(grouped[1].worlds).toHaveLength(14);
-    expect(grouped[2].worlds).toHaveLength(7);
+    expect(grouped[2].worlds).toHaveLength(8);
   });
 
   it("adjacentWorlds steps through canonical order and wraps", () => {
@@ -178,7 +180,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(25);
+    expect(searchWorlds("   ")).toHaveLength(26);
   });
 
   it("finds a world by exact label", () => {

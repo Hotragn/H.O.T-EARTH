@@ -1222,6 +1222,50 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Gravitational Waves &mdash; real detections, a computed chirp
+          </h3>
+          <p className="mt-2">
+            The Gravitational Waves tab (the eighth &quot;Beyond&quot; world) leads
+            with its load-bearing honesty point:{" "}
+            <span className="text-ice">
+              the detections are real, but the wave you see and hear is computed
+            </span>
+            . We ship the 282 events from the GWOSC catalogues (GWTC-1 through
+            GWTC-5) that publish both component masses and a distance; the other
+            109 listed entries lack parameter estimates and are omitted rather
+            than filled in. We do <em>not</em> ship the detector strain time
+            series, the localisation sky maps, or LIGO&apos;s audio releases, so no
+            event is placed on the sky and no recording is played.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Real:</span> every mass, distance,
+            redshift, remnant mass and network SNR.{" "}
+            <span className="text-ice">Computed</span> by lib/gravitational-waves
+            (50 unit tests against published values): the chirp mass, the
+            leading-order frequency sweep, the strain scale (~1e-21 for GW150914,
+            the right order of magnitude, without inclination or antenna pattern),
+            and the radiated energy (3.0 solar masses for GW150914).{" "}
+            <span className="text-ice">Two stated limits:</span> the Schwarzschild
+            ISCO estimate of the merger frequency is a genuine underestimate
+            (68 Hz for GW150914 against an observed peak nearer 150-250 Hz), and
+            the catalogue publishes no remnant spins at all, so the 291 Hz ringdown
+            note is computed with a spin estimated from the mass ratio and is
+            labeled &quot;(est.)&quot; beside the measured effective spin.
+            Components between 2 and 5 solar masses are called ambiguous rather
+            than classified, because the neutron-star/black-hole line is unsettled.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> Event data: LIGO
+            Scientific Collaboration, Virgo Collaboration and KAGRA Collaboration,
+            via the Gravitational Wave Open Science Center (gwosc.org), released
+            for free public use. Ringdown fit: Echeverria (1989) / Berti et al.
+            Remnant-spin estimate: Rezzolla et al. (2008) non-spinning fit. The
+            opt-in sound is synthesized in-browser at the event&apos;s real
+            frequency, stretched in time to be followable, and is not a LIGO audio
+            release.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Attribution
           </h3>
           <ul className="mt-2 space-y-1.5">
