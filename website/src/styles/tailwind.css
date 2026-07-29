@@ -28,7 +28,10 @@
   --color-gray-100: #edf0f5;
   --color-gray-200: #d5dae3;
   --color-gray-300: #9aa2b1;
-  --color-gray-400: #626a7a;
+  /* Muted text (Starlight's --sl-color-gray-3). Lightened from the app's #626a7a
+     so 13-14px secondary text clears WCAG AA on the abyss background: 5.24:1
+     against #05060a, where #626a7a was only 3.72:1. */
+  --color-gray-400: #7a8292;
   --color-gray-500: #434b5a;
   --color-gray-600: #2a313e;
   --color-gray-700: #1b2230;

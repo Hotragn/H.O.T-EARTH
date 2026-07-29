@@ -23,7 +23,9 @@ export default defineConfig({
       logo: {
         light: "./src/assets/logo-mark-light.svg",
         dark: "./src/assets/logo-mark.svg",
-        alt: "H.O.T EARTH",
+        // Decorative: the site title text next to it already names the site, so
+        // repeating it here trips axe's redundant-alt rule.
+        alt: "",
         replacesTitle: false,
       },
       favicon: "/favicon.svg",
