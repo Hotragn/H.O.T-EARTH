@@ -40,7 +40,8 @@ export type WorldTab =
   | "exo-surfaces"
   | "black-holes"
   | "neutron-stars"
-  | "galaxies";
+  | "galaxies"
+  | "gravitational-waves";
 
 /**
  * World groups. Designed so a third group can be added by extending this union +
@@ -655,6 +656,37 @@ export const WORLDS: readonly World[] = [
       "deep field",
       "large-scale structure",
       "hubble tension",
+      "beyond",
+    ],
+  },
+  {
+    id: "gravitational-waves",
+    label: "Gravitational Waves",
+    href: "/gravitational-waves",
+    group: "beyond",
+    blurb:
+      "282 real LIGO, Virgo and KAGRA detections. The masses and distances are published; the chirp you see and hear is computed from them.",
+    accent: "#8fd3ff",
+    keywords: [
+      "gravitational waves",
+      "ligo",
+      "virgo",
+      "kagra",
+      "gw150914",
+      "gw170817",
+      "merger",
+      "chirp",
+      "chirp mass",
+      "ringdown",
+      "strain",
+      "inspiral",
+      "binary black hole",
+      "neutron star merger",
+      "kilonova",
+      "gwosc",
+      "gwtc",
+      "spacetime",
+      "interferometer",
       "beyond",
     ],
   },
