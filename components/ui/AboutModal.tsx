@@ -1202,7 +1202,8 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
             and M33 are blueshifted and approaching, the Milky Way has no
             heliocentric distance because we are inside it), the large-scale
             structure facts (Virgo/Laniakea, Great Attractor, Sloan Great Wall,
-            Bootes Void), four real ESA/Hubble galaxy images and the ESA/Webb JWST
+            Bootes Void), a real telescope image for every galaxy in the catalog
+            (ESA/Hubble and ESO) and the ESA/Webb JWST
             SMACS 0723 first deep field, all CC BY 4.0.{" "}
             <span className="text-ice">Illustrative and labeled:</span> the
             per-point colour-by-redshift and glow, and the schematic Hubble
@@ -1213,9 +1214,13 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
             SDSS DR17 (Abdurro&apos;uf et al. 2022, ApJS 259, 35) via the SDSS
             SkyServer. Funding for the Sloan Digital Sky Survey has been provided by
             the Alfred P. Sloan Foundation, the U.S. Department of Energy Office of
-            Science, and the participating institutions. Galaxy images: ESA/Hubble
-            (Andromeda heic1502a, Whirlpool heic0506a, Sombrero opo0328a, M87
-            heic0815f) and ESA/Webb (SMACS 0723 weic2209a), CC BY 4.0. Catalog
+            Science, and the participating institutions. Galaxy images, all
+            CC BY 4.0: ESA/Hubble (Andromeda heic1502a, Whirlpool heic0506a,
+            Sombrero opo0328a, M87 heic0815f, Triangulum heic1901a, NGC 1300
+            opo0501a), ESO (Large Magellanic Cloud eso1914a ESO/VMC Survey,
+            Small Magellanic Cloud eso1714a ESO/VISTA VMC, Centaurus A eso1221a,
+            and the ESO/S. Brunier all-sky panorama used for the Milky Way seen
+            from inside), and ESA/Webb (SMACS 0723 weic2209a). Catalog
             distances and types: NED / SIMBAD and the cited literature. Cosmology
             (Hubble law, RA/Dec+z to 3D) computed by lib/galaxies; Hubble tension
             per Planck 2020 and Riess et al. 2022.

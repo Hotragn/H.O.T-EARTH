@@ -50,9 +50,15 @@ the load-bearing point comes first.
 | **`sombrero.jpg`** | M104 Hubble mosaic | **CC BY 4.0** (ESA/Hubble) | See section 3 | ESA/Hubble (opo0328a) | esahubble.org, live |
 | **`m87-galaxy.jpg`** | M87 giant elliptical (ties to Black Holes tab) | **CC BY 4.0** (ESA/Hubble) | See section 3 | ESA/Hubble (heic0815f) | esahubble.org, live |
 | **`deep-field.jpg`** | JWST SMACS 0723 first deep field | **CC BY 4.0** (ESA/Webb) | See section 3 | ESA/Webb (weic2209a) | esawebb.org, live |
+| **`triangulum.jpg`** | M33 Hubble 665-Mpixel mosaic (54 pointings) | **CC BY 4.0** (ESA/Hubble) | NASA, ESA, and M. Durbin, J. Dalcanton, and B. F. Williams (University of Washington) | ESA/Hubble (heic1901a) | esahubble.org image page + copyright policy, live 2026-07-30 |
+| **`ngc-1300.jpg`** | NGC 1300 Hubble Heritage barred spiral | **CC BY 4.0** (ESA/Hubble) | NASA, ESA, and The Hubble Heritage Team (STScI/AURA) | ESA/Hubble (opo0501a) | esahubble.org, live 2026-07-30 |
+| **`lmc.jpg`** | Large Magellanic Cloud, VISTA infrared | **CC BY 4.0** (ESO) | ESO/VMC Survey | ESO (eso1914a) | eso.org image page + copyright policy, live 2026-07-30 |
+| **`smc.jpg`** | Small Magellanic Cloud, VISTA infrared | **CC BY 4.0** (ESO) | ESO/VISTA VMC | ESO (eso1714a) | eso.org, live 2026-07-30 |
+| **`centaurus-a.jpg`** | Centaurus A / NGC 5128, 50+ h WFI exposure | **CC BY 4.0** (ESO) | ESO | ESO (eso1221a) | eso.org, live 2026-07-30 |
+| **`night-sky/milkyway.jpg`** (reused) | The Milky Way from inside, all-sky panorama | **CC BY 4.0** (ESO) | ESO/S. Brunier | ESO (eso0932a) | Shipped for the Night Sky tab; reused here |
 | **`lib/galaxies.ts`** | Hubble-law and RA/Dec+z to 3D-Mpc computations | Original (ours), MIT with the repo | n/a (original) | In repo, computed | Cross-checked against this doc |
 
-**What is fetched this phase:** the five galaxy images (only after each license was
+**What is fetched this phase:** the galaxy images (only after each license was
 verified clean, section 3) and the real SDSS redshift catalog (section 2). Every derived
 quantity (recession velocity, Hubble distance, 3D position) is computed in the browser from
 the measured redshifts by `lib/galaxies.ts`. The named-galaxy distances and types are
@@ -106,10 +112,19 @@ genuine; the exact radial depth is redshift-space and moves with the assumed H0.
 
 ## 3. The galaxy images: license verification and result
 
-**Result: all five licenses verified clean, images shipped.**
+**Result: all licenses verified clean, images shipped.**
 
-Four images come from the ESA/Hubble public archive and one from the ESA/Webb archive. Both
-sites release their images, videos and web texts under the **Creative Commons Attribution
+Updated 2026-07-30: the catalogue now has a real telescope image for **every** galaxy in it.
+Six come from the ESA/Hubble public archive (Andromeda, Whirlpool, Sombrero, M87, Triangulum,
+NGC 1300), three from **ESO** (both Magellanic Clouds via the VISTA VMC survey, and Centaurus A),
+one from ESA/Webb (the SMACS 0723 deep field), and the Milky Way reuses the ESO/S. Brunier
+all-sky panorama already shipped for the Night Sky tab, since our own galaxy can only be
+photographed from the inside. The ESO copyright page was checked live on 2026-07-30 and
+releases ESO public images under the **Creative Commons Attribution 4.0 International**
+licence, with the same unaltered-credit requirement as ESA/Hubble; each ESO credit line
+("ESO/VMC Survey", "ESO/VISTA VMC", "ESO") is stored verbatim in `galaxiesUi.ts`.
+
+The ESA/Hubble and ESA/Webb archives release their images, videos and web texts under the **Creative Commons Attribution
 4.0 International license**, verified live on 2026-07-21 against the ESA/Hubble copyright
 page (`https://esahubble.org/copyright/`): *"ESA/Hubble images, videos and web texts are
 released under the Creative Commons Attribution 4.0 International license and may on a
