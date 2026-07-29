@@ -32,7 +32,9 @@ const tech = ["Next.js 15", "three.js", "TypeScript", "Vitest", "Vercel"];
     font-size: var(--sl-text-xs);
     text-transform: uppercase;
     letter-spacing: 0.18em;
-    color: var(--sl-color-gray-4);
+    /* gray-3, not gray-4: gray-4 is a surface/border tone and fails contrast
+       as text (1.55:1 on the abyss background). */
+    color: var(--sl-color-gray-3);
     margin: 1rem 0 0.6rem;
   }
   .strip__row {

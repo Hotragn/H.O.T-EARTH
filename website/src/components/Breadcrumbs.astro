@@ -35,7 +35,7 @@ const crumbs = groupSegs.map((s) => GROUP_LABELS[s] ?? s.replace(/-/g, " "));
           </li>
         ))}
         <li>
-          <span class="sep">/</span>
+          <span class="sep" aria-hidden="true">/</span>
           <span class="current" aria-current="page">
             {title}
           </span>
