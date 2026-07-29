@@ -1,13 +1,32 @@
 # Media assets
 
-`hero.png` is currently a **branded placeholder title card**, not a real screenshot. The live WebGL globe can't be captured by a headless/automated tool (react-three-fiber doesn't preserve the drawing buffer, and the render loop pauses in occluded tabs), so the real hero shot has to be grabbed from a visible browser once.
+`hero.png` is a **real screenshot of the live app** (the globe with today's NASA imagery across the day/night terminator, city lights on the night side, and the data-layer panel).
 
-## Capture the real hero image (2 minutes)
+## Re-capture the hero image
 
-1. `npm run dev`, open http://localhost:3000 in a **visible, focused** browser window.
-2. Rotate to frame a good angle (e.g. day/night terminator across a recognizable continent), pick the **Live satellite** layer, and enable **Wind**.
-3. Resize the window to roughly 1280×640 (or capture and crop to that 2:1 ratio for GitHub's social preview).
-4. Screenshot (Win: `Win+Shift+S`) → save as `docs/media/hero.png`, overwriting the placeholder.
+The WebGL globe **can** be captured headlessly, with a software GL backend and enough wait time for the imagery to load. From a scratch directory with `puppeteer` installed:
+
+```js
+const browser = await puppeteer.launch({
+  headless: true,
+  args: [
+    "--use-gl=angle",
+    "--use-angle=swiftshader",
+    "--enable-unsafe-swiftshader",
+    "--ignore-gpu-blocklist",
+  ],
+});
+const page = await browser.newPage();
+await page.setViewport({ width: 1600, height: 900, deviceScaleFactor: 2 });
+await page.goto("https://h-o-t-earth.vercel.app", { waitUntil: "load" });
+await page.waitForSelector("canvas");
+await new Promise((r) => setTimeout(r, 26000)); // let the globe + GIBS tiles render
+await page.screenshot({ path: "docs/media/hero.png" });
+```
+
+Then downscale to ~2000 px wide so the file stays well under 1 MB (`sharp(p).resize(2000)`).
+
+Prefer a visible browser instead? `npm run dev`, frame a good angle with the **Live satellite** layer, and use `Win+Shift+S`.
 
 ## Recommended additional assets
 
