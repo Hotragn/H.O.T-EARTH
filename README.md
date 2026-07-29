@@ -13,13 +13,14 @@
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Built with Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js&logoColor=white)](https://nextjs.org/)
 [![Built with three.js](https://img.shields.io/badge/three.js-r185-000?logo=three.js&logoColor=white)](https://threejs.org/)
+[![Docs](https://img.shields.io/badge/docs-hot--earth--docs-f2a63b)](https://hot-earth-docs.vercel.app)
 [![Stars](https://img.shields.io/github/stars/Hotragn/H.O.T-EARTH?style=social)](https://github.com/Hotragn/H.O.T-EARTH/stargazers)
 
 ### A living digital twin of Earth — real physics, real data, no fake numbers.
 
 An interactive 3D globe with daily NASA satellite imagery, a physically-computed day/night terminator you can scrub through time, animated global wind from the latest GFS analysis, click-anywhere forecasts, and a "Living Earth" layer where 1,200 real cities light up along the actual terminator. Plus a **Mars** twin with real orbital mechanics and the measured Viking CO₂ cycle, and a **Virtual Earth** time machine that plays 6,000 years of real city growth across the planet.
 
-[**▶ Live demo**](https://h-o-t-earth.vercel.app) &nbsp;·&nbsp; [Data sources](docs/DATA_SOURCES.md) &nbsp;·&nbsp; [Architecture](docs/ARCHITECTURE.md) &nbsp;·&nbsp; [Model card](model/output/MODEL_CARD.md) &nbsp;·&nbsp; [Contributing](CONTRIBUTING.md)
+[**▶ Live demo**](https://h-o-t-earth.vercel.app) &nbsp;·&nbsp; [**📖 Documentation**](https://hot-earth-docs.vercel.app) &nbsp;·&nbsp; [Data sources](docs/DATA_SOURCES.md) &nbsp;·&nbsp; [Architecture](docs/ARCHITECTURE.md) &nbsp;·&nbsp; [Model card](model/output/MODEL_CARD.md) &nbsp;·&nbsp; [Contributing](CONTRIBUTING.md)
 
 > **Run it locally in 30 seconds:** `git clone` → `npm install` → `npm run dev`. No keys, no config. See [Quickstart](#quickstart).
 
@@ -90,9 +91,13 @@ That's it — no `.env`, no keys, no accounts. Other commands:
 
 ```bash
 npm run build                     # production build (deploys to Vercel with zero config)
-npx vitest run                    # 86 unit tests: solar, geo, wind, activity, Mars24, precession, chrono
+npx vitest run                    # 885 unit tests across 35 files: solar, geo, wind, orbits, physics per world
 python scripts/wind/fetch_wind.py # regenerate the wind field locally (needs requests + numpy)
 ```
+
+New here? The [documentation site](https://hot-earth-docs.vercel.app) has a guided
+quickstart, a tutorial for adding your own world, the worlds-registry reference,
+and the per-world physics and data-source notes.
 
 ## Forecast model — real numbers
 
