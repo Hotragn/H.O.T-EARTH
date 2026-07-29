@@ -87,7 +87,14 @@ export interface GalaxyImage {
   label: string;
 }
 
-/** The four named galaxies with a real shipped image. */
+/**
+ * A real, freely-licensed image for every galaxy in the catalogue (ESA/Hubble
+ * and ESO, all CC BY 4.0, each credited verbatim as those licences require).
+ *
+ * The map stays `Partial` and the explorer keeps its "no shipped image"
+ * fallback on purpose: a galaxy added to the catalogue later must degrade to an
+ * honest placeholder rather than borrowing another galaxy's picture.
+ */
 export const GALAXY_IMAGE: Partial<Record<GalaxyId, GalaxyImage>> = {
   andromeda: {
     src: "/textures/galaxies/andromeda.jpg",
@@ -127,6 +134,57 @@ export const GALAXY_IMAGE: Partial<Record<GalaxyId, GalaxyImage>> = {
     license: "CC BY 4.0 (ESA/Hubble)",
     sourceUrl: "https://esahubble.org/images/heic0815f/",
     label: "The Virgo-Cluster giant elliptical, host of the EHT-imaged black hole.",
+  },
+  triangulum: {
+    src: "/textures/galaxies/triangulum.jpg",
+    width: 1024,
+    height: 576,
+    credit:
+      "NASA, ESA, and M. Durbin, J. Dalcanton, and B. F. Williams (University of Washington)",
+    license: "CC BY 4.0 (ESA/Hubble)",
+    sourceUrl: "https://esahubble.org/images/heic1901a/",
+    label:
+      "Hubble's 665-megapixel mosaic of the central region and inner spiral arms, from 54 pointings.",
+  },
+  lmc: {
+    src: "/textures/galaxies/lmc.jpg",
+    width: 1024,
+    height: 1144,
+    credit: "ESO/VMC Survey",
+    license: "CC BY 4.0 (ESO)",
+    sourceUrl: "https://www.eso.org/public/images/eso1914a/",
+    label:
+      "VISTA's infrared view of our largest satellite galaxy, which sees through much of its dust.",
+  },
+  smc: {
+    src: "/textures/galaxies/smc.jpg",
+    width: 1024,
+    height: 906,
+    credit: "ESO/VISTA VMC",
+    license: "CC BY 4.0 (ESO)",
+    sourceUrl: "https://www.eso.org/public/images/eso1714a/",
+    label:
+      "The largest infrared image taken of the Small Magellanic Cloud, filled with millions of stars.",
+  },
+  "ngc-1300": {
+    src: "/textures/galaxies/ngc-1300.jpg",
+    width: 1024,
+    height: 584,
+    credit: "NASA, ESA, and The Hubble Heritage Team (STScI/AURA)",
+    license: "CC BY 4.0 (ESA/Hubble)",
+    sourceUrl: "https://esahubble.org/images/opo0501a/",
+    label:
+      "The prototypical barred spiral: the arms stop at the ends of a straight bar through the nucleus.",
+  },
+  "centaurus-a": {
+    src: "/textures/galaxies/centaurus-a.jpg",
+    width: 1024,
+    height: 1002,
+    credit: "ESO",
+    license: "CC BY 4.0 (ESO)",
+    sourceUrl: "https://www.eso.org/public/images/eso1221a/",
+    label:
+      "Over 50 hours of exposure on the nearest giant elliptical, showing the dust lane of a past merger.",
   },
   // Our own galaxy, and the only kind of picture of it that can exist: a real
   // photographic panorama shot from INSIDE the disc. No telescope has ever left
