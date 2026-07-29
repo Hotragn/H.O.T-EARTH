@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Companion from "@/components/companion/Companion";
+import TourHint from "@/components/ui/TourHint";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -48,6 +49,7 @@ export default function RootLayout({
       <body>
         {children}
         <Companion />
+        <TourHint />
       </body>
     </html>
   );
