@@ -67,8 +67,11 @@ export default function PlanetStage({
         dpr={[1, 1.75]}
         gl={{ antialias: true, alpha: true }}
       >
-        <ambientLight intensity={0.28} />
-        <directionalLight position={light} intensity={2.1} />
+        <ambientLight intensity={0.22} />
+        <directionalLight position={light} intensity={2.2} />
+        {/* Cool rim light from behind, so the limb separates from the background
+            instead of the sphere reading as a flat pasted circle. */}
+        <directionalLight position={[-4, -1.5, -3]} intensity={0.5} color="#8fb3ff" />
         <Suspense fallback={null}>
           <Body texture={texture} ring={ring} tilt={tilt} />
         </Suspense>
