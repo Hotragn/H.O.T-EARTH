@@ -110,7 +110,7 @@ export default function GalaxyExplorer({
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={img.src}
-                    alt={`ESA/Hubble image of ${g.name}`}
+                    alt={`Telescope image of ${g.name}. ${img.label}`}
                     width={img.width}
                     height={img.height}
                     loading="lazy"
@@ -142,10 +142,19 @@ export default function GalaxyExplorer({
                   no shipped image
                 </div>
                 <p className="mt-2 text-[10px] leading-snug text-faint">
-                  No verified, freely-licensed close-up image of {g.name} is
-                  shipped in this phase. Nothing here is a picture of it. See the
-                  Deep Field view for a real JWST image of thousands of distant
-                  galaxies.
+                  We do not ship a close-up of {g.name} yet, and we would rather
+                  show nothing than show a picture of something else. The numbers
+                  beside this are still real measurements. Every figure below is
+                  cited, and the{" "}
+                  <a
+                    href="https://esahubble.org/images/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-amber-200/80 transition-colors duration-200 hover:text-amber-100"
+                  >
+                    ESA/Hubble archive
+                  </a>{" "}
+                  has real imagery of it if you want to look.
                 </p>
               </div>
             )}

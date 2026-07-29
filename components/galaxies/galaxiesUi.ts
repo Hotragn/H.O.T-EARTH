@@ -128,6 +128,21 @@ export const GALAXY_IMAGE: Partial<Record<GalaxyId, GalaxyImage>> = {
     sourceUrl: "https://esahubble.org/images/heic0815f/",
     label: "The Virgo-Cluster giant elliptical, host of the EHT-imaged black hole.",
   },
+  // Our own galaxy, and the only kind of picture of it that can exist: a real
+  // photographic panorama shot from INSIDE the disc. No telescope has ever left
+  // the Milky Way to photograph it from outside, so an "external" view of it
+  // would necessarily be an artist's impression. We reuse the same ESO panorama
+  // the Night Sky tab wraps around the sky, so the two tabs cannot disagree.
+  "milky-way": {
+    src: "/textures/night-sky/milkyway.jpg",
+    width: 4096,
+    height: 2048,
+    credit: "ESO/S. Brunier",
+    license: "CC BY 4.0",
+    sourceUrl: "https://www.eso.org/public/images/eso0932a/",
+    label:
+      "Our galaxy from the inside: a real 360° photographic panorama of the whole sky, with the galactic plane running across the middle. Nobody has photographed the Milky Way from outside, and this is the same image the Night Sky tab wraps around you.",
+  },
 };
 
 /** The JWST first deep field (its own panel). */
