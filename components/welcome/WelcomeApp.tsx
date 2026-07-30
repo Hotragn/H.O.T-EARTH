@@ -140,8 +140,8 @@ export default function WelcomeApp() {
               Enter the universe
             </h1>
             <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-dim">
-              Twenty-six worlds built on real physics and real public data. No
-              invented numbers, no API keys, nothing to sign up for.
+              {WORLDS.length} worlds built on real physics and real public data.
+              No invented numbers, no API keys, nothing to sign up for.
             </p>
 
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
@@ -209,7 +209,8 @@ export default function WelcomeApp() {
               <span className="mx-0.5 text-faint">/</span>
               <Kbd>Ctrl</Kbd>
               <span className="mx-1 text-faint">+</span>
-              <Kbd>K</Kbd> anywhere to search every world, or <Kbd>[</Kbd> and{" "}
+              <Kbd>K</Kbd> anywhere to search all {WORLDS.length} worlds, or{" "}
+              <Kbd>[</Kbd> and{" "}
               <Kbd>]</Kbd> to step between them. Sprocket, the robot in the
               corner, answers from the app&apos;s own data.
             </p>

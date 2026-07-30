@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Rocket, X } from "@phosphor-icons/react";
+import { WORLDS } from "@/lib/worlds";
 import { WELCOME_SEEN_KEY } from "@/components/welcome/WelcomeApp";
 
 /**
@@ -51,7 +52,7 @@ export default function TourHint() {
         <div className="min-w-0">
           <p className="text-[13px] font-medium text-ice">First time here?</p>
           <p className="mt-0.5 text-[11px] leading-snug text-dim">
-            Take a two-minute flight out through the twenty-six worlds.
+            Take a two-minute flight out through all {WORLDS.length} worlds.
           </p>
           <div className="mt-2 flex items-center gap-3">
             <Link

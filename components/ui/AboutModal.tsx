@@ -1227,6 +1227,52 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Satellites &amp; Debris &mdash; the real catalogue, honestly sampled
+          </h3>
+          <p className="mt-2">
+            The Satellites tab (the fifth Earth world) shows{" "}
+            <span className="text-ice">14,186 tracked objects</span> across crewed
+            stations, Starlink, OneWeb, GPS, the geostationary belt and three real
+            fragmentation debris clouds, from CelesTrak GP element sets. Positions
+            are propagated live with <span className="text-ice">SGP4</span>, the
+            model those element sets are defined for.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Its load-bearing honesty point is the
+            sampling.</span>{" "}
+            Starlink alone is 10,873 tracked objects, which cannot all be
+            propagated and drawn in a browser tab, so 1,500 are evenly sampled
+            (every nth record, not the first 1,500). The true tracked count is
+            stored per group and shown beside the drawn count, so the tab says
+            &quot;1,500 of 10,873 drawn&quot; rather than putting 10,873 over a
+            picture of 1,500. Every other group is complete, so the debris counts
+            are exact. Element-set age is surfaced too: SGP4 error grows roughly
+            1-3 km/day from epoch, and the tab states the expected along-track
+            error in words instead of implying a precise position.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Computed</span> by lib/satellites (30 unit
+            tests against real objects): semi-major axis, period, perigee/apogee,
+            vis-viva speeds, regime classification and the altitude-shell
+            histogram. One subtlety is pinned by test because it is easy to get
+            wrong and looks plausible either way: mean motion is revolutions per{" "}
+            <em>solar</em> day, which is why geostationary mean motion is 1.0027,
+            and using the sidereal day instead puts that orbit 76 km low.{" "}
+            <span className="text-ice">Not shown:</span> conjunction or collision
+            predictions (public element sets carry no covariance), untracked
+            fragments below roughly 10 cm, and object sizes. Markers are a fixed
+            size, never physical scale. The altitude exaggeration control is
+            labeled, with true scale available.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> Orbital data: US
+            Space Force (18th Space Defense Squadron) via CelesTrak
+            (celestrak.org), a committed mirror fetched once per CelesTrak&apos;s
+            usage policy rather than polled. Propagation: satellite.js (SGP4), the
+            same library the ISS tab uses.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Gravitational Waves &mdash; real detections, a computed chirp
           </h3>
           <p className="mt-2">

@@ -21,8 +21,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the twenty-six world views, all unique", () => {
-    expect(WORLDS).toHaveLength(26);
+  it("has the twenty-seven world views, all unique", () => {
+    expect(WORLDS).toHaveLength(27);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -58,6 +58,7 @@ describe("worlds registry", () => {
       "neutron-stars": "/neutron-stars",
       galaxies: "/galaxies",
       "gravitational-waves": "/gravitational-waves",
+      satellites: "/satellites",
     });
   });
 
@@ -68,12 +69,13 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 4 Earth, 14 Solar System and 8 Beyond worlds", () => {
+  it("splits 5 Earth, 14 Solar System and 8 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
       "virtual",
       "iss",
+      "satellites",
     ]);
     expect(getWorldsInGroup("solar-system").map((w) => w.id)).toEqual([
       "mars",
@@ -128,7 +130,7 @@ describe("worlds registry", () => {
       "solar-system",
       "beyond",
     ]);
-    expect(grouped[0].worlds).toHaveLength(4);
+    expect(grouped[0].worlds).toHaveLength(5);
     expect(grouped[1].worlds).toHaveLength(14);
     expect(grouped[2].worlds).toHaveLength(8);
   });
@@ -180,7 +182,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(26);
+    expect(searchWorlds("   ")).toHaveLength(27);
   });
 
   it("finds a world by exact label", () => {
@@ -221,6 +223,15 @@ describe("searchWorlds", () => {
     // first on the tie, so the honest guard uses ISS-only phrases.)
     expect(searchWorlds("iss")[0].id).toBe("iss");
     expect(searchWorlds("space station")[0].id).toBe("iss");
+    // The Satellites tab shares vocabulary with the ISS tracker (both are SGP4 on
+    // real element sets), so guard both directions: ISS phrases must still reach
+    // the ISS tab, and debris/constellation phrases must reach the catalogue tab.
+    // This caught a real regression when "space debris" was a keyword: it shares
+    // the token "space" with "space station" and outranked it.
+    expect(searchWorlds("starlink")[0].id).toBe("satellites");
+    expect(searchWorlds("orbital debris")[0].id).toBe("satellites");
+    expect(searchWorlds("kessler")[0].id).toBe("satellites");
+    expect(searchWorlds("geostationary")[0].id).toBe("satellites");
     expect(searchWorlds("spot the station")[0].id).toBe("iss");
     expect(searchWorlds("sgp4")[0].id).toBe("iss");
     expect(searchWorlds("tiangong")[0].id).toBe("iss");

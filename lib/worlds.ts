@@ -41,7 +41,8 @@ export type WorldTab =
   | "black-holes"
   | "neutron-stars"
   | "galaxies"
-  | "gravitational-waves";
+  | "gravitational-waves"
+  | "satellites";
 
 /**
  * World groups. Designed so a third group can be added by extending this union +
@@ -657,6 +658,41 @@ export const WORLDS: readonly World[] = [
       "large-scale structure",
       "hubble tension",
       "beyond",
+    ],
+  },
+  {
+    id: "satellites",
+    label: "Satellites & Debris",
+    href: "/satellites",
+    group: "earth",
+    blurb:
+      "The real tracked catalogue overhead: working constellations and three fragmentation debris clouds, propagated live with SGP4.",
+    accent: "#7dffc0",
+    thumb: "/textures/earth-day-blue-marble.jpg",
+    thumbBody: "Earth",
+    keywords: [
+      "satellites",
+      "satellite",
+      "debris",
+      "orbital debris",
+      "starlink",
+      "oneweb",
+      "megaconstellation",
+      "gps",
+      "geostationary",
+      "geo belt",
+      "leo",
+      "meo",
+      "kessler",
+      "sgp4",
+      "tle",
+      "celestrak",
+      "conjunction",
+      "fengyun",
+      "iridium 33",
+      "cosmos 1408",
+      "asat",
+      "congestion",
     ],
   },
   {
