@@ -21,8 +21,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the twenty-seven world views, all unique", () => {
-    expect(WORLDS).toHaveLength(27);
+  it("has the twenty-eight world views, all unique", () => {
+    expect(WORLDS).toHaveLength(28);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -59,6 +59,7 @@ describe("worlds registry", () => {
       galaxies: "/galaxies",
       "gravitational-waves": "/gravitational-waves",
       satellites: "/satellites",
+      eclipses: "/eclipses",
     });
   });
 
@@ -69,13 +70,14 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 5 Earth, 14 Solar System and 8 Beyond worlds", () => {
+  it("splits 6 Earth, 14 Solar System and 8 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
       "virtual",
       "iss",
       "satellites",
+      "eclipses",
     ]);
     expect(getWorldsInGroup("solar-system").map((w) => w.id)).toEqual([
       "mars",
@@ -130,7 +132,7 @@ describe("worlds registry", () => {
       "solar-system",
       "beyond",
     ]);
-    expect(grouped[0].worlds).toHaveLength(5);
+    expect(grouped[0].worlds).toHaveLength(6);
     expect(grouped[1].worlds).toHaveLength(14);
     expect(grouped[2].worlds).toHaveLength(8);
   });
@@ -182,7 +184,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(27);
+    expect(searchWorlds("   ")).toHaveLength(28);
   });
 
   it("finds a world by exact label", () => {
@@ -232,6 +234,9 @@ describe("searchWorlds", () => {
     expect(searchWorlds("orbital debris")[0].id).toBe("satellites");
     expect(searchWorlds("kessler")[0].id).toBe("satellites");
     expect(searchWorlds("geostationary")[0].id).toBe("satellites");
+    expect(searchWorlds("saros")[0].id).toBe("eclipses");
+    expect(searchWorlds("totality")[0].id).toBe("eclipses");
+    expect(searchWorlds("lunar eclipse")[0].id).toBe("eclipses");
     expect(searchWorlds("spot the station")[0].id).toBe("iss");
     expect(searchWorlds("sgp4")[0].id).toBe("iss");
     expect(searchWorlds("tiangong")[0].id).toBe("iss");

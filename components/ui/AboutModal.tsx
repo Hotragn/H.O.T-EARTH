@@ -1227,6 +1227,50 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Eclipses &mdash; a published canon, not our prediction
+          </h3>
+          <p className="mt-2">
+            The Eclipses tab (the sixth Earth world) carries every solar and lunar
+            eclipse from 2001 to 2100: <span className="text-ice">224 solar</span>{" "}
+            (67 of them total) and <span className="text-ice">228 lunar</span>.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Its load-bearing honesty point is that we
+            do not predict these.</span>{" "}
+            Predicting eclipses properly needs Besselian elements and per-observer
+            local circumstances, and a naive implementation produces times that
+            look plausible and are wrong, which is the exact failure this project
+            exists to avoid. So the data is NASA&apos;s Five Millennium Canon
+            (Espenak &amp; Meeus) and lib/eclipses computes only what follows from
+            it unambiguously (27 unit tests against famous eclipses): which
+            eclipse is next, saros grouping, centrality from the tabulated gamma,
+            and durations, verified at 2m40s for 2017, 4m28s for 2024 and 6m23s
+            for 2027. One check is a genuine test of the data rather than of our
+            own code: the mean spacing of a saros series comes out of the
+            catalogue at <span className="text-ice">6585.3 days</span>, which is
+            the saros.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Times are Terrestrial Dynamical Time</span>{" "}
+            exactly as tabulated, about 75 seconds ahead of civil time this
+            century. We label the scale rather than convert, because a sloppy
+            conversion would be a false precision.{" "}
+            <span className="text-ice">Not shown:</span> eclipse paths (a canon row
+            gives one greatest-eclipse point and a path width, not the track, so
+            we plot that point and never draw a path we do not have), local
+            circumstances, and visibility. The distance helper answers &quot;how
+            far is the greatest-eclipse point&quot; and is captioned as{" "}
+            <em>not</em> a visibility calculation, with a link out to NASA&apos;s
+            page for that eclipse.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> Eclipse predictions
+            by Fred Espenak and Jean Meeus, NASA&apos;s Goddard Space Flight
+            Center (Five Millennium Canon of Solar and Lunar Eclipses), US
+            Government work in the public domain.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Satellites &amp; Debris &mdash; the real catalogue, honestly sampled
           </h3>
           <p className="mt-2">
