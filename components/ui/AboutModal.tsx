@@ -1227,6 +1227,57 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Stars &mdash; measured photometry, derived astrophysics
+          </h3>
+          <p className="mt-2">
+            The Stars tab plots a real Hertzsprung-Russell diagram and{" "}
+            <span className="text-ice">ships no new data at all</span>: it reuses
+            the naked-eye catalogue already behind the Night Sky tab (HYG v4.4 from
+            Hipparcos, Yale Bright Star and Gliese, CC BY-SA 4.0) and derives
+            astrophysics from its measured magnitudes, colour indices and parallax
+            distances.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Its load-bearing honesty point is the line
+            between measured and derived.</span>{" "}
+            Magnitude, colour, distance and spectral type are measurements and are
+            badged as such in the interface. Temperature (Ballesteros fit on B&minus;V),
+            luminosity, radius (Stefan-Boltzmann), luminosity class, mass and
+            lifetime are all <em>derived from broadband photometry</em>, with{" "}
+            <span className="text-ice">no extinction correction and no bolometric
+            correction</span>, so distant stars read cooler and fainter than they
+            are and cool supergiant radii are order-of-magnitude (Betelgeuse comes
+            out a few hundred solar radii against a measured ~700). Classes are read
+            off HR position, which is a weaker claim than a spectroscopic class, and
+            worded that way. Where a number would be meaningless we refuse to give
+            one: the mass-luminosity relation only holds on the main sequence, so
+            mass and lifetime are withheld for evolved stars rather than computed
+            anyway.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Only stars that can honestly be plotted
+            are:</span>{" "}
+            8,787 of 9,029 have both a distance and a colour index, and the other
+            242 are dropped rather than estimated, because a guessed point on a
+            scientific diagram is a fabricated one. 43 unit tests cover it, 39
+            against published values (Sirius M_V 1.45 and ~10,000 K, Vega 0.58,
+            Proxima ~15.5, the Sun at 1 L and 10 Gyr) and 4 against the real
+            shipped catalogue. One of those caught a genuine bug: an early
+            main-sequence ridge slope classified Sirius, a textbook main-sequence
+            star, as a subgiant.{" "}
+            <span className="text-ice">The sample is magnitude limited</span> and
+            the tab says so: giants outnumber main-sequence stars 4,112 to 3,624
+            because luminous stars are visible from further away, while the real
+            red-dwarf majority is almost entirely absent.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> Star data: HYG
+            database v4.4 (c) astronexus / David Nash, CC BY-SA 4.0, compiled from
+            Hipparcos, the Yale Bright Star Catalog and Gliese. Derived subset
+            shared under the same licence. Temperature fit: Ballesteros (2012).
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Eclipses &mdash; a published canon, not our prediction
           </h3>
           <p className="mt-2">
