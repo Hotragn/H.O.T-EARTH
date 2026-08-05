@@ -43,7 +43,8 @@ export type WorldTab =
   | "galaxies"
   | "gravitational-waves"
   | "satellites"
-  | "eclipses";
+  | "eclipses"
+  | "stars";
 
 /**
  * World groups. Designed so a third group can be added by extending this union +
@@ -561,6 +562,39 @@ export const WORLDS: readonly World[] = [
       "hr 8799",
       "nasa exoplanet archive",
       "beyond",
+    ],
+  },
+  {
+    id: "stars",
+    label: "Stars",
+    href: "/stars",
+    group: "beyond",
+    blurb:
+      "How stars live and die: 8,787 real stars on a Hertzsprung-Russell diagram, derived from measured colour and parallax.",
+    accent: "#ffe9a8",
+    keywords: [
+      "stars",
+      "star",
+      "hr diagram",
+      "hertzsprung",
+      "russell",
+      "main sequence",
+      "red giant",
+      "supergiant",
+      "white dwarf",
+      "red dwarf",
+      "stellar evolution",
+      "spectral type",
+      "luminosity",
+      "absolute magnitude",
+      "colour index",
+      "temperature",
+      "sirius",
+      "betelgeuse",
+      "vega",
+      "proxima",
+      "hyg",
+      "hipparcos",
     ],
   },
   {

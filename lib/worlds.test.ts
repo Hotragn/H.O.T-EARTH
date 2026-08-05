@@ -21,8 +21,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the twenty-eight world views, all unique", () => {
-    expect(WORLDS).toHaveLength(28);
+  it("has the twenty-nine world views, all unique", () => {
+    expect(WORLDS).toHaveLength(29);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -60,6 +60,7 @@ describe("worlds registry", () => {
       "gravitational-waves": "/gravitational-waves",
       satellites: "/satellites",
       eclipses: "/eclipses",
+      stars: "/stars",
     });
   });
 
@@ -70,7 +71,7 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 6 Earth, 14 Solar System and 8 Beyond worlds", () => {
+  it("splits 6 Earth, 14 Solar System and 9 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "living",
@@ -97,6 +98,7 @@ describe("worlds registry", () => {
     ]);
     expect(getWorldsInGroup("beyond").map((w) => w.id)).toEqual([
       "exoplanets",
+      "stars",
       "night-sky",
       "interstellar",
       "exo-surfaces",
@@ -134,7 +136,7 @@ describe("worlds registry", () => {
     ]);
     expect(grouped[0].worlds).toHaveLength(6);
     expect(grouped[1].worlds).toHaveLength(14);
-    expect(grouped[2].worlds).toHaveLength(8);
+    expect(grouped[2].worlds).toHaveLength(9);
   });
 
   it("adjacentWorlds steps through canonical order and wraps", () => {
@@ -184,7 +186,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(28);
+    expect(searchWorlds("   ")).toHaveLength(29);
   });
 
   it("finds a world by exact label", () => {
@@ -237,6 +239,12 @@ describe("searchWorlds", () => {
     expect(searchWorlds("saros")[0].id).toBe("eclipses");
     expect(searchWorlds("totality")[0].id).toBe("eclipses");
     expect(searchWorlds("lunar eclipse")[0].id).toBe("eclipses");
+    // Stars shares vocabulary with Night Sky (same catalogue, different use), so
+    // guard both: sky-map phrases stay with night-sky, astrophysics with stars.
+    expect(searchWorlds("hr diagram")[0].id).toBe("stars");
+    expect(searchWorlds("main sequence")[0].id).toBe("stars");
+    expect(searchWorlds("white dwarf")[0].id).toBe("stars");
+    expect(searchWorlds("stellar evolution")[0].id).toBe("stars");
     expect(searchWorlds("spot the station")[0].id).toBe("iss");
     expect(searchWorlds("sgp4")[0].id).toBe("iss");
     expect(searchWorlds("tiangong")[0].id).toBe("iss");
