@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { SCALE_LADDER, SUPERCLUSTERS } from "@/lib/galaxies";
 import { fmtSizeM } from "./galaxiesUi";
 
@@ -11,6 +10,10 @@ import { fmtSizeM } from "./galaxiesUi";
  * Sloan Great Wall, Bootes Void). Selecting a rung shows its detail; a log bar
  * gives a feel for the enormous span. Every size is a real value from
  * lib/galaxies; nothing is invented.
+ *
+ * The active rung is owned by GalaxiesApp, not by this panel, because the centre
+ * stage draws the same rung on a full-width log axis (ScaleRuler) and the two
+ * must never disagree about which rung is selected.
  */
 
 const KIND_LABEL: Record<string, string> = {
@@ -20,9 +23,14 @@ const KIND_LABEL: Record<string, string> = {
   attractor: "Attractor",
 };
 
-export default function ScaleLadder() {
-  const [rung, setRung] = useState(SCALE_LADDER.length - 1);
-  const active = SCALE_LADDER[rung];
+export default function ScaleLadder({
+  rung,
+  onSelectRung,
+}: {
+  rung: number;
+  onSelectRung: (i: number) => void;
+}) {
+  const active = SCALE_LADDER[rung] ?? SCALE_LADDER[SCALE_LADDER.length - 1];
 
   // Log fraction of the current rung against the whole ladder, for the bar.
   const minLog = Math.log10(SCALE_LADDER[0].sizeM);
@@ -44,7 +52,7 @@ export default function ScaleLadder() {
           max={SCALE_LADDER.length - 1}
           step={1}
           value={rung}
-          onChange={(e) => setRung(Number(e.target.value))}
+          onChange={(e) => onSelectRung(Number(e.target.value))}
           aria-label="Scale ladder rung"
           className="mt-3 w-full accent-amber-300"
         />
@@ -56,7 +64,7 @@ export default function ScaleLadder() {
               <button
                 key={r.label}
                 type="button"
-                onClick={() => setRung(i)}
+                onClick={() => onSelectRung(i)}
                 aria-pressed={on}
                 className={`cursor-pointer rounded-lg px-2 py-1 font-mono text-[9px] tracking-wide transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-solar/70 ${
                   on ? "bg-white/10 text-ice" : "text-faint hover:text-dim"
@@ -68,7 +76,12 @@ export default function ScaleLadder() {
           })}
         </div>
 
-        <div className="mt-3 rounded-xl border border-amber-400/20 bg-amber-400/[0.04] p-3">
+        {/*
+          The active rung's detail. Hidden at lg and up, where the centre stage
+          shows the same rung larger on the log axis and this would just be the
+          same paragraph twice on one screen.
+        */}
+        <div className="mt-3 rounded-xl border border-amber-400/20 bg-amber-400/[0.04] p-3 lg:hidden">
           <div className="flex items-baseline justify-between gap-2">
             <span className="font-display text-base text-ice">{active.label}</span>
             <span className="font-mono text-[12px] text-amber-200">

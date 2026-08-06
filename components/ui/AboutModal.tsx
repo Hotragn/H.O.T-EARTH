@@ -1322,6 +1322,49 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Transits &mdash; the measurement behind the Exoplanets tab
+          </h3>
+          <p className="mt-2">
+            The Transits tab shows <em>how we know</em>. When a planet crosses its
+            star, the star dims by the ratio of their disc areas, and that dip is
+            where most exoplanet radii come from. It adds{" "}
+            <span className="text-ice">no new data</span>: it reads the NASA
+            Exoplanet Archive subset already shipped for the Exoplanets tab and
+            draws the <span className="text-ice">75</span> planets there that were
+            discovered by transit and have both radii measured.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Its load-bearing honesty point is that a
+            transit measures a ratio, not a planet.</span>{" "}
+            Depth gives Rp/Rs and nothing else, so a planet&apos;s absolute size
+            inherits its star&apos;s radius error one-for-one (a test asserts that
+            a 10% larger star yields a 10% larger planet), and depth says nothing
+            about mass. Computed by lib/transits in 35 unit tests against textbook
+            and published values: 84 ppm for Earth across the Sun, ~1.1% for
+            Jupiter, 1.4% and 3.1 hours for HD 209458 b, 0.74% and 36 minutes for
+            TRAPPIST-1 b. The three-number comparison showing why small cool stars
+            are surveyed is computed, not asserted.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Illustrative and labeled:</span> the light
+            curve&apos;s depth and width are computed from measured values, but its
+            flat-bottomed shape is schematic because real curves are round-bottomed
+            from limb darkening, which we do not model.{" "}
+            <span className="text-ice">Not shown:</span> mass, density and
+            composition (transits do not measure them), impact parameter and
+            inclination (absent from this subset, so durations are the
+            central-crossing maximum), and hypothetical transits. Planets found by
+            radial velocity or imaging are excluded rather than drawn with an
+            invented transit.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> Radii, periods and
+            orbits from the NASA Exoplanet Archive subset already credited under
+            the Exoplanets tab. Geometry computed by lib/transits; see
+            docs/TRANSITS_PHYSICS.md.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Satellites &amp; Debris &mdash; the real catalogue, honestly sampled
           </h3>
           <p className="mt-2">
