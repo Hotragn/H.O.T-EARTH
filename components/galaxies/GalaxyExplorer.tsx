@@ -16,6 +16,7 @@ import {
   GALAXY_LABEL,
   LADDER_DISTANCE_LABEL,
 } from "./galaxiesUi";
+import ImagePlate from "./ImagePlate";
 import TuningFork from "./TuningFork";
 
 /**
@@ -102,38 +103,21 @@ export default function GalaxyExplorer({
         </div>
       ) : (
         <>
-          {/* image or honest placeholder */}
-          <div className="hud-panel overflow-hidden rounded-2xl">
-            {img ? (
-              <>
-                <div className="overflow-hidden border-b border-line/60">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={img.src}
-                    alt={`Telescope image of ${g.name}. ${img.label}`}
-                    width={img.width}
-                    height={img.height}
-                    loading="lazy"
-                    className="block h-auto w-full"
-                  />
-                </div>
-                <div className="p-3">
-                  <p className="text-[10px] leading-snug text-faint">{img.label}</p>
-                  <p className="mt-1.5 text-[10px] leading-snug text-faint">
-                    Credit: {img.credit} {img.license}.{" "}
-                    <a
-                      href={img.sourceUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-amber-200/80 transition-colors duration-200 hover:text-amber-100"
-                    >
-                      source
-                    </a>
-                    .
-                  </p>
-                </div>
-              </>
-            ) : (
+          {/*
+            The image. At lg and up it is the centre stage (GalaxyStage), where
+            it gets the whole middle of the screen instead of a 340px column, so
+            here it is only the small-viewport copy. The honest "no shipped
+            image" note follows the same rule.
+          */}
+          {img ? (
+            <ImagePlate
+              img={img}
+              alt={`Telescope image of ${g.name}. ${img.label}`}
+              variant="compact"
+              className="lg:hidden"
+            />
+          ) : (
+            <div className="hud-panel overflow-hidden rounded-2xl lg:hidden">
               <div className="p-4">
                 <div
                   className="flex h-28 items-center justify-center rounded-xl border border-line/60 bg-white/[0.02] font-mono text-[10px] uppercase tracking-[0.2em] text-faint"
@@ -157,8 +141,8 @@ export default function GalaxyExplorer({
                   has real imagery of it if you want to look.
                 </p>
               </div>
-            )}
-          </div>
+            </div>
+          )}
 
           {/* facts */}
           <div className="hud-panel rounded-2xl p-4">

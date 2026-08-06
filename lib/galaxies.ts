@@ -530,6 +530,45 @@ export const SCALE_LADDER: readonly ScaleRung[] = [
   },
 ] as const;
 
+/**
+ * Where a size sits on a log10 ruler running from `minM` to `maxM`, as a
+ * fraction 0..1. The scale ladder spans about 20 orders of magnitude, so a
+ * linear axis is useless: every rung below the Local Group would collapse onto
+ * the left edge. This is the placement function for the log axis the Scale
+ * Ladder view draws.
+ *
+ * Null-safe like the rest of this module: a non-finite or non-positive size, or
+ * a degenerate span, returns null rather than NaN or Infinity. Results are
+ * clamped to 0..1 so a size outside the span still lands on the ruler.
+ */
+export function logSpanFraction(
+  sizeM: number,
+  minM: number,
+  maxM: number
+): number | null {
+  if (![sizeM, minM, maxM].every((v) => typeof v === "number" && Number.isFinite(v))) {
+    return null;
+  }
+  if (sizeM <= 0 || minM <= 0 || maxM <= 0) return null;
+  const lo = Math.log10(minM);
+  const hi = Math.log10(maxM);
+  if (hi === lo) return null;
+  const t = (Math.log10(sizeM) - lo) / (hi - lo);
+  return Math.max(0, Math.min(1, t));
+}
+
+/**
+ * How many times larger `aM` is than `bM`. Used to state the real jump between
+ * two rungs of the ladder in words, because the jumps are far too large to show
+ * proportionally on screen (the Milky Way is about 5e4 times the Oort Cloud).
+ * Returns null for non-finite input or a non-positive denominator.
+ */
+export function sizeRatio(aM: number, bM: number): number | null {
+  if (![aM, bM].every((v) => typeof v === "number" && Number.isFinite(v))) return null;
+  if (bM <= 0) return null;
+  return aM / bM;
+}
+
 // ─────────────────────────── Superclusters / structure ──────────────────────
 
 /** A large-scale-structure fact (supercluster, wall, void, or attractor). */

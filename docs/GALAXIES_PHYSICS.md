@@ -106,6 +106,24 @@ orders the full hierarchy from Earth out to the observable universe (~93 Gly com
 and SUPERCLUSTERS records the Virgo and Laniakea superclusters, the Great Attractor, the Sloan
 Great Wall and the Bootes Void as real large-scale-structure facts.
 
+### Placing the ladder on a log axis
+
+The Scale Ladder view draws every rung on one log10 axis, because the ladder spans about twenty
+orders of magnitude and a linear axis would collapse everything below the Local Group onto the
+left edge. Position comes from `logSpanFraction(sizeM, minM, maxM)` in `lib/galaxies.ts`:
+
+$$ t = \frac{\log_{10}(\text{size}) - \log_{10}(\text{min})}{\log_{10}(\text{max}) - \log_{10}(\text{min})} $$
+
+clamped to 0..1, with `null` returned for a non-positive or non-finite size or a degenerate span.
+`sizeRatio(a, b)` states the real jump between neighbouring rungs in words.
+
+Two honesty points are stated on screen next to the axis. First, the rungs are **not** drawn to
+proportional size: neighbouring rungs differ by many powers of ten, so no single screen can hold
+two of them side by side at true scale, and the axis position is the honest substitute. Second,
+each label sits in an evenly spaced slot joined to its true axis position by a leader line: three
+rungs (one light-year, the Oort Cloud and Proxima Centauri) fall within half a decade of each
+other, so the dot marks the real value while only the text is spread out for legibility.
+
 ## 4. What is computed, reused, or illustrative
 
 - **COMPUTED and REAL:** recession velocity, Hubble distance, redshift-to-velocity and

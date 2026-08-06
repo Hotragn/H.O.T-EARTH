@@ -13,6 +13,8 @@ import {
   equatorialRedshiftToCartesianMpc,
   cosmicWebPointsFromRows,
   SCALE_LADDER,
+  logSpanFraction,
+  sizeRatio,
   SUPERCLUSTERS,
   LOCAL_GROUP,
   HUBBLE_TENSION,
@@ -297,5 +299,79 @@ describe("null-safety / bad input never throws, returns null", () => {
   it("functions are deterministic", () => {
     expect(recessionVelocityKmS(42)).toBe(recessionVelocityKmS(42));
     expect(redshiftToDistanceMpc(0.07)).toBe(redshiftToDistanceMpc(0.07));
+  });
+});
+
+describe("logSpanFraction (the Scale Ladder log ruler)", () => {
+  const first = SCALE_LADDER[0].sizeM;
+  const last = SCALE_LADDER[SCALE_LADDER.length - 1].sizeM;
+
+  it("pins the ends of the span to 0 and 1", () => {
+    expect(logSpanFraction(first, first, last)).toBeCloseTo(0, 12);
+    expect(logSpanFraction(last, first, last)).toBeCloseTo(1, 12);
+  });
+
+  it("places the geometric mean at the halfway mark", () => {
+    // On a log axis the midpoint is the geometric mean, not the arithmetic one.
+    const geometric = Math.sqrt(first * last);
+    expect(logSpanFraction(geometric, first, last)).toBeCloseTo(0.5, 12);
+    // The arithmetic mean is half the largest rung, which on a ~20-decade log
+    // axis is only log10(2) ≈ 0.3 of a decade in from the far end.
+    const arithmetic = (first + last) / 2;
+    expect(logSpanFraction(arithmetic, first, last)!).toBeGreaterThan(0.98);
+  });
+
+  it("puts one decade at exactly one tenth of a ten-decade span", () => {
+    expect(logSpanFraction(1e1, 1e0, 1e10)).toBeCloseTo(0.1, 12);
+    expect(logSpanFraction(1e5, 1e0, 1e10)).toBeCloseTo(0.5, 12);
+  });
+
+  it("increases monotonically across every rung of the real ladder", () => {
+    const fractions = SCALE_LADDER.map((r) => logSpanFraction(r.sizeM, first, last));
+    for (const f of fractions) {
+      expect(f).not.toBeNull();
+      expect(f!).toBeGreaterThanOrEqual(0);
+      expect(f!).toBeLessThanOrEqual(1);
+    }
+    for (let i = 1; i < fractions.length; i++) {
+      expect(fractions[i]!).toBeGreaterThan(fractions[i - 1]!);
+    }
+  });
+
+  it("clamps a size outside the span onto the ruler", () => {
+    expect(logSpanFraction(1e-3, 1e0, 1e10)).toBe(0);
+    expect(logSpanFraction(1e30, 1e0, 1e10)).toBe(1);
+  });
+
+  it("returns null for bad input instead of NaN or Infinity", () => {
+    expect(logSpanFraction(NaN, 1, 10)).toBeNull();
+    expect(logSpanFraction(1, NaN, 10)).toBeNull();
+    expect(logSpanFraction(1, 1, NaN)).toBeNull();
+    expect(logSpanFraction(0, 1, 10)).toBeNull();
+    expect(logSpanFraction(-5, 1, 10)).toBeNull();
+    expect(logSpanFraction(1, 0, 10)).toBeNull();
+    expect(logSpanFraction(5, 10, 10)).toBeNull(); // degenerate span
+  });
+});
+
+describe("sizeRatio (how big the jump between rungs really is)", () => {
+  it("reports a plain ratio", () => {
+    expect(sizeRatio(1e6, 1e3)).toBe(1000);
+    expect(sizeRatio(5, 2)).toBe(2.5);
+  });
+
+  it("matches the published jump from the Milky Way to the Local Group", () => {
+    // Milky Way disk ~100,000 ly across; Local Group ~10 million ly across.
+    const mw = SCALE_LADDER.find((r) => r.label === "Milky Way")!;
+    const lg = SCALE_LADDER.find((r) => r.label === "Local Group")!;
+    const ratio = sizeRatio(lg.sizeM, mw.sizeM)!;
+    expect(ratio).toBeCloseTo(100, 6);
+  });
+
+  it("returns null for bad input or a non-positive denominator", () => {
+    expect(sizeRatio(NaN, 2)).toBeNull();
+    expect(sizeRatio(2, NaN)).toBeNull();
+    expect(sizeRatio(2, 0)).toBeNull();
+    expect(sizeRatio(2, -1)).toBeNull();
   });
 });

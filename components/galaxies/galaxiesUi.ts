@@ -69,6 +69,39 @@ export const HUBBLE_TENSION_LABEL =
 export const RENDER_LABEL =
   "Point positions are real SDSS measurements. Colour maps to redshift and the point glow is our own stylisation for legibility, not measured brightness.";
 
+// The honesty panel is per section: it used to show the cosmic-web caveats on
+// every view, so a visitor reading about Andromeda was told "the point cloud is
+// 18,000 real SDSS galaxies", which is true of a different screen. Each section
+// leads with the caveat that actually applies to what is on the stage.
+
+/** Galaxy Explorer lead: the pictures are real, and what they are not. */
+export const EXPLORER_LEAD_HONESTY =
+  "Every picture here is a real telescope image, not a render and not an artist's impression. Some are wide mosaics of only PART of the galaxy, which the caption says explicitly, and none of them are true-colour in the sense your eye would see: the exposures include infrared and other filters mapped onto visible colours.";
+
+/** Galaxy Explorer: the one picture that cannot exist from outside. */
+export const MILKY_WAY_VIEW_LABEL =
+  "Nobody has photographed the Milky Way from outside it. Any 'external' view of our own galaxy is necessarily an artist's impression, so the Milky Way entry shows a real 360 degree panorama taken from inside the disc instead.";
+
+/** Scale Ladder lead. */
+export const LADDER_LEAD_HONESTY =
+  "Each rung is a real published size, and its position on the axis is computed from that size. The rungs are NOT drawn to proportional scale: the ladder spans about twenty powers of ten, so two neighbouring rungs cannot share a screen at true scale. A log axis is the honest way to show it.";
+
+/** Scale Ladder: what "characteristic size" does and does not mean. */
+export const LADDER_SIZE_LABEL =
+  "These are characteristic extents, not sharp edges. A galaxy's disk, the Oort Cloud and a supercluster all fade out gradually, so the published number depends on where an author draws the boundary. Treat them as order-of-magnitude landmarks.";
+
+/** Deep Field lead. */
+export const DEEP_FIELD_LEAD_HONESTY =
+  "This is a single real JWST exposure, not a composite illustration. Nearly every point and smudge in it is an entire galaxy of billions of stars rather than a star, and the curved arcs are real gravitational lensing by the cluster's mass, the same physics as the Black Holes tab at cluster scale.";
+
+/** Deep Field: the lookback caveat. */
+export const DEEP_FIELD_LOOKBACK_LABEL =
+  "You are looking at lookback time, not the present. The light left these galaxies billions of years ago, so this is a picture of what they were, and the most distant of them have since evolved or merged into something we cannot see from here.";
+
+/** Deep Field: the colour caveat. */
+export const DEEP_FIELD_COLOUR_LABEL =
+  "The colours are real measurements shifted into a range you can see: JWST NIRCam observes in the infrared, and each filter is mapped to a visible hue. The structure is measured; the specific palette is a display choice.";
+
 /** Galaxy Explorer distance honesty. */
 export const LADDER_DISTANCE_LABEL =
   "Extragalactic distances are real but method-dependent (Cepheids, TRGB, eclipsing binaries, surface-brightness fluctuations, redshift) and uncertain at the 5 to 15 percent level. They are best published values, not exact constants.";
