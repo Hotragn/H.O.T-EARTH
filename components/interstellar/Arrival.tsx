@@ -74,8 +74,12 @@ export default function Arrival({
 
   const activeImage = REAL_IMAGERY[imageIdx];
 
+  // z-30 is deliberately BELOW the nav's z-40. This intro is a full-screen
+  // takeover of the tab, but it must never take over the world switcher, or the
+  // visitor is stranded here with no way back out. It still sits above this tab's
+  // own backdrop (which is unpositioned), so the montage still reads as full-bleed.
   return (
-    <div className="fixed inset-0 z-40 flex flex-col items-center justify-center overflow-hidden px-5 text-center">
+    <div className="fixed inset-0 z-30 flex flex-col items-center justify-center overflow-hidden px-5 text-center">
       {/* real-footage montage: the three PD NASA/ESA stills, cross-fading */}
       <div aria-hidden className="absolute inset-0 overflow-hidden bg-abyss">
         {REAL_IMAGERY.map((img, i) => (

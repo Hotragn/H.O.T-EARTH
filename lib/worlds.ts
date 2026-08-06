@@ -44,7 +44,8 @@ export type WorldTab =
   | "gravitational-waves"
   | "satellites"
   | "eclipses"
-  | "stars";
+  | "stars"
+  | "transits";
 
 /**
  * World groups. Designed so a third group can be added by extending this union +
@@ -595,6 +596,35 @@ export const WORLDS: readonly World[] = [
       "proxima",
       "hyg",
       "hipparcos",
+    ],
+  },
+  {
+    id: "transits",
+    label: "Transits",
+    href: "/transits",
+    group: "beyond",
+    blurb:
+      "How we know those planets are there: the dip in starlight, computed from the measured radii the Exoplanets tab reports.",
+    accent: "#8fd3ff",
+    thumb: "/textures/planets/jupiter.jpg",
+    thumbBody: "Jupiter",
+    keywords: [
+      "transit",
+      "transits",
+      "transit method",
+      "light curve",
+      "transit depth",
+      "ingress",
+      "egress",
+      "kepler",
+      "tess",
+      "photometry",
+      "radius ratio",
+      "hd 209458",
+      "trappist-1",
+      "hot jupiter",
+      "limb darkening",
+      "detection",
     ],
   },
   {

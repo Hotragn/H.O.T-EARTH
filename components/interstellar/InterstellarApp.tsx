@@ -69,8 +69,17 @@ export default function InterstellarApp() {
       {section === "visitors" && <VisitorsSection />}
       {section === "swarm" && <SwarmSection />}
 
-      {/* chrome overlay (pointer-events-none wrapper; children opt back in) */}
-      <div className="pointer-events-none absolute inset-0 z-10">
+      {/*
+        Chrome overlay (pointer-events-none wrapper; children opt back in).
+
+        z-40, not z-10: this wrapper is positioned and has a z-index, so it forms
+        a stacking context and NavShell's own z-40 is scoped INSIDE it. At z-10
+        the whole chrome layer, world switcher included, sat below this tab's
+        full-screen Arrival intro (z-30) and the visitor was stranded here with no
+        way back. Keep this at the nav's level so the switcher is always reachable:
+        tab content below 40, nav at 40, modals at 55+.
+      */}
+      <div className="pointer-events-none absolute inset-0 z-40">
         <NavShell onAbout={() => setAboutOpen(true)} active="interstellar" />
 
         {/* internal sub-section switcher (this page's own nav) */}
