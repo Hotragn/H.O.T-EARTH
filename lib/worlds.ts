@@ -17,6 +17,7 @@
  */
 export type WorldTab =
   | "earth"
+  | "tonight"
   | "living"
   | "iss"
   | "mars"
@@ -120,6 +121,39 @@ export const WORLDS: readonly World[] = [
     accent: "#4aa3ff",
     keywords: ["earth", "home", "blue marble", "terminator", "satellite", "gibs", "clouds", "weather", "forecast"],
     thumb: "/textures/earth-day-blue-marble.jpg",
+  },
+  {
+    id: "tonight",
+    label: "Tonight",
+    href: "/tonight",
+    group: "earth",
+    blurb:
+      "What you can actually see from your own location tonight: when it gets dark, whether the Moon is in the way, and what is up.",
+    accent: "#7c9cff",
+    thumb: "/textures/night-sky/milkyway.jpg",
+    thumbBody: "the Milky Way",
+    keywords: [
+      "tonight",
+      "what can i see tonight",
+      "stargazing",
+      "observing",
+      "dark sky",
+      "darkness",
+      "sunset",
+      "sunrise",
+      "twilight",
+      "astronomical twilight",
+      "moonrise",
+      "moonset",
+      "moon phase",
+      "visible planets",
+      "planets tonight",
+      "iss pass",
+      "my location",
+      "observing planner",
+      "midnight sun",
+      "polar night",
+    ],
   },
   {
     id: "living",

@@ -1322,6 +1322,61 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Tonight &mdash; the one page organised around you, not an object
+          </h3>
+          <p className="mt-2">
+            Every other tab is built around a <em>thing</em>. The Tonight tab is
+            built around a <em>place and a moment</em>, which is the question a
+            person actually has when they step outside. It fetches{" "}
+            <span className="text-ice">no new data</span> and composes four worlds
+            that were already here: Sun geometry from lib/solar, the Moon from
+            lib/lunar, the planets from lib/planets, the shipped shower catalogue,
+            and the committed ISS element set propagated with SGP4.
+          </p>
+          <p className="mt-2">
+            Sunset, the three twilight steps and sunrise are found{" "}
+            <span className="text-ice">numerically</span>: sample the real
+            computed altitude, then bisect the crossing. Because there is no
+            closed-form shortcut and no special-casing, the awkward latitudes fall
+            out of the same code and are reported as named states rather than
+            missing data: <em>midnight sun</em>, <em>polar night</em>, and{" "}
+            <em>no astronomical darkness</em> for the mid-summer band above about
+            48.5 degrees. lib/tonight carries 56 unit tests against published
+            values, including June-solstice day length for London, Boston and
+            Sydney, the 28 and 47 degree elongation caps that keep Mercury and
+            Venus out of the midnight sky, the Moon&apos;s 28.7 degree standstill
+            limit, and the full Moon rising within an hour of sunset.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">
+              The load-bearing point is that this is sky geometry, not weather.
+            </span>{" "}
+            It knows exactly where everything will be and how dark the sky can
+            get, and it knows nothing about clouds, because this app ships no
+            weather data and uses no keys. A perfect darkness score can still be a
+            solid overcast where you are standing, and the page says so on screen.
+            There is no light pollution model either, so no limiting magnitude is
+            ever claimed. The darkness score prints its own two-term formula next
+            to the number so it can be checked rather than trusted.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Not computed:</span> apparent planet
+            magnitudes for tonight (that needs a per-planet phase-angle
+            photometric model, so we show the published range and label it),
+            topocentric lunar parallax beyond the standard mean allowance (lunar
+            rise and set are good to a few minutes), and anything at all about
+            transparency or seeing. Meteor rates are ideal-sky estimates and run
+            high against real counts.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Your location.</span> Geolocation is
+            optional and never required; the tab works from a preset place or
+            typed coordinates. Whatever you enter or grant stays in your browser,
+            remembered in localStorage. There is no account and no server to send
+            it to.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Transits &mdash; the measurement behind the Exoplanets tab
           </h3>
           <p className="mt-2">
