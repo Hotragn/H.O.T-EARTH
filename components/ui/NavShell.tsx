@@ -105,8 +105,19 @@ export default function NavShell({
     setOverviewOpen(true);
   };
 
+  // `z-40` is load-bearing: several worlds render a full-bleed element (a scroll
+  // container or an absolute backdrop) AFTER this header, and without a stacking
+  // order those later siblings painted straight over the nav, leaving the world
+  // switcher invisible and unclickable on the Interstellar, Gravitational Waves
+  // and Stars tabs. Fixing it here rather than per world means a new world cannot
+  // reintroduce it. It stays below the overlays, which sit at z-55 (worlds grid,
+  // tour hint) and z-60 (command palette, companion).
+  //
+  // `pointer-events-none` on the header, with `pointer-events-auto` on each
+  // child, is the other half: the header spans the full width, so without it the
+  // empty padding swallowed drags meant for the globe underneath.
   return (
-    <header className="absolute inset-x-0 top-0 flex items-start justify-between gap-3 p-4 sm:p-5">
+    <header className="pointer-events-none absolute inset-x-0 top-0 z-40 flex items-start justify-between gap-3 p-4 sm:p-5">
       {/* brand */}
       <div className="pointer-events-auto animate-hud-in">
         <div className="flex items-center gap-2.5">
