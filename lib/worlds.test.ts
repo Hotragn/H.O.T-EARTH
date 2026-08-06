@@ -21,8 +21,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the thirty world views, all unique", () => {
-    expect(WORLDS).toHaveLength(30);
+  it("has the thirty-one world views, all unique", () => {
+    expect(WORLDS).toHaveLength(31);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -33,6 +33,7 @@ describe("worlds registry", () => {
     const map = Object.fromEntries(WORLDS.map((w) => [w.id, w.href]));
     expect(map).toEqual({
       earth: "/",
+      tonight: "/tonight",
       living: "/living-earth",
       iss: "/iss",
       mars: "/mars",
@@ -72,9 +73,10 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 6 Earth, 14 Solar System and 10 Beyond worlds", () => {
+  it("splits 7 Earth, 14 Solar System and 10 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
+      "tonight",
       "living",
       "virtual",
       "iss",
@@ -136,7 +138,7 @@ describe("worlds registry", () => {
       "solar-system",
       "beyond",
     ]);
-    expect(grouped[0].worlds).toHaveLength(6);
+    expect(grouped[0].worlds).toHaveLength(7);
     expect(grouped[1].worlds).toHaveLength(14);
     expect(grouped[2].worlds).toHaveLength(10);
   });
@@ -188,7 +190,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(30);
+    expect(searchWorlds("   ")).toHaveLength(31);
   });
 
   it("finds a world by exact label", () => {
@@ -206,6 +208,16 @@ describe("searchWorlds", () => {
     expect(searchWorlds("time machine")[0].id).toBe("virtual");
     expect(searchWorlds("city lights")[0].id).toBe("living");
     expect(searchWorlds("orrery")[0].id).toBe("solar");
+    expect(searchWorlds("stargazing")[0].id).toBe("tonight");
+    expect(searchWorlds("what can i see tonight")[0].id).toBe("tonight");
+    expect(searchWorlds("dark sky")[0].id).toBe("tonight");
+    expect(searchWorlds("twilight")[0].id).toBe("tonight");
+    // "iss pass" must still resolve to the ISS tracker, not to Tonight, even
+    // though Tonight lists passes too: the tracker is the world about the object.
+    expect(searchWorlds("iss")[0].id).toBe("iss");
+    expect(searchWorlds("space station")[0].id).toBe("iss");
+    // and the shower catalogue stays with its own world
+    expect(searchWorlds("perseids")[0].id).toBe("meteor-showers");
     expect(searchWorlds("trappist")[0].id).toBe("exoplanets");
     expect(searchWorlds("habitable zone")[0].id).toBe("exoplanets");
     expect(searchWorlds("constellation")[0].id).toBe("night-sky");
