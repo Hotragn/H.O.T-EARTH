@@ -1322,6 +1322,85 @@ export default function AboutModal({ onClose }: { onClose: () => void }) {
           </p>
 
           <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
+            Seismic Earth &mdash; the solid planet, live
+          </h3>
+          <p className="mt-2">
+            Every other Earth world in this app is about the sky over the planet:
+            light, weather, satellites, eclipses. This one is about the planet
+            itself breaking. It reads two USGS GeoJSON feeds live (public domain,
+            no key): the last 24 hours for the list, and the magnitude 2.5+ week
+            for the statistics, because a single day does not hold enough events
+            above the completeness magnitude to fit a slope through honestly.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">
+              We ship no plate-boundary map, and the tab does not need one.
+            </span>{" "}
+            Plot a week of real epicentres and the boundaries draw themselves,
+            which is how they were found in the first place. The feed carries
+            only position, depth, magnitude and time; everything else on screen
+            is computed by lib/quakes in 47 unit tests against published
+            seismology: radiated energy from log10 E = 1.5M + 4.8 (a magnitude 8
+            at 6.3&times;10<sup>16</sup> J, one magnitude step 32 times the
+            energy, two steps exactly 1000), seismic moment by Hanks &amp;
+            Kanamori 1979 checked against the published moments of Tohoku 2011
+            and Valdivia 1960, the standard depth bands, great-circle distance
+            from wherever you told the Tonight tab you were, and P and S arrival
+            times.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">
+              The load-bearing point is the rollover in the frequency-magnitude
+              chart.
+            </span>{" "}
+            The straight part is Gutenberg-Richter, log10 N = a &minus; bM. The
+            curve at the small end is NOT a shortage of small earthquakes and NOT
+            the law failing: it is the detection limit of the seismometer
+            network, so the fit starts at the completeness magnitude and the
+            chart shades the part it ignores. A test proves the cost of getting
+            this wrong: fitting through the rollover understates b by about 18
+            percent while still returning a high r-squared, which is exactly what
+            makes it dangerous.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">
+              And the completeness cut is published, not estimated, because
+              estimating it from this feed does not work.
+            </span>{" "}
+            Two standard estimators are implemented, tested and run live: maximum
+            curvature returns about 1.1 and b near 0.36, b-value stability
+            returns about 2.0 and b near 0.34, and the published global cut of
+            4.5 gives b = 0.96 &plusmn; 0.07, the only one inside the published
+            0.8 to 1.2. Neither estimator is buggy. A global feed is dozens of
+            regional networks with different detection thresholds glued together,
+            so no single completeness magnitude makes it complete and every
+            data-driven estimator describes the mixture instead. All three
+            numbers are shown side by side on the tab, because a confident
+            estimator being that wrong is more worth seeing than a tidy number.
+          </p>
+          <p className="mt-2">
+            <span className="text-ice">Refusals:</span> wave travel times are
+            declined past about 1,000 km, where the ray leaves the crust and a
+            fixed velocity stops being approximately right (doing it properly
+            needs a velocity model such as IASP91, which we do not ship). Seismic
+            moment is only quoted for events actually measured on a moment scale,
+            because applying it to an mb or ml reading is a category error.
+            Non-earthquake events in the feed (quarry blasts, explosions) are
+            dropped and counted on screen rather than quietly folded into the
+            statistics. And nothing here predicts earthquakes: Gutenberg-Richter
+            describes a catalogue, it does not forecast the next event.
+          </p>
+          <p className="mt-3 rounded-xl border border-line bg-white/[0.02] px-3 py-2.5 text-[12px] leading-relaxed">
+            <span className="text-ice">Acknowledgment.</span> U.S. Geological
+            Survey, Earthquake Hazards Program. USGS data are in the public
+            domain. This is the one tab that commits no mirror of its data on
+            purpose: an orbital element set is a stale state you can still
+            propagate, but a stale list of earthquakes is just yesterday&apos;s
+            events shown as today&apos;s. If USGS cannot be reached, the tab says
+            so and shows nothing.
+          </p>
+
+          <h3 className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-faint">
             Tonight &mdash; the one page organised around you, not an object
           </h3>
           <p className="mt-2">

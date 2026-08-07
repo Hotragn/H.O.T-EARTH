@@ -21,8 +21,8 @@ import {
  * depend on, plus the fuzzy-search ranking.
  */
 describe("worlds registry", () => {
-  it("has the thirty-one world views, all unique", () => {
-    expect(WORLDS).toHaveLength(31);
+  it("has the thirty-two world views, all unique", () => {
+    expect(WORLDS).toHaveLength(32);
     const ids = WORLDS.map((w) => w.id);
     expect(new Set(ids).size).toBe(ids.length);
     const hrefs = WORLDS.map((w) => w.href);
@@ -34,6 +34,7 @@ describe("worlds registry", () => {
     expect(map).toEqual({
       earth: "/",
       tonight: "/tonight",
+      quakes: "/earthquakes",
       living: "/living-earth",
       iss: "/iss",
       mars: "/mars",
@@ -73,10 +74,11 @@ describe("worlds registry", () => {
     }
   });
 
-  it("splits 7 Earth, 14 Solar System and 10 Beyond worlds", () => {
+  it("splits 8 Earth, 14 Solar System and 10 Beyond worlds", () => {
     expect(getWorldsInGroup("earth").map((w) => w.id)).toEqual([
       "earth",
       "tonight",
+      "quakes",
       "living",
       "virtual",
       "iss",
@@ -138,7 +140,7 @@ describe("worlds registry", () => {
       "solar-system",
       "beyond",
     ]);
-    expect(grouped[0].worlds).toHaveLength(7);
+    expect(grouped[0].worlds).toHaveLength(8);
     expect(grouped[1].worlds).toHaveLength(14);
     expect(grouped[2].worlds).toHaveLength(10);
   });
@@ -190,7 +192,7 @@ describe("fuzzyScore", () => {
 describe("searchWorlds", () => {
   it("returns every world in canonical order for an empty query", () => {
     expect(searchWorlds("").map((w) => w.id)).toEqual(WORLDS.map((w) => w.id));
-    expect(searchWorlds("   ")).toHaveLength(31);
+    expect(searchWorlds("   ")).toHaveLength(32);
   });
 
   it("finds a world by exact label", () => {
@@ -208,6 +210,10 @@ describe("searchWorlds", () => {
     expect(searchWorlds("time machine")[0].id).toBe("virtual");
     expect(searchWorlds("city lights")[0].id).toBe("living");
     expect(searchWorlds("orrery")[0].id).toBe("solar");
+    expect(searchWorlds("earthquake")[0].id).toBe("quakes");
+    expect(searchWorlds("seismic")[0].id).toBe("quakes");
+    expect(searchWorlds("ring of fire")[0].id).toBe("quakes");
+    expect(searchWorlds("magnitude")[0].id).toBe("quakes");
     expect(searchWorlds("stargazing")[0].id).toBe("tonight");
     expect(searchWorlds("what can i see tonight")[0].id).toBe("tonight");
     expect(searchWorlds("dark sky")[0].id).toBe("tonight");
