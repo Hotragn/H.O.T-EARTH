@@ -18,6 +18,7 @@
 export type WorldTab =
   | "earth"
   | "tonight"
+  | "quakes"
   | "living"
   | "iss"
   | "mars"
@@ -153,6 +154,41 @@ export const WORLDS: readonly World[] = [
       "observing planner",
       "midnight sun",
       "polar night",
+    ],
+  },
+  {
+    id: "quakes",
+    label: "Seismic Earth",
+    href: "/earthquakes",
+    group: "earth",
+    blurb:
+      "Every earthquake the USGS has located this week, live, with the energy and the Gutenberg-Richter law computed from the catalogue.",
+    accent: "#ff8b5e",
+    thumb: "/textures/earth-day-blue-marble.jpg",
+    thumbBody: "Earth",
+    keywords: [
+      "earthquake",
+      "earthquakes",
+      "seismic",
+      "seismology",
+      "quake",
+      "magnitude",
+      "richter",
+      "gutenberg-richter",
+      "b-value",
+      "epicentre",
+      "epicenter",
+      "hypocentre",
+      "aftershock",
+      "fault",
+      "tectonic",
+      "plate boundary",
+      "ring of fire",
+      "subduction",
+      "usgs",
+      "tsunami",
+      "moment magnitude",
+      "seismic moment",
     ],
   },
   {
